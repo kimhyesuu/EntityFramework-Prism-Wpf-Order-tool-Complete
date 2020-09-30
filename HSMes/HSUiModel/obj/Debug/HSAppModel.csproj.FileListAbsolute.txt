@@ -1,0 +1,6 @@
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSUiModel\bin\Debug\HSUiModel.dll
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSUiModel\bin\Debug\HSUiModel.pdb
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSUiModel\obj\Debug\HSAppModel.csproj.CoreCompileInputs.cache
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSUiModel\obj\Debug\HSUiModel.dll
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSUiModel\obj\Debug\HSUiModel.pdb
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSUiModel\obj\Debug\HSAppModel.csprojAssemblyReference.cache
