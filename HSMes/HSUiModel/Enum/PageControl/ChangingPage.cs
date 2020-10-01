@@ -12,7 +12,7 @@ namespace HSUiModel.Enum.PageControl
       ProductionManagement,      
    }
 
-   public class ChangePage
+   public class ChangingPage
    {
       public IndexPages CurrentView { get; set; }
    }

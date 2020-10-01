@@ -12,15 +12,15 @@ namespace HSViewModel
    public class MainViewModel : BaseViewModel
    {
 
-      private readonly ChangePage _indexPages;
+      private readonly ChangingPage _indexPages;
 
-      public ICommand PageControlCommand { set; private get; }
+      public ICommand PageControlCommand { get; set; }
 
       public IndexPages CurrentView
       {
          get => _indexPages.CurrentView;
          set
-         {
+         {           
             _indexPages.CurrentView = value;
             OnPropertyChanged(nameof(CurrentView));
          }
@@ -28,6 +28,7 @@ namespace HSViewModel
 
       public MainViewModel()
       {
+         _indexPages = new ChangingPage();
          PageControlCommand = new RelayCommand(o => OnSwithPage(o));
       }
 

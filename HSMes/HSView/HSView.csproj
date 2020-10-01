@@ -89,7 +89,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProductionManagement\DailyProductionPlanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ProductionManagement\ProductionMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductionManagement\RegisteringWorkOrdersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -98,8 +106,14 @@
     <Compile Include="ProcessMangement\ProcessMainView.xaml.cs">
       <DependentUpon>ProcessMainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProductionManagement\DailyProductionPlanView.xaml.cs">
+      <DependentUpon>DailyProductionPlanView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProductionManagement\ProductionMainView.xaml.cs">
       <DependentUpon>ProductionMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductionManagement\RegisteringWorkOrdersView.xaml.cs">
+      <DependentUpon>RegisteringWorkOrdersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

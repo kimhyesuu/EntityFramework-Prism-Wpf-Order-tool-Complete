@@ -33,3 +33,7 @@ C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproj
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\bin\Debug\HSFramework.pdb
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\bin\Debug\HSUiModel.pdb
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\HSView.csprojAssemblyReference.cache
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\DailyProductionPlanView.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\DailyProductionPlanView.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\RegisteringWorkOrdersView.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\RegisteringWorkOrdersView.baml

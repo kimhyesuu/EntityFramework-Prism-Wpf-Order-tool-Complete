@@ -3,10 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HSView.ProductionManagement"
+             xmlns:TabView="clr-namespace:HSView.ProductionManagement"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Blue">
-            
+             d:DesignHeight="733" d:DesignWidth="935">
+    <Grid>
+        <TabControl Margin="10,10,10,10">
+            <TabItem Header="일생산계획">
+                <TabView:DailyProductionPlanView/>
+            </TabItem>
+            <TabItem Header="제품코드 관리">
+                
+            </TabItem>
+            <TabItem Header="거래처 관리"/>
+            <TabItem Header="작업지시 등록">
+                <TabView:RegisteringWorkOrdersView/>
+            </TabItem>
+            <TabItem Header="자재 의뢰 현황"/>
+        </TabControl> 
     </Grid>
 </UserControl>
