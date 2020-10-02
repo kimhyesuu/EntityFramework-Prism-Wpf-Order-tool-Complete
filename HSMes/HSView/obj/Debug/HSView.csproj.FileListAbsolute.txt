@@ -37,3 +37,9 @@ C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproj
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\DailyProductionPlanView.baml
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\RegisteringWorkOrdersView.g.cs
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\RegisteringWorkOrdersView.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\AccountManagement.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\AccountManagement.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\Common\DataProcessingView.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\Common\DataProcessingView.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\MaterialRequestList.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\MaterialRequestList.baml

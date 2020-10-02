@@ -5,82 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HSView.ProductionManagement"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:Common="clr-namespace:HSView.Common"
              mc:Ignorable="d" 
              d:DesignHeight="710" d:DesignWidth="925">
-    <Grid Background="White">
+    <Grid Background="#FFE4E4E4">
         <Grid.RowDefinitions>
-            <RowDefinition Height="210"/>
+            <RowDefinition Height="165"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="105"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Width="140" Height="70">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="Search"
-                                                     DockPanel.Dock="Left" 
-                                                     Width="45" Height="45"  
-                                                     Foreground="Black" 
-                                                     VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
-                                                     />
-                            <TextBlock Text="조회" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        </DockPanel>
-                    </Button>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Width="140" Height="70">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="FileDocumentBoxPlus"
-                                                     DockPanel.Dock="Left" 
-                                                     Width="45" Height="45"  
-                                                     Foreground="Blue" 
-                                                     VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
-                                                     />
-                            <TextBlock Text="추가" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        </DockPanel>
-                    </Button>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Width="140" Height="70">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="FileDocumentBoxMinus"
-                                                     DockPanel.Dock="Left" 
-                                                     Width="45" Height="45"  
-                                                     Foreground="red" 
-                                                     VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
-                                                     />
-                            <TextBlock Text="추가" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        </DockPanel>
-                    </Button>
-                </Grid>
-                <Grid Grid.Column="3">
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Width="140" Height="70">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="MicrosoftExcel"
-                                                     DockPanel.Dock="Left" 
-                                                     Width="45" Height="45"  
-                                                     Foreground="Green" 
-                                                     VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
-                                                     />
-                            <TextBlock Text="엑셀" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        </DockPanel>
-                    </Button>
-                </Grid>
+                <Common:DataProcessingView/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -229,7 +168,7 @@
                     </ComboBox>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <Button Background="GreenYellow" BorderBrush="{x:Null}" Margin="2,2,2,2" Width="100" Height="150">
+                    <Button Background="#FF9AD73C" BorderBrush="{x:Null}" Margin="2,2,2,2" Width="100" Height="100">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="TicketConfirmationOutline"
                                                      DockPanel.Dock="Top" 

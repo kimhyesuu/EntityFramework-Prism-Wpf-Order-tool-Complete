@@ -54,6 +54,7 @@
                         <ColumnDefinition Width="120"/>
                         <ColumnDefinition Width="120"/>
                         <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" >
@@ -78,6 +79,12 @@
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Monitor" DockPanel.Dock="Left" Width="30" Height="50"  Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" />
                             <TextBlock Text="모니터링" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Button>
+                    <Button Grid.Column="5" Background="{x:Null}" BorderBrush="{x:Null}"  >
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="StandardDefinition" DockPanel.Dock="Left" Width="30" Height="50"  Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <TextBlock Text="기준정보" DockPanel.Dock="Right" VerticalAlignment="Center"/>
                         </DockPanel>
                     </Button>
                 </Grid>

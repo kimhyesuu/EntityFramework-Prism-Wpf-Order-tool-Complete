@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\App.xaml
-694959781
+9277898936
 
-10-1771731627
+13-1160832661
 16-1401340299
-Common\ChangePage.xaml;MainWindow.xaml;ProcessMangement\ProcessMainView.xaml;ProductionManagement\DailyProductionPlanView.xaml;ProductionManagement\ProductionMainView.xaml;ProductionManagement\RegisteringWorkOrdersView.xaml;
+Common\ChangePage.xaml;Common\DataProcessingView.xaml;MainWindow.xaml;ProcessMangement\ProcessMainView.xaml;ProductionManagement\AccountManagement.xaml;ProductionManagement\DailyProductionPlanView.xaml;ProductionManagement\MaterialRequestList.xaml;ProductionManagement\ProductionMainView.xaml;ProductionManagement\RegisteringWorkOrdersView.xaml;
 
 False
 

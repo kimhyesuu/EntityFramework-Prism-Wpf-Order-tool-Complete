@@ -3,4 +3,3 @@ C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproj
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSFramework\obj\Debug\HSFramework.csproj.CoreCompileInputs.cache
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSFramework\obj\Debug\HSFramework.dll
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSFramework\obj\Debug\HSFramework.pdb
-C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSFramework\obj\Debug\HSFramework.csprojAssemblyReference.cache

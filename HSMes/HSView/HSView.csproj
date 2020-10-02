@@ -70,6 +70,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Common\DataProcessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +85,9 @@
     <Compile Include="Common\ChangePage.xaml.cs">
       <DependentUpon>ChangePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\DataProcessingView.xaml.cs">
+      <DependentUpon>DataProcessingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -89,7 +96,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProductionManagement\AccountManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ProductionManagement\DailyProductionPlanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductionManagement\MaterialRequestList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,8 +121,14 @@
     <Compile Include="ProcessMangement\ProcessMainView.xaml.cs">
       <DependentUpon>ProcessMainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProductionManagement\AccountManagement.xaml.cs">
+      <DependentUpon>AccountManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProductionManagement\DailyProductionPlanView.xaml.cs">
       <DependentUpon>DailyProductionPlanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductionManagement\MaterialRequestList.xaml.cs">
+      <DependentUpon>MaterialRequestList.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProductionManagement\ProductionMainView.xaml.cs">
       <DependentUpon>ProductionMainView.xaml</DependentUpon>

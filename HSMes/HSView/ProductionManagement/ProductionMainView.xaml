@@ -15,11 +15,15 @@
             <TabItem Header="제품코드 관리">
                 
             </TabItem>
-            <TabItem Header="거래처 관리"/>
+            <TabItem Header="거래처 관리">
+                <TabView:AccountManagement/>
+            </TabItem>
             <TabItem Header="작업지시 등록">
                 <TabView:RegisteringWorkOrdersView/>
             </TabItem>
-            <TabItem Header="자재 의뢰 현황"/>
+            <TabItem Header="자재 의뢰 현황">
+                <TabView:MaterialRequestList/>
+            </TabItem>
         </TabControl> 
     </Grid>
 </UserControl>
