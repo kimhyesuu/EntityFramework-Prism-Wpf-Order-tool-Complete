@@ -1,0 +1,31 @@
+﻿<Window x:Class="HsBarcode.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:PageContentsView="clr-namespace:HsBarcode.PresentationLayer.View.Common"
+        xmlns:Selectcontent="clr-namespace:HsBarcode.PresentationLayer.View.Common"
+        xmlns:local="clr-namespace:HsBarcode.PresentationLayer.View.Common"
+        mc:Ignorable="d"
+        Title="MainWindow" AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseDown="WindowMouseButtonDown" WindowStyle="None" Height="500" Width="350">
+    <x:Code>
+        private void WindowMouseButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
+    </x:Code>
+    <Grid Background="#FFF0F0F0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <PageContentsView:MainPageTopPanel DataContext="{Binding Path=MainPageClickContent}"/>
+            <Grid.Effect>
+                <DropShadowEffect RenderingBias="Quality" ShadowDepth="1" Color="#FF212323"/>
+            </Grid.Effect>
+        </Grid>
+        <Grid Grid.Row="1" Grid.RowSpan="2">
+            <Selectcontent:HsBarcodeIndexPage DataContext="{Binding Path=SelectIssueAndReceipt}" />
+        </Grid>
+    </Grid>
+</Window>

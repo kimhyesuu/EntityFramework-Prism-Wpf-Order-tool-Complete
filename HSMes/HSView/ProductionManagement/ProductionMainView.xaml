@@ -6,7 +6,7 @@
              xmlns:TabView="clr-namespace:HSView.ProductionManagement"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d" 
-             d:DesignHeight="733" d:DesignWidth="935">
+             d:DesignHeight="733" d:DesignWidth="1135">
     <Grid>
         <TabControl Margin="10,10,10,10">
             <TabItem Header="일생산계획">
@@ -19,7 +19,7 @@
                 <TabView:AccountManagement/>
             </TabItem>
             <TabItem Header="작업지시 등록">
-                <TabView:RegisteringWorkOrdersView/>
+                <TabView:RegisteredWorkOrdersView/>
             </TabItem>
             <TabItem Header="자재 의뢰 현황">
                 <TabView:MaterialRequestList/>

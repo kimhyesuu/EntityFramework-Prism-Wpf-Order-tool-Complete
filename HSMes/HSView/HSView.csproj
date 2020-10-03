@@ -112,6 +112,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProductionManagement\RegisteredWorkOrdersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ProductionManagement\RegisteringWorkOrdersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +136,9 @@
     </Compile>
     <Compile Include="ProductionManagement\ProductionMainView.xaml.cs">
       <DependentUpon>ProductionMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductionManagement\RegisteredWorkOrdersView.xaml.cs">
+      <DependentUpon>RegisteredWorkOrdersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProductionManagement\RegisteringWorkOrdersView.xaml.cs">
       <DependentUpon>RegisteringWorkOrdersView.xaml</DependentUpon>

@@ -14,7 +14,8 @@ namespace HSViewModel
 
       private readonly ChangingPage _indexPages;
 
-      public ICommand PageControlCommand { get; set; }
+      public ICommand PageControlCommand { get; private set; }
+      public ICommand OpenWorkOrdersDlgCommand { get; private set; }
 
       public IndexPages CurrentView
       {
@@ -30,8 +31,9 @@ namespace HSViewModel
       {
          _indexPages = new ChangingPage();
          PageControlCommand = new RelayCommand(o => OnSwithPage(o));
-      }
 
+      }
+     
       public void OnSwithPage(object indexPages) => CurrentView = (IndexPages)Enum.Parse(typeof(IndexPages), indexPages.ToString());
 
    }

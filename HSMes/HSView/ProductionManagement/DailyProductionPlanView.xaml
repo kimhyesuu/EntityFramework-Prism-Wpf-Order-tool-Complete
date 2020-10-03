@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d" 
               xmlns:Common="clr-namespace:HSView.Common"
-             d:DesignHeight="710" d:DesignWidth="925">
+             d:DesignHeight="710" d:DesignWidth="1125">
     <Grid Background="#FFE4E4E4">
         <Grid.RowDefinitions>
             <RowDefinition Height="130"/>
@@ -101,7 +101,7 @@
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Center" 
                                                      />
-                        <TextBlock Text="제품코드"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBlock Text="고객사"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     </DockPanel>
                     <ComboBox Grid.Column="2">
 
@@ -114,7 +114,12 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            <GroupBox Header="계획수정" Grid.Column="1" >
+            <GroupBox  Grid.Column="1" >
+                <GroupBox.Header>
+                    <Border Background="#FF63656B">
+                        <Label Content="계획수정" Foreground="White" />
+                    </Border>
+                </GroupBox.Header>
                 <Grid>
                     <materialDesign:PackIcon Kind="Square"
                                                      Margin="3,22" 

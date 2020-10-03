@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="HsBarcode.PresentationLayer.View.Common.HsBarcodeIndexPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:View ="clr-namespace:HsBarcode.PresentationLayer.View.BarcodeView"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:ViewModel="clr-namespace:HsBarcode.PresentationLayer.ViewModel.IssueAndReceiptManagement"
+             xmlns:local="clr-namespace:HsBarcode.PresentationLayer.View.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="350">
+    <UserControl.Resources>
+        <DataTemplate x:Key="SelectIssueAndReceipt" >
+            <local:SelectIssueAndReceipt />
+        </DataTemplate>
+        <DataTemplate x:Key="GoodIssueGroup"  >
+            <View:CheckingBarcodeTool DataContext="{Binding Path=GoodIssueManagement}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="GoodReceiptGroup" >
+            <View:CheckingBarcodeTool DataContext="{Binding Path=GoodReceiptManagement}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Content="{Binding }">
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=CurrentView}" Value="0">
+                            <Setter Property="ContentTemplate" Value="{StaticResource SelectIssueAndReceipt}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=CurrentView}" Value="1">
+                            <Setter Property="ContentTemplate" Value="{StaticResource GoodIssueGroup}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=CurrentView}" Value="2">
+                            <Setter Property="ContentTemplate" Value="{StaticResource GoodReceiptGroup}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+        <Grid Grid.Row="1" Background="#FF75777C">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"  Margin="5,5,5,5" Command="{Binding Path=SelectCurrentPagingCommand}" CommandParameter="1" Background="{x:Null}" BorderBrush="{x:Null}">
+                <materialDesign:PackIcon Kind="BoxDown" Foreground="White" Margin="-10,0,-10,0" Width="25" Height="25"/>
+            </Button>
+            <Button Grid.Column="1"  Margin="5,5,5,5" Command="{Binding Path=SelectCurrentPagingCommand}" CommandParameter="0" Background="{x:Null}" BorderBrush="{x:Null}">
+                <materialDesign:PackIcon Kind="Home" Foreground="White" Margin="-10,0,-10,0" Width="25" Height="25"/>
+            </Button>
+            <Button Grid.Column="2" Margin="5,5,5,5" Command="{Binding Path=SelectCurrentPagingCommand}" CommandParameter="2" Background="{x:Null}" BorderBrush="{x:Null}">
+                <materialDesign:PackIcon Kind="BoxUp" Foreground="White" Margin="-10,0,-10,0" Width="25" Height="25"/>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
