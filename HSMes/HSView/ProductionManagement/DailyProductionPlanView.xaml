@@ -21,7 +21,7 @@
             <Grid Grid.Row="0">
                 <Common:DataProcessingView/>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="10,0,10,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -114,13 +114,17 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            <GroupBox  Grid.Column="1" >
-                <GroupBox.Header>
-                    <Border Background="#FF63656B">
-                        <Label Content="계획수정" Foreground="White" />
-                    </Border>
-                </GroupBox.Header>
-                <Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="Gray" >
+                    <Label Content="계획 수정" Foreground="White" FontSize="13" VerticalAlignment="Center"
+                           HorizontalAlignment="Left"/>
+                </Grid>
+                <Grid Grid.Row="1">
                     <materialDesign:PackIcon Kind="Square"
                                                      Margin="3,22" 
                                                      Width="12" Height="12"  
@@ -208,7 +212,7 @@
                               Height="23" TextWrapping="Wrap"
                               VerticalAlignment="Top" Width="120" 
                               Margin="105,290,0,0" IsReadOnly="True"/>
-                    
+
                     <Label Content="생산계획수"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
@@ -222,9 +226,11 @@
                              Margin="180,380,0,0"
                             Width="80" Content="확정" Background="#FF5A575D"/>
 
-                </Grid> 
-           
-            </GroupBox>
+                </Grid>
+
+            </Grid>
+
+
         </Grid>
     </Grid>
 </UserControl>

@@ -7,13 +7,15 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d" 
              d:DesignHeight="733" d:DesignWidth="1135">
+    <UserControl.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <TabControl Margin="10,10,10,10">
             <TabItem Header="일생산계획">
                 <TabView:DailyProductionPlanView/>
-            </TabItem>
-            <TabItem Header="제품코드 관리">
-                
             </TabItem>
             <TabItem Header="거래처 관리">
                 <TabView:AccountManagement/>

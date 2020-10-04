@@ -21,7 +21,7 @@
             <Grid Grid.Row="0">
                 <Common:DataProcessingView/>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="10,0,10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="100"/>
@@ -169,7 +169,8 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <Button Background="#FF9AD73C" 
-                            BorderBrush="{x:Null}" Margin="2,2,2,2" 
+                            
+                            BorderBrush="{x:Null}" Margin="10,2,2,2" 
                             Width="100" Height="100"
                             Command="{Binding Path=OpenWorkOrdersDlgCommand}">
                         <DockPanel>

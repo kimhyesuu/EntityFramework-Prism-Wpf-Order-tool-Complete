@@ -45,3 +45,5 @@ C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproj
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\RegisteredWorkOrdersView.baml
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\RegisteringWorkOrdersView.g.cs
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProductionManagement\RegisteringWorkOrdersView.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProcessMangement\RegisteringJobPerformance.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProcessMangement\RegisteringJobPerformance.baml

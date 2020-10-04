@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HSView.ProductionManagement"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:Common="clr-namespace:HSView.Common"
-           
+             xmlns:Common="clr-namespace:HSView.Common"           
              mc:Ignorable="d" 
              d:DesignHeight="710" d:DesignWidth="1125">
     <Grid Background="#FFE4E4E4">
@@ -128,116 +127,126 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0">
-
+            <DataGrid Grid.Column="0" >
+               
             </DataGrid>
-            <GroupBox Header="거래처 수정" Grid.Column="1" >
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="32*"/>
-                        <ColumnDefinition Width="109*"/>
-                    </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Kind="Square"
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"  Background="Gray">
+                    <Label Content="거래처 관리" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32*"/>
+                            <ColumnDefinition Width="109*"/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="Square"
                                                      Margin="3,22,0,0" 
                                                      Width="12" Height="12"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Top"
                                                      HorizontalAlignment="Left" 
                                                      />
-                    <Label Content="회사명"
+                        <Label Content="회사명"
                            HorizontalAlignment="Left" 
                            VerticalAlignment="Top"
                            Margin="15,15,0,0"/>
-                    <TextBox HorizontalAlignment="Left"
+                        <TextBox HorizontalAlignment="Left"
                              Height="23"
                              TextWrapping="Wrap" 
                              VerticalAlignment="Top" 
                              Width="120" Margin="41.2,15,0,0" IsReadOnly="True" Grid.Column="1"/>
 
-                    <materialDesign:PackIcon Kind="Square"
+                        <materialDesign:PackIcon Kind="Square"
                                                      Margin="3,69,0,0" 
                                                      Width="12" Height="12"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Top"
                                                      HorizontalAlignment="Left" 
                                                      />
-                    <TextBox HorizontalAlignment="Left"
+                        <TextBox HorizontalAlignment="Left"
                              Height="23"
                              TextWrapping="Wrap" 
                              VerticalAlignment="Top" 
                              Width="120" Margin="41.2,15,0,0" IsReadOnly="True" Grid.Column="1" />
 
-                    <materialDesign:PackIcon Kind="Square"
+                        <materialDesign:PackIcon Kind="Square"
                                                      Margin="3,108,0,0" 
                                                      Width="12" Height="12"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Top"
                                                      HorizontalAlignment="Left" 
                                                      />
-                    <Label Content="담당자"
+                        <Label Content="담당자"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Margin="15,61,0,0"/>
-                    <TextBox  HorizontalAlignment="Left"
+                        <TextBox  HorizontalAlignment="Left"
                               Height="23" TextWrapping="Wrap"
                               VerticalAlignment="Top" Width="120" 
                               Margin="41.2,61,0,0" IsReadOnly="True" Grid.Column="1"/>
-                    <Label Content="담당자 번호"
+                        <Label Content="담당자 번호"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Margin="15,101,0,0" Grid.ColumnSpan="2"/>
-                    <TextBox  HorizontalAlignment="Left"
+                        <TextBox  HorizontalAlignment="Left"
                               Height="23" TextWrapping="Wrap"
                               VerticalAlignment="Top" Width="120" 
                               Margin="41.2,101,0,0" IsReadOnly="True" Grid.Column="1"/>
-                    <Label Content="Email"
+                        <Label Content="Email"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Margin="15,141,0,0"/>
-                    <TextBox  HorizontalAlignment="Left"
+                        <TextBox  HorizontalAlignment="Left"
                               Height="23" TextWrapping="Wrap"
                               VerticalAlignment="Top" Width="120" 
                               Margin="41.2,141,0,0" IsReadOnly="True" Grid.Column="1"/>
-                    <Label Content="주소"
+                        <Label Content="주소"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Margin="15,181,0,0"/>
-                    <TextBox  HorizontalAlignment="Left"
+                        <TextBox  HorizontalAlignment="Left"
                               Height="23" TextWrapping="Wrap"
                               VerticalAlignment="Top" Width="120" 
                               Margin="41.2,181,0,0" IsReadOnly="True" Grid.Column="1"/>
 
-                    <Label Content="등급"
+                        <Label Content="등급"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Margin="15,221,0,0"/>
-                    <TextBox  HorizontalAlignment="Left"
+                        <TextBox  HorizontalAlignment="Left"
                               Height="23" TextWrapping="Wrap"
                               VerticalAlignment="Top" Width="120" 
                               Margin="41.2,221,0,0" IsReadOnly="True" Grid.Column="1"/>
 
-                    <Label Content="특징"
+                        <Label Content="특징"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Margin="15,261,0,0"/>
-                    <TextBox  HorizontalAlignment="Left"
+                        <TextBox  HorizontalAlignment="Left"
                               Height="23" TextWrapping="Wrap"
                               VerticalAlignment="Top" Width="120" 
                               Margin="41.2,261,0,0" IsReadOnly="True" Grid.Column="1"/>
 
-                    <Label Content="거래내역"
+                        <Label Content="거래내역"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Left"
                               Margin="15,300,0,0" Grid.ColumnSpan="2"/>
 
-                    <Button HorizontalAlignment="Right" 
+                        <Button HorizontalAlignment="Right" 
                             VerticalAlignment="Bottom"
                              Margin="0,0,10,15"
                             Width="80" Content="확정" Background="#FF5A575D" Grid.Column="1"/>
 
-                </Grid>
+                    </Grid>
 
-            </GroupBox>
+                </Grid>
+            </Grid>
+                          
         </Grid>
     </Grid>
 </UserControl>

@@ -96,6 +96,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProcessMangement\RegisteringJobPerformance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ProductionManagement\AccountManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,6 +128,9 @@
   <ItemGroup>
     <Compile Include="ProcessMangement\ProcessMainView.xaml.cs">
       <DependentUpon>ProcessMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessMangement\RegisteringJobPerformance.xaml.cs">
+      <DependentUpon>RegisteringJobPerformance.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProductionManagement\AccountManagement.xaml.cs">
       <DependentUpon>AccountManagement.xaml</DependentUpon>
