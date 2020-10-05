@@ -3,6 +3,8 @@ FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcesspro
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\Common\ChangePage.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\Common\DataProcessingView.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\MainWindow.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\MaterialManagement\MaterialManagementMainVeiw.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\MaterialManagement\MaterialStatusView.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProcessMangement\ProcessMainView.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProcessMangement\RegisteringJobPerformance.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProductionManagement\AccountManagement.xaml;;
@@ -11,4 +13,9 @@ FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcesspro
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProductionManagement\ProductionMainView.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProductionManagement\RegisteredWorkOrdersView.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProductionManagement\RegisteringWorkOrdersView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\StandardInformation\RegisterDetailFactoryView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\StandardInformation\RegisterFactoryView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\StandardInformation\RegisterRouteView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\StandardInformation\StandardInformationMainView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\StandardInformation\WindowRegisteringFactory.xaml;;
 

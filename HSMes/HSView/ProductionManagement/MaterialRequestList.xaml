@@ -21,7 +21,7 @@
             <Grid Grid.Row="0">
                 <Common:DataProcessingView/>
             </Grid>
-            <Grid Grid.Row="1" Margin="10,0,10,0">
+            <Grid Grid.Row="1" Margin="15,0,70,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -52,7 +52,7 @@
                         <ComboBox Width="150" HorizontalAlignment="Left" DockPanel.Dock="Left">
 
                         </ComboBox>
-                        <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="   ~"/>
+                        <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="      ~" Margin="0,1,0,0.8" Width="103"/>
                         <ComboBox Width="150" HorizontalAlignment="Right" DockPanel.Dock="Right">
 
                         </ComboBox>

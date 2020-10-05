@@ -21,7 +21,7 @@
             <Grid Grid.Row="0">
                 <Common:DataProcessingView/>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="15,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -37,6 +37,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <DockPanel Grid.Row="0" Grid.Column="0">
                     <materialDesign:PackIcon Kind="Circle"
@@ -46,7 +47,7 @@
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left" 
                                                      />
-                    <TextBlock Text="회사명"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="회사명"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,6.86" Width="56"/>
                 </DockPanel>
                 <ComboBox  Grid.Row="0" Grid.Column="1">
 
@@ -54,12 +55,12 @@
                 <DockPanel Grid.Row="0" Grid.Column="2">
                     <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="26.4" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
+                                                     HorizontalAlignment="Left" Margin="0,12.5" 
                                                      />
-                    <TextBlock Text="구분" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="구분" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,6.86" Width="44.2"/>
                 </DockPanel>
                 <ComboBox  Grid.Row="0" Grid.Column="3">
 
@@ -67,12 +68,12 @@
                 <DockPanel Grid.Row="0" Grid.Column="4">
                     <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="30.4" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
+                                                     HorizontalAlignment="Left" Margin="0,12.5" 
                                                      />
-                    <TextBlock Text="등급" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="등급" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,6.86" Width="43.2"/>
                 </DockPanel>
                 <ComboBox  Grid.Row="0" Grid.Column="5">
 
@@ -80,12 +81,12 @@
                 <DockPanel Grid.Row="0" Grid.Column="6">
                     <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="31" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
+                                                     HorizontalAlignment="Left" Margin="0,12.5" 
                                                      />
-                    <TextBlock Text="전화" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="전화" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,6.86" Width="41.2"/>
                 </DockPanel>
                 <ComboBox  Grid.Row="0" Grid.Column="7">
 
@@ -93,12 +94,12 @@
                 <DockPanel Grid.Row="0" Grid.Column="8">
                     <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="34.8" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
+                                                     HorizontalAlignment="Left" Margin="0,12.5,0,10" 
                                                      />
-                    <TextBlock Text="대표" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="대표" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,6.86" Width="38.2"/>
                 </DockPanel>
                 <ComboBox  Grid.Row="0" Grid.Column="9">
 
@@ -111,7 +112,7 @@
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left" 
                                                      />
-                    <TextBlock Text="등록일" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="등록일" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,6.86" Width="56.2"/>
                 </DockPanel>
                 <ComboBox  Grid.Row="1" Grid.Column="1">
 
@@ -128,7 +129,7 @@
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
             <DataGrid Grid.Column="0" >
-               
+
             </DataGrid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -246,7 +247,7 @@
 
                 </Grid>
             </Grid>
-                          
+
         </Grid>
     </Grid>
 </UserControl>

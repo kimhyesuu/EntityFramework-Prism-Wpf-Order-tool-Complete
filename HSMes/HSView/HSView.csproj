@@ -66,6 +66,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MaterialManagement\MaterialManagementMainVeiw.xaml.cs">
+      <DependentUpon>MaterialManagementMainVeiw.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialManagement\MaterialStatusView.xaml.cs">
+      <DependentUpon>MaterialStatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StandardInformation\RegisterDetailFactoryView.xaml.cs">
+      <DependentUpon>RegisterDetailFactoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StandardInformation\RegisterFactoryView.xaml.cs">
+      <DependentUpon>RegisterFactoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StandardInformation\RegisterRouteView.xaml.cs">
+      <DependentUpon>RegisterRouteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StandardInformation\StandardInformationMainView.xaml.cs">
+      <DependentUpon>StandardInformationMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StandardInformation\WindowRegisteringFactory.xaml.cs">
+      <DependentUpon>WindowRegisteringFactory.xaml</DependentUpon>
+    </Compile>
     <Page Include="Common\ChangePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -92,6 +113,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MaterialManagement\MaterialManagementMainVeiw.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaterialManagement\MaterialStatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ProcessMangement\ProcessMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +150,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProductionManagement\RegisteringWorkOrdersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StandardInformation\RegisterDetailFactoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StandardInformation\RegisterFactoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StandardInformation\RegisterRouteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StandardInformation\StandardInformationMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StandardInformation\WindowRegisteringFactory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

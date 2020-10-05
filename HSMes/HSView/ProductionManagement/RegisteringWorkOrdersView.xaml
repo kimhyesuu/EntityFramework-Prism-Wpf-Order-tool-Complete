@@ -59,7 +59,7 @@
             <Grid Grid.Row="0">
                 <Common:DataProcessingView/>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="15,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="300"/>
@@ -67,7 +67,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
                 <DockPanel Grid.Column="0">
                     <materialDesign:PackIcon Kind="Circle"
@@ -77,14 +77,14 @@
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left" 
                                                      />
-                    <TextBlock Text="기간"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="기간"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,9.36" Width="43.2"/>
                 </DockPanel>
                 <DockPanel Grid.Column="1">
                     <ComboBox Width="120" HorizontalAlignment="Left" DockPanel.Dock="Left">
 
                     </ComboBox>
                     <TextBlock FontSize="20" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" FontWeight="Bold" Text="  ~"/>
+                               VerticalAlignment="Center" FontWeight="Bold" Text="    ~" Margin="0,7" Width="64"/>
                     <ComboBox Width="120" HorizontalAlignment="Right"
                               DockPanel.Dock="Right">
 
@@ -93,25 +93,25 @@
                 <DockPanel Grid.Column="2">
                     <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                    Width="24" Height="10"   
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left" 
                                                      />
-                    <TextBlock Text="공장"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="공장"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,9.36" Width="42.133"/>
                 </DockPanel>
                 <ComboBox Grid.Column="3">
-                    
+
                 </ComboBox>
                 <DockPanel Grid.Column="4">
                     <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                    Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left" 
                                                      />
-                    <TextBlock Text="제품"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="제품"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,9.36" Width="38.933"/>
                 </DockPanel>
                 <ComboBox Grid.Column="5">
 
@@ -152,7 +152,7 @@
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
+                    <Grid Grid.Column="0" Margin="5,0,12,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="2*"/>
@@ -171,7 +171,7 @@
                         <DockPanel Grid.Row="0" Grid.Column="0">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left"/>
@@ -182,79 +182,77 @@
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Center"/>
                         </DockPanel>
-                        <ComboBox Grid.Row="0" Grid.Column="1">
-                            
-                        </ComboBox>
+                        <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True">
+
+                        </TextBox>
                         <DockPanel Grid.Row="0" Grid.Column="2">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                    Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left"/>
-                            <TextBlock Text="P/O" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBlock Text="P/O" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </DockPanel>
-                        <ComboBox Grid.Row="0" Grid.Column="3">
+                        <TextBox Grid.Row="0" Grid.Column="3" IsReadOnly="True">
 
-                        </ComboBox>
+                        </TextBox>
                         <DockPanel Grid.Row="0" Grid.Column="4">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="20.667" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left"/>
-                            <TextBlock Text="제품코드" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                                     HorizontalAlignment="Center" Margin="0,15"/>
+                            <TextBlock Text="제품코드" FontSize="13" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,11.355" Width="53.334"/>
                         </DockPanel>
-                        <ComboBox Grid.Row="0" Grid.Column="5">
+                        <TextBox Grid.Row="0" Grid.Column="5" IsReadOnly="True">
 
-                        </ComboBox>
+                        </TextBox>
                         <DockPanel Grid.Row="0" Grid.Column="6">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left"/>
+                                                     HorizontalAlignment="Left" Margin="0,15"/>
                             <TextBlock Text="제품명" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         </DockPanel>
-                        <ComboBox Grid.Row="0" Grid.Column="7">
-
-                        </ComboBox>
+                        <TextBox Grid.Row="0" Grid.Column="7" Height="40" IsReadOnly="True"/>
 
 
                         <DockPanel Grid.Row="1" Grid.Column="0">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                    Width="24" Height="10"    
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left"/>
                             <TextBlock Text="계획수" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         </DockPanel>
-                        <ComboBox Grid.Row="1" Grid.Column="1">
+                        <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True">
 
-                        </ComboBox>
+                        </TextBox>
                         <DockPanel Grid.Row="1" Grid.Column="2">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                   Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left"/>
-                            <TextBlock Text="공장" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBlock Text="공장" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,9.36" Width="45.334"/>
                         </DockPanel>
-                        <ComboBox Grid.Row="1" Grid.Column="3">
+                        <TextBox Grid.Row="1" Grid.Column="3" IsReadOnly="True">
 
-                        </ComboBox>
+                        </TextBox>
                         <DockPanel Grid.Row="1" Grid.Column="4">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left"/>
-                            <TextBlock Text="Area" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                                     HorizontalAlignment="Center"/>
+                            <TextBlock Text="Area" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </DockPanel>
                         <ComboBox Grid.Row="1" Grid.Column="5">
 
@@ -262,23 +260,23 @@
                         <DockPanel Grid.Row="1" Grid.Column="6">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                    Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left"/>
-                            <TextBlock Text="라인" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBlock Text="라인" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,9.36" Width="49.6"/>
                         </DockPanel>
                         <ComboBox Grid.Row="1" Grid.Column="7">
 
                         </ComboBox>
-                        
-                        
-                        
-                        
+
+
+
+
                         <DockPanel Grid.Row="2" Grid.Column="0">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left"/>
@@ -290,7 +288,7 @@
                         <DockPanel Grid.Row="2" Grid.Column="2">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                      Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left"/>
@@ -302,11 +300,11 @@
                         <DockPanel Grid.Row="2" Grid.Column="4">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left"/>
-                            <TextBlock Text="타입" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                                     HorizontalAlignment="Center"/>
+                            <TextBlock Text="타입" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,9.36" Width="49.067"/>
                         </DockPanel>
                         <ComboBox Grid.Row="2" Grid.Column="5">
 
@@ -314,7 +312,7 @@
                         <DockPanel Grid.Row="2" Grid.Column="6">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                      Width="24" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left"/>

@@ -11,13 +11,13 @@
     <Grid>
         <Grid Background="#FFE4E4E4">
             <Grid.RowDefinitions>
-                <RowDefinition Height="140"/>
+                <RowDefinition Height="170"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="95"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Common:DataProcessingView/>
@@ -27,7 +27,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Margin="10,0,10,0">
+                    <Grid Grid.Column="0" Margin="15,0,60,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
@@ -189,17 +189,17 @@
                     <Grid Grid.Column="1">
                         <Button Background="#FF9AD73C" 
                             BorderBrush="{x:Null}" Margin="2,2,2,2" 
-                            Width="80" Height="70"
+                            Width="70" Height="60"
                             Command="{Binding Path=OpenWorkOrdersDlgCommand}">
                             <DockPanel>
                                 <materialDesign:PackIcon Kind="TicketConfirmationOutline"
                                                      DockPanel.Dock="Top" 
-                                                     Width="30" Height="30"  
+                                                     Width="25" Height="25"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Center" 
                                                      />
-                                <TextBlock Text="확정" FontSize="16"
+                                <TextBlock Text="확정" FontSize="13"
                                        Margin="7" Foreground="Black" 
                                        DockPanel.Dock="Bottom" 
                                        HorizontalAlignment="Right"
