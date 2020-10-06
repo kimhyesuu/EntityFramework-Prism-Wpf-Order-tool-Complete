@@ -14,6 +14,9 @@
     </UserControl.Resources>
     <Grid>
         <TabControl Margin="10,10,10,10">
+            <TabItem Header="작업실적 현황">
+                <TabView:JobPerformanceStatus/>
+            </TabItem>
             <TabItem Header="작업실적 등록">
                 <TabView:RegisteringJobPerformance/>
             </TabItem>

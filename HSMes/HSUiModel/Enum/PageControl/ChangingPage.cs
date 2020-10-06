@@ -8,8 +8,11 @@ namespace HSUiModel.Enum.PageControl
 {
    public enum IndexPages
    {
+      Main,
+      MaterialManagement,
       ProcessManagement,
       ProductionManagement,      
+      StandardInformation
    }
 
    public class ChangingPage

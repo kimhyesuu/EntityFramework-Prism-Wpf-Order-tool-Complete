@@ -95,7 +95,7 @@
             <Label Grid.Row="2" Content="바인딩 할 것 name" />
             <TextBox Grid.Row="2" HorizontalContentAlignment="Right" Margin="133.117,0,10,5"/>
             <Label Grid.Row="3" Content="비고" />
-            <TextBox Grid.Row="3" HorizontalContentAlignment="Right" Margin="133.117,0,10,5"/>
+            <TextBox Grid.Row="3" HorizontalContentAlignment="Right" Margin="133.117,0,10,5" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap"/>
             <Button Grid.Row="4" Background="#FF63656B" BorderBrush="{x:Null}" Margin="200.4,4,10,4"  >
                 <materialDesign:PackIcon Kind="CheckAll"  Width="20" Height="20"  Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Center" />
             </Button>

@@ -1,11 +1,16 @@
-﻿C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\App.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\Common\ChangePage.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\Common\DataProcessingView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\MainView.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\MainWindow.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\MaterialManagement\MaterialManagementMainVeiw.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\MaterialManagement\MaterialStatusView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProcessMangement\JobPerformanceStatus.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\Monitoring\LotTrackingView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\Monitoring\MonitoringMainView.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProcessMangement\ProcessMainView.xaml;;
+FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\Monitoring\ProductionStatusOfAllProcesses.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProcessMangement\RegisteringJobPerformance.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProductionManagement\AccountManagement.xaml;;
 FC:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\ProductionManagement\DailyProductionPlanView.xaml;;

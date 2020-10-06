@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HSView.ProductionManagement"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:local="clr-namespace:HSView.ProductionManagement"          
              mc:Ignorable="d" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
               xmlns:Common="clr-namespace:HSView.Common"
              d:DesignHeight="710" d:DesignWidth="1125">
     <Grid Background="#FFE4E4E4">
@@ -215,6 +215,7 @@
                         <Button HorizontalAlignment="Left" 
                             VerticalAlignment="Top"
                              Margin="180,380,0,0"
+                           Foreground="White"
                             Width="80" Content="확정" Background="#FF5A575D"/>
 
                     </Grid>

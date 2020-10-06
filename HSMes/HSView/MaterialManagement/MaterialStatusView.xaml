@@ -66,7 +66,7 @@
                                                      />
                     <TextBlock Text="창고" FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,6.86" Width="43.2"/>
                 </DockPanel>
-                <ComboBox  Grid.Row="0" Grid.Column="5">
+                <ComboBox  Grid.Row="0" Grid.Column="5" >
 
                 </ComboBox>
                 <DockPanel Grid.Row="0" Grid.Column="6">
@@ -112,7 +112,19 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="창고 재고 현황" Foreground="White" FontWeight="Bold" Background="Gray" />
                     <Grid Grid.Row="1">
-
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                            <ListView Margin="5" VirtualizingStackPanel.IsVirtualizing="False">
+                            <ListView.View>
+                                <GridView>
+                                     <GridViewColumn Header="seq" Width="40" />
+                                    <GridViewColumn Header="창고"/>
+                                    <GridViewColumn Header="자재코드"/>
+                                    <GridViewColumn Header="자재명"/>
+                                    <GridViewColumn Header="총재고량"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        </ScrollViewer>
                     </Grid>
                 </Grid>
             </Border>
@@ -124,7 +136,18 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="자재 재고 현황" Foreground="White" FontWeight="Bold" Background="Gray" />
                     <Grid Grid.Row="1" HorizontalAlignment="Left" Width="724.667">
-
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                            <ListView Margin="5" VirtualizingStackPanel.IsVirtualizing="False">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="seq" Width="40" />
+                                        <GridViewColumn Header="자재코드"  />
+                                        <GridViewColumn Header="자재명" Width="50" />
+                                        <GridViewColumn Header="총재고량" Width="50" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
                     </Grid>
                 </Grid>
             </Border>
@@ -142,11 +165,12 @@
                         <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Margin="5">
+                    <Grid Grid.Column="0" Margin="15,0,15,27" HorizontalAlignment="Left" Width="708">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
+                            <RowDefinition Height="35"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="85"/>
@@ -164,11 +188,9 @@
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left" 
                                                      />
-                            <TextBlock Text="자재 LOT"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,18.526" Width="70.4"/>
+                            <TextBlock Text="자재 LOT"  FontSize="16" Foreground="Black" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,7.86,0,0" Width="70.4" Height="29.14"/>
                         </DockPanel>
-                        <TextBox  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,10" >
-
-                        </TextBox>
+                        <TextBox  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" />
 
 
                         <DockPanel Grid.Row="0" Grid.Column="4">
@@ -179,7 +201,7 @@
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Left" Margin="0,12.5" 
                                                      />
-                            <TextBlock Text="자재코드" FontSize="16" Foreground="Black" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,18.526" Width="64.8" HorizontalAlignment="Right"/>
+                            <TextBlock Text="자재코드" FontSize="16" Foreground="Black" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,7.86,0,0" Width="64.8" HorizontalAlignment="Right" Height="29.14"/>
                         </DockPanel>
                         <TextBox  Grid.Row="0" Grid.Column="5" IsReadOnly="True">
 
@@ -215,10 +237,10 @@
                         <DockPanel Grid.Row="1" Grid.Column="4">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="10" Height="10"  
+                                                     Width="31.067" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" 
+                                                     HorizontalAlignment="Left" Margin="0,13.833,0,13.834" 
                                                      />
                             <TextBlock Text="자재명" FontSize="16" Foreground="Black" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,6.86" Width="67" HorizontalAlignment="Right"/>
                         </DockPanel>
@@ -256,28 +278,29 @@
                         <DockPanel Grid.Row="2" Grid.Column="4">
                             <materialDesign:PackIcon Kind="Circle"
                                                      DockPanel.Dock="Left" 
-                                                     Width="22" Height="10"  
+                                                     Width="30.8" Height="10"  
                                                      Foreground="Black" 
                                                      VerticalAlignment="Center"
-                                                     HorizontalAlignment="Left" Margin="0,24.167,0,24.166" 
+                                                     HorizontalAlignment="Left" Margin="0,18.667,0,9" 
                                                      />
-                            <TextBlock Text="창고" FontSize="16" Foreground="Black" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,18.526" Width="65.4" HorizontalAlignment="Right"/>
+                            <TextBlock Text="창고" FontSize="16" Foreground="Black" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,7.86,0,0" Width="65.4" HorizontalAlignment="Right" Height="29.14"/>
                         </DockPanel>
                         <TextBox  Grid.Row="2" Grid.Column="5" IsReadOnly="True" >
 
                         </TextBox>
 
                     </Grid>
-                    <Grid Grid.Column="1">
+                    <Grid Grid.ColumnSpan="2" Margin="738.6,0,28.8,0">
                         <Label Content="사유" VerticalAlignment="Top" HorizontalAlignment="Left"  FontWeight="Bold" Height="34.36" Margin="0,10,0,0"/>
-                        <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="249.2" Height="155" Margin="40.8,10,0,0"
-                                 />
+                        <TextBox VerticalAlignment="Top" Height="155" Margin="37,10,0,0" HorizontalAlignment="Left" Width="213" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible"  AcceptsReturn="True" TextWrapping="Wrap"/>
+
+
+
+
                     </Grid>
-                    <StackPanel Grid.Column="2">
-                        <Button Content="저장" VerticalAlignment="Top" HorizontalAlignment="Left" Height="45.2" Margin="0,15,-28,0" Width="78" Background="Gray" >
-                            <Button.LayoutTransform>
-                                <RotateTransform Angle="90"/>
-                            </Button.LayoutTransform>
+                    <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Margin="276.2,0,0,0">
+                        <Button Content="저장" VerticalAlignment="Top" HorizontalAlignment="Left" Height="45.2" Margin="-5.6,15,0,0" Width="69.4" Background="Gray" Foreground="White" >
+
                         </Button>
                     </StackPanel>
                 </Grid>

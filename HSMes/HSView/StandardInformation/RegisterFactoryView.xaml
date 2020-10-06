@@ -34,7 +34,7 @@
 
             <Grid Grid.Row="2">
                 <Label Content="특이사항" FontWeight="Bold"/>
-                <TextBox  VerticalAlignment="Top" HorizontalAlignment="Left" Width="440" Margin="10,33.2,0,0" Height="156.8" IsReadOnly="True"/>
+                <TextBox  VerticalAlignment="Top" HorizontalAlignment="Left" AcceptsReturn="True" TextWrapping="Wrap" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Width="440" Margin="10,33.2,0,0" Height="156.8" IsReadOnly="True"/>
             </Grid>
         </Grid>
     </Grid>

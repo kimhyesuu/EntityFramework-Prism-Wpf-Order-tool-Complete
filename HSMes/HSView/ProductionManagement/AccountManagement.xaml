@@ -241,7 +241,8 @@
                         <Button HorizontalAlignment="Right" 
                             VerticalAlignment="Bottom"
                              Margin="0,0,10,15"
-                            Width="80" Content="확정" Background="#FF5A575D" Grid.Column="1"/>
+                            Width="80" Content="확정"
+                            Foreground="White"    Background="#FF5A575D" Grid.Column="1"/>
 
                     </Grid>
 

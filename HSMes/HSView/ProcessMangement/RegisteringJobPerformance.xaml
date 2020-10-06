@@ -369,13 +369,15 @@
                                 </ComboBox>
                                 <Button Content="물량추가" Margin="5,1,7,1" 
                                         FontSize="9" Grid.Column="3" Height="20" 
-                                        Background="Gray">
+                                        Background="Gray"
+                                        Foreground="White">
 
                                 </Button>
                                 <Button Content="물량제외" Margin="8,1,1,1" 
                                         FontSize="9" Grid.Column="4" 
                                         Height="20"
-                                        Background="Gray">
+                                        Background="Gray"
+                                        Foreground="White">
 
                                 </Button>
                             </Grid>

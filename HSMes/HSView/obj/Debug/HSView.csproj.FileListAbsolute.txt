@@ -61,3 +61,13 @@ C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproj
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\StandardInformation\WindowRegisteringFactory.baml
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\MaterialManagement\MaterialStatusView.g.cs
 C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\MaterialManagement\MaterialStatusView.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\MainView.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\MainView.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProcessMangement\JobPerformanceStatus.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\ProcessMangement\JobPerformanceStatus.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\Monitoring\LotTrackingView.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\Monitoring\MonitoringMainView.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\Monitoring\ProductionStatusOfAllProcesses.g.cs
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\Monitoring\LotTrackingView.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\Monitoring\MonitoringMainView.baml
+C:\Users\juid0\OneDrive\바탕 화면\ProjectManagement\SemiconductorProcessproject\HSMes\HSView\obj\Debug\Monitoring\ProductionStatusOfAllProcesses.baml
