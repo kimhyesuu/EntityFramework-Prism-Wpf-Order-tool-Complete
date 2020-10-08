@@ -109,7 +109,7 @@
                     <Button Grid.Column="5" Background="{x:Null}" BorderBrush="{x:Null}"  Command="{Binding Path=PageControlCommand}"  CommandParameter="5">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="StandardDefinition" DockPanel.Dock="Left" Width="30" Height="50"  Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                            <TextBlock Text="기준정보" DockPanel.Dock="Right" VerticalAlignment="Center" Foreground="White"/>
+                            <TextBlock Text="기준정보" DockPanel.Dock="Right" VerticalAlignment="Center" FontSize="12" Foreground="White"/>
                         </DockPanel>
                     </Button>
                 </Grid>
