@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Modules.Menu.Views.SideBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  
+             xmlns:vm ="clr-namespace:Modules.Menu.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True" >
+    <UserControl.Resources>
+        
+
+        <Storyboard x:Key="MenuOpen">
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+
+            </DoubleAnimationUsingKeyFrames>
+
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
+
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+
+            </DoubleAnimationUsingKeyFrames>
+
+        </Storyboard>
+
+        <Style TargetType="ToolTip" x:Key="tt_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#FF3675D4"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="45,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            
+        </Style>
+      
+    </UserControl.Resources>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid x:Name="GridMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="50" HorizontalAlignment="Left" >
+        <StackPanel>
+            <Grid Height="120" Background="White">
+                <Button x:Name="btnCloseMenu" Width="60"  Height="60" Background="{x:Null}" BorderBrush="{x:Null}"  
+                            Visibility="Collapsed" 
+                            VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <materialDesign:PackIcon Kind="ArrowLeft" Foreground="#FF2B3F79" />
+                </Button>
+                <Button x:Name="btnOpenMenu" Width="50" Height="60" Background="{x:Null}" BorderBrush="{x:Null}"                  
+                            VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <materialDesign:PackIcon Kind="Menu" Foreground="#FF2B3F79" />
+                </Button>
+
+            </Grid>
+
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                <ListViewItem Height="60">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <materialDesign:PackIcon Kind="ViewDashboard"
+                                                     Width="30"
+                                                     Height="30"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Center"
+                                                     Foreground="White" />
+                        <TextBlock Text="Home" Foreground="White" FontSize="20"
+                                       Margin="20 10"
+                                       VerticalAlignment="Center"/>
+                    </StackPanel>
+
+
+                    <ListViewItem.ToolTip>
+
+                        <ToolTip x:Name="tt_OderRegistration"
+                                      Content="주문 등록"
+                                      Style="{StaticResource tt_style}" />
+
+                    </ListViewItem.ToolTip>
+
+                </ListViewItem>
+
+                <ListViewItem Height="60">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <materialDesign:PackIcon Kind="Ticket"
+                                                     Width="30"
+                                                     Height="30"
+                                                     VerticalAlignment="Center"
+                                                     Foreground="White" />
+                        <TextBlock Text="Create" Foreground="White" FontSize="20"
+                                       Margin="20 10"
+                                       VerticalAlignment="Center"/>
+                    </StackPanel>
+
+
+                    <ListViewItem.ToolTip>
+
+                        <ToolTip x:Name="tt_Contact"
+                                         Content="주문 현황"
+                                         Style="{StaticResource tt_style}"/>
+
+                    </ListViewItem.ToolTip>
+
+
+                </ListViewItem>
+
+            </ListView>
+        </StackPanel>
+    </Grid>
+</UserControl>
