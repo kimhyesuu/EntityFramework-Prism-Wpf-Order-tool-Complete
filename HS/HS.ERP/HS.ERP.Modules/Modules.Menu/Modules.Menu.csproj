@@ -40,9 +40,6 @@
     <Reference Include="HS.ERP.Core">
       <HintPath>..\..\HS.ERP.Core\bin\Debug\HS.ERP.Core.dll</HintPath>
     </Reference>
-    <Reference Include="HS.ERP.Resource">
-      <HintPath>..\..\HS.ERP.Resource\bin\Debug\HS.ERP.Resource.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.7.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MaterialDesignColors.1.2.7\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>

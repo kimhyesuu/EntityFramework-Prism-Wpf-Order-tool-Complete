@@ -43,9 +43,6 @@
     <Reference Include="HS.ERP.Core">
       <HintPath>..\HS.ERP.Core\bin\Debug\HS.ERP.Core.dll</HintPath>
     </Reference>
-    <Reference Include="HS.ERP.Resource">
-      <HintPath>..\HS.ERP.Resource\bin\Debug\HS.ERP.Resource.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.7.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.7\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -110,6 +107,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Dependency\IWindowResources.cs" />
+    <Compile Include="Core\Dependency\WindowResources.cs" />
     <Compile Include="ViewModels\ShellWindowViewModel.cs" />
     <Compile Include="Views\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
@@ -142,7 +141,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\Dialogs\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ShellWindow.xaml">
       <SubType>Designer</SubType>

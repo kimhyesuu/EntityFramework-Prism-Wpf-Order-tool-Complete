@@ -2,25 +2,52 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             
-        xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
+        xmlns:windowResource="clr-namespace:HS.ERP.Outlook.Core.Dependency"
         xmlns:prism ="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
+        windowResource:WindowCloser.EnabledWindowClosing="True"
+        windowResource:WindowDragMover.EnabledWindowDragMove="{Binding DragMoveCommand}"
         
         WindowStartupLocation="CenterScreen"
-        
-        Height="500" Width="700">
-    <!--  
-    core
-    materialDesign
-    prism
-    -->
+        WindowStyle="None"
+        ResizeMode="NoResize" 
+        Height="550" Width="900">
 
     <Grid>
+        
+        <!--  Main content -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Row 1-->    
+            <Grid Height="47" VerticalAlignment="Top" Background="#FF2D3A9A"  >
+                <TextBlock  Text="HS ERP System" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" Foreground="White" Opacity="0.7"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    <TextBlock Text="" VerticalAlignment="Center" FontSize="16" Foreground="White" Opacity="0.7"/>
+                    <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" Foreground="White" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" >
+                        <StackPanel Width="150">
+                            <Button Content="거래처 등록" Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center"/>
+                            <Button Content="제품 등록" Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center"/>
+                            <Separator/>
+                            <Button Content="Exit" Height="35" FontSize="13" FontWeight="DemiBold" VerticalContentAlignment="Center" Command="{Binding Path=WindowCloseCommand}"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </StackPanel>
+            </Grid>
+            
+            <!-- Row 2-->
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}"/>
+        </Grid>
+        
+         <!-- Side Menu Bar -->
         <Grid HorizontalAlignment="Left" Background="#FF1C3E63">
             <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MenuBarRegion}"/>
         </Grid>
        
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}"/>
     </Grid>
 </Window>

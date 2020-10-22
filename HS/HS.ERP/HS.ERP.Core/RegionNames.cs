@@ -4,5 +4,6 @@
     {
         public const string ContentRegion = "ContentRegion";
         public const string MenuBarRegion = "MenuBarRegion";
+        public const string PopUpBoxRegion = "PopUpBoxRegion";
     }
 }

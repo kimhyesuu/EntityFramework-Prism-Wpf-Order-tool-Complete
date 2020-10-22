@@ -24,7 +24,7 @@ namespace HS.ERP.Outlook
         {
             base.ConfigureModuleCatalog(moduleCatalog);
             moduleCatalog.AddModule<OrderModule>();
-            moduleCatalog.AddModule<MenuModule>();
+            moduleCatalog.AddModule<MenuModule>(); 
         }
     }
 }
