@@ -1,6 +1,7 @@
-﻿using Prism.Commands;
+﻿using HS.ERP.Core;
+using Prism.Commands;
 using Prism.Mvvm;
-using System;
+using Prism.Regions;
 using System.Windows;
 
 namespace Modules.Menu.ViewModels
@@ -15,6 +16,7 @@ namespace Modules.Menu.ViewModels
     {
         private bool _isOpenMenu;
         private bool _isCloseMenu;
+        private IRegionManager _regionManager;
 
         public bool IsOpenMenu
         {
@@ -28,15 +30,17 @@ namespace Modules.Menu.ViewModels
             set { SetProperty(ref _isCloseMenu, value); }
         }
       
-        public SideBarViewModel()
+        public SideBarViewModel(IRegionManager regionManager)
         {
             IsOpenMenu = true;
             IsCloseMenu = false;
-
-            ReverseCommand = new DelegateCommand<Object>(o => ReverseButton(o));
+            this._regionManager = regionManager;
+            ReverseCommand = new DelegateCommand<object>(o => ReverseButton(o));
+            ViewsNavigationCommand = new DelegateCommand<object>(o => OnNavigation(o));
         }
 
-        public DelegateCommand<Object> ReverseCommand { get; private set; }
+        public DelegateCommand<object> ReverseCommand { get; private set; }
+        public DelegateCommand<object> ViewsNavigationCommand { get; private set; }
 
         //When Button Clicked, Button Element(Visibility) invert  
         private void ReverseButton(object parameter)
@@ -51,6 +55,15 @@ namespace Modules.Menu.ViewModels
                 IsOpenMenu ^= true;
               
             }
+        }
+
+        private void OnNavigation(object parameter)
+        {
+            if (parameter is null) return;
+
+            var para = parameter as FrameworkElement;
+
+            _regionManager.RequestNavigate(RegionNames.ContentRegion, para.Name);
         }
     }
 }

@@ -12,8 +12,7 @@ namespace Modules.Menu
 
         public MenuModule(IRegionManager regionManager)
         {
-            this._regionManager = regionManager;
-           
+            this._regionManager = regionManager;         
         }
 
         public void OnInitialized(IContainerProvider containerProvider)

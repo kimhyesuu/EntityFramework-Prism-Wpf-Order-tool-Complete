@@ -2,9 +2,9 @@
 
 namespace Modules.Order.Views
 {
-    public partial class OderRegistration : UserControl
+    public partial class OrderedList : UserControl
     {
-        public OderRegistration()
+        public OrderedList()
         {
             InitializeComponent();
         }

@@ -2,6 +2,7 @@
 using HS.ERP.Outlook.Views;
 using Modules.Menu;
 using Modules.Order;
+using Modules.Order.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Unity;
@@ -17,7 +18,7 @@ namespace HS.ERP.Outlook
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterForNavigation<OrderedList>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

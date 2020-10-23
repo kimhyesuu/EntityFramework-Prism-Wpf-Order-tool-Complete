@@ -109,6 +109,9 @@
     </Compile>
     <Compile Include="Core\Dependency\IWindowResources.cs" />
     <Compile Include="Core\Dependency\WindowResources.cs" />
+    <Compile Include="Core\Dialogs\RegistryDialogWindow.xaml.cs">
+      <DependentUpon>RegistryDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ShellWindowViewModel.cs" />
     <Compile Include="Views\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
@@ -141,10 +144,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Core\Dialogs\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Page Include="Core\Dialogs\RegistryDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

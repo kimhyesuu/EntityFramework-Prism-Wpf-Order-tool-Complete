@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="Modules.Order.Views.OrderedList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <TextBlock FontSize="35" Text="Hello" VerticalAlignment="Center" HorizontalAlignment="Center" />
+    </Grid>
+</UserControl>

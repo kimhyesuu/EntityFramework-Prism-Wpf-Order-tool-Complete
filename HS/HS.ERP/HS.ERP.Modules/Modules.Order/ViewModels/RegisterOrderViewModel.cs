@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,7 @@ using System.Threading.Tasks;
 
 namespace Modules.Order.ViewModels
 {
-    public class OderRegistrationViewModel
+    public class RegisterOrderViewModel : BindableBase
     {
-
-        public OderRegistrationViewModel()
-        {
-
-        }
-
     }
 }

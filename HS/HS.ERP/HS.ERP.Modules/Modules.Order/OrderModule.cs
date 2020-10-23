@@ -14,7 +14,7 @@ namespace Modules.Order
         public OrderModule(IRegionManager regionManager)
         {
             this._regionManager = regionManager;
-            _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(OderRegistration));
+            _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(RegisterOrder));
         }
 
         public void OnInitialized(IContainerProvider containerProvider)

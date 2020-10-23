@@ -1,0 +1,8 @@
+﻿<Window x:Class="HS.ERP.Outlook.Core.Dialogs.RegistryDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RegistryDialogWindow" Height="350" Width="700">
+    <Grid>
+        
+    </Grid>
+</Window>
