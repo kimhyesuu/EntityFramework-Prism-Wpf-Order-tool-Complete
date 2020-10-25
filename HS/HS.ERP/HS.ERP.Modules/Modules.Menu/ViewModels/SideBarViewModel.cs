@@ -52,18 +52,16 @@ namespace Modules.Menu.ViewModels
             if (para.Name == MenuBarCommandParameter.btnOpenMenu || para.Name == MenuBarCommandParameter.btnCloseMenu)
             {
                 IsCloseMenu = !IsCloseMenu;
-                IsOpenMenu ^= true;
-              
+                IsOpenMenu ^= true;              
             }
         }
 
-        private void OnNavigation(object parameter)
+        private void OnNavigation(object navigationPath)
         {
-            if (parameter is null) return;
+            if (navigationPath is null) return;
 
-            var para = parameter as FrameworkElement;
-
-            _regionManager.RequestNavigate(RegionNames.ContentRegion, para.Name);
+            var para = navigationPath as FrameworkElement;            
+            NavigationViews.Location(_regionManager, RegionNames.ContentRegion, para.Name);           
         }
     }
 }

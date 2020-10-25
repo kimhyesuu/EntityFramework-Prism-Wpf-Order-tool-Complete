@@ -31,8 +31,8 @@
                     <TextBlock Text="" VerticalAlignment="Center" FontSize="16" Foreground="White" Opacity="0.7"/>
                     <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" Foreground="White" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" >
                         <StackPanel Width="150">
-                            <Button Content="거래처 등록" Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center"/>
-                            <Button Content="제품 등록" Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center"/>
+                            <Button Content="거래처 등록" Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center" Command="{Binding Path=RegisterShowDialogCommand}"/>
+                            <Button Content="제품 등록" Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center" Command="{Binding Path=RegisterShowDialogCommand}"/>
                             <Separator/>
                             <Button Content="Exit" Height="35" FontSize="13" FontWeight="DemiBold" VerticalContentAlignment="Center" Command="{Binding Path=WindowCloseCommand}"/>
                         </StackPanel>

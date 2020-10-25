@@ -40,7 +40,8 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
-    <Reference Include="HS.ERP.Core">
+    <Reference Include="HS.ERP.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HS.ERP.Core\bin\Debug\HS.ERP.Core.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.7.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
@@ -49,11 +50,16 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=3.2.0.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.3.2.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Modules.Menu">
+    <Reference Include="Modules.Menu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HS.ERP.Modules\Modules.Menu\bin\Debug\Modules.Menu.dll</HintPath>
     </Reference>
-    <Reference Include="Modules.Order">
+    <Reference Include="Modules.Order, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HS.ERP.Modules\Modules.Order\bin\Debug\Modules.Order.dll</HintPath>
+    </Reference>
+    <Reference Include="Modules.Register">
+      <HintPath>..\HS.ERP.Modules\Modules.Register\bin\Debug\Modules.Register.dll</HintPath>
     </Reference>
     <Reference Include="Prism, Version=7.2.0.1422, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.2.0.1422\lib\net45\Prism.dll</HintPath>
@@ -112,6 +118,14 @@
     <Compile Include="Core\Dialogs\RegistryDialogWindow.xaml.cs">
       <DependentUpon>RegistryDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\Dialogs\ViewModels\AccountInfoViewModel.cs" />
+    <Compile Include="Core\Dialogs\ViewModels\ProductInfoViewModel.cs" />
+    <Compile Include="Core\Dialogs\Views\AccountInfo.xaml.cs">
+      <DependentUpon>AccountInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Dialogs\Views\ProductInfo.xaml.cs">
+      <DependentUpon>ProductInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ShellWindowViewModel.cs" />
     <Compile Include="Views\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
@@ -147,6 +161,14 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Core\Dialogs\RegistryDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Core\Dialogs\Views\AccountInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Core\Dialogs\Views\ProductInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

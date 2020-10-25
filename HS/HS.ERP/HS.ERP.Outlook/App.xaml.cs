@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using HS.ERP.Outlook.Core.Dialogs;
+using HS.ERP.Outlook.Core.Dialogs.ViewModels;
+using HS.ERP.Outlook.Core.Dialogs.Views;
 using HS.ERP.Outlook.Views;
 using Modules.Menu;
 using Modules.Order;
@@ -19,6 +22,11 @@ namespace HS.ERP.Outlook
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<OrderedList>();
+
+            containerRegistry.RegisterDialog<AccountInfo, AccountInfoViewModel>();
+            containerRegistry.RegisterDialog<ProductInfo, ProductInfoViewModel>();
+            
+            containerRegistry.RegisterDialogWindow<RegistryDialogWindow>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

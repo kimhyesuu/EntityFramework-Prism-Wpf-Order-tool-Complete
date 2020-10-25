@@ -9,5 +9,6 @@ namespace Modules.Order.ViewModels
 {
     public class RegisterOrderViewModel : BindableBase
     {
+      
     }
 }
