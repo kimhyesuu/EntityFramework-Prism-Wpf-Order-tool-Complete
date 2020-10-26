@@ -16,8 +16,8 @@
         Height="550" Width="900">
 
     <Grid>
-        
-        <!--  Main content -->
+
+        <!--  Main content  -->
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -25,14 +25,20 @@
             </Grid.RowDefinitions>
             
             <!-- Row 1-->    
-            <Grid Height="47" VerticalAlignment="Top" Background="#FF2D3A9A"  >
+            <Grid Height="47" VerticalAlignment="Top" Background="{StaticResource PrimaryBlue}"  >
                 <TextBlock  Text="HS ERP System" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" Foreground="White" Opacity="0.7"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
                     <TextBlock Text="" VerticalAlignment="Center" FontSize="16" Foreground="White" Opacity="0.7"/>
                     <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" Foreground="White" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" >
                         <StackPanel Width="150">
-                            <Button Content="거래처 등록" Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center" Command="{Binding Path=RegisterShowDialogCommand}"/>
-                            <Button Content="제품 등록" Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center" Command="{Binding Path=RegisterShowDialogCommand}"/>
+                            <Button x:Name="AccountInfo" Content="거래처 등록"
+                                    Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center" 
+                                    Command="{Binding Path=OpenTheRegisterWindowCommand}"
+                                    CommandParameter="{Binding ElementName=AccountInfo}"/>
+                            <Button x:Name="ProductInfo" Content="제품 등록" Height="35" FontSize="13" 
+                                    FontWeight="SemiBold" VerticalContentAlignment="Center" 
+                                    Command="{Binding Path=OpenTheRegisterWindowCommand}"
+                                    CommandParameter="{Binding ElementName=ProductInfo}"/>
                             <Separator/>
                             <Button Content="Exit" Height="35" FontSize="13" FontWeight="DemiBold" VerticalContentAlignment="Center" Command="{Binding Path=WindowCloseCommand}"/>
                         </StackPanel>
@@ -45,7 +51,7 @@
         </Grid>
         
          <!-- Side Menu Bar -->
-        <Grid HorizontalAlignment="Left" Background="#FF1C3E63">
+        <Grid HorizontalAlignment="Left" Background="{StaticResource PrimaryDeepBlue}">
             <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MenuBarRegion}"/>
         </Grid>
        

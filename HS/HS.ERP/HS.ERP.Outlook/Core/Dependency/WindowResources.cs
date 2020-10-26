@@ -11,7 +11,7 @@ namespace HS.ERP.Outlook.Core.Dependency
     //
     #endregion
 
-    #region Application을 움직일 때 사용
+    #region Application DragMoving
     public class WindowDragMover
     {
         public static ICommand GetEnabledWindowDragMove(UIElement obj)
@@ -24,9 +24,9 @@ namespace HS.ERP.Outlook.Core.Dependency
             obj.SetValue(EnabledWindowDragMove, value);
         }
 
-       
+
         public static readonly DependencyProperty EnabledWindowDragMove =
-            DependencyProperty.RegisterAttached("EnabledWindowDragMove", typeof(ICommand), 
+            DependencyProperty.RegisterAttached("EnabledWindowDragMove", typeof(ICommand),
                 typeof(WindowDragMover), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnEnabledWindowDragMoveChanged)));
 
         private static void OnEnabledWindowDragMoveChanged(DependencyObject d, DependencyPropertyChangedEventArgs dc)
@@ -43,11 +43,11 @@ namespace HS.ERP.Outlook.Core.Dependency
                         };
 
                         window.MouseLeftButtonDown += (sender, dragMoveEvent) =>
-                        {                        
+                        {
                             if (dragMoveEvent.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
                             {
                                 window.DragMove();
-                            } 
+                            }
                         };
                     }
                 };
@@ -56,7 +56,7 @@ namespace HS.ERP.Outlook.Core.Dependency
     }
     #endregion
 
-    #region Application을 닫을 때 사용
+    #region Application Closing
     public class WindowCloser
     {
         public static bool GetEnabledWindowClosing(DependencyObject obj)
@@ -69,7 +69,7 @@ namespace HS.ERP.Outlook.Core.Dependency
             obj.SetValue(EnabledWindowClosing, value);
         }
 
-     
+
         public static readonly DependencyProperty EnabledWindowClosing =
             DependencyProperty.RegisterAttached("EnabledWindowClosing", typeof(bool), typeof(WindowCloser), new PropertyMetadata(false, OnEnabledWindowClosingChanged));
 

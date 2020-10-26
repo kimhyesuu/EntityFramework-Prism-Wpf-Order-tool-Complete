@@ -40,8 +40,7 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
-    <Reference Include="HS.ERP.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="HS.ERP.Core">
       <HintPath>..\HS.ERP.Core\bin\Debug\HS.ERP.Core.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.7.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
@@ -113,7 +112,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\Dependency\IWindowResources.cs" />
     <Compile Include="Core\Dependency\WindowResources.cs" />
     <Compile Include="Core\Dialogs\RegistryDialogWindow.xaml.cs">
       <DependentUpon>RegistryDialogWindow.xaml</DependentUpon>

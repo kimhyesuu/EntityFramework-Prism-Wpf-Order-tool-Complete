@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-        <TextBlock FontSize="35" Text="{Binding Path=MessageReceived}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <ListBox ItemsSource="{Binding Path=Messages}"/>
     </Grid>
 </UserControl>

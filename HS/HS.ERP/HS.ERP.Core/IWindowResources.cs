@@ -2,7 +2,7 @@
 
 namespace HS.ERP.Outlook.Core.Dependency
 {
-    interface IWindowResources
+     public interface IWindowResources
     {
         // window DrageMove
         Action WindowDragMove { get; set; }

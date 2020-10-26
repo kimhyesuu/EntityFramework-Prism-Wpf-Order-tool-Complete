@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using HS.ERP.Core;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
@@ -11,10 +13,25 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
         public event Action<IDialogResult> RequestClose;
 
+        private ObservableCollection<PersonTwo> _messagesManage;
 
-        public ProductInfoViewModel()
+
+        private IDataManager<PersonTwo> DataManager { get; }
+
+        public ObservableCollection<PersonTwo> MessagesManage
         {
+            get { return _messagesManage; }
+            set { SetProperty(ref _messagesManage, value); }
+        }
+
+
+        public ProductInfoViewModel(IDataManager<PersonTwo> dataManager)
+        {
+            this.DataManager = dataManager;
             CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
+
+            var ArrTest = new ObservableCollection<PersonTwo>(DataManager.GetString);
+            MessagesManage = ArrTest;
         }
 
         private void CloseDialog(string parameter)
@@ -48,7 +65,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            Message = parameters.GetValue<string>("message");
+            //Message = parameters.GetValue<string>("message");
         }
 
 

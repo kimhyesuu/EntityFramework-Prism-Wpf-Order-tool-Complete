@@ -16,7 +16,7 @@ namespace Modules.Menu.ViewModels
     {
         private bool _isOpenMenu;
         private bool _isCloseMenu;
-        private IRegionManager _regionManager;
+        private IRegionManager _regionManager { get; }
 
         public bool IsOpenMenu
         {

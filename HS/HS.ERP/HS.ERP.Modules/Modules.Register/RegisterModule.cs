@@ -16,12 +16,12 @@ namespace Modules.Register
             this._regionManager = regionManager;
 
 
-            _regionManager.RegisterViewWithRegion(RegionNames.RegisterRegion, typeof(RegisterAccount));
-            _regionManager.RegisterViewWithRegion(RegionNames.RegisteredListRegion, typeof(RegisteredAccountList));
+            _regionManager.RegisterViewWithRegion(RegionNames.RegisterAccountRegion, typeof(RegisterAccount));
+            _regionManager.RegisterViewWithRegion(RegionNames.RegisteredAccountListRegion, typeof(RegisteredAccountList));
 
 
-            _regionManager.RegisterViewWithRegion(RegionNames.RegisterRegion, typeof(RegisterProduct));
-            _regionManager.RegisterViewWithRegion(RegionNames.RegisteredListRegion, typeof(RegisteredProductList));
+            _regionManager.RegisterViewWithRegion(RegionNames.RegisterProductRegion, typeof(RegisterProduct));
+            _regionManager.RegisterViewWithRegion(RegionNames.RegisteredProductListRegion, typeof(RegisteredProductList));
         }
 
         public void OnInitialized(IContainerProvider containerProvider)

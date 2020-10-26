@@ -8,7 +8,7 @@ namespace Modules.Order
 {
     public class OrderModule : IModule
     {
-        private IRegionManager _regionManager;
+        private IRegionManager _regionManager { get; }
 
 
         public OrderModule(IRegionManager regionManager)
@@ -24,7 +24,7 @@ namespace Modules.Order
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterForNavigation<OrderedList>();
         }
     }
 }

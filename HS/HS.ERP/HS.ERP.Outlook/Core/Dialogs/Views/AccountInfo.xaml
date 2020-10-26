@@ -7,7 +7,7 @@
              xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
             >
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterRegion}"/>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredListRegion}"/>
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterAccountRegion}"/>
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
     </StackPanel>
 </UserControl>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using HS.ERP.Core;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
@@ -7,11 +9,26 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 {
     public class AccountInfoViewModel : BindableBase, IDialogAware 
     {
-        public AccountInfoViewModel()
+        private ObservableCollection<Person> _messagesManage;
+
+
+        private IDataManager<Person> DataManager { get; }
+
+        public ObservableCollection<Person> MessagesManage
         {
-            CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
+            get { return _messagesManage; }
+            set { SetProperty(ref _messagesManage, value); }
         }
 
+        public AccountInfoViewModel(IDataManager<Person> dataManager)
+        {
+            this.DataManager = dataManager;
+            CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
+
+            var ArrTest = new ObservableCollection<Person>(DataManager.GetString);
+            MessagesManage = ArrTest;
+        }
+       
         public DelegateCommand<string> CloseDialogCommand { get; private set; }
 
         public event Action<IDialogResult> RequestClose;
@@ -47,7 +64,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            Message = parameters.GetValue<string>("message");
+            //Message = parameters.GetValue<string>("message");
         }
 
         #region TitleName
