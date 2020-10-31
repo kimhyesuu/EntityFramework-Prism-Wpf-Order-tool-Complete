@@ -6,31 +6,22 @@ using System.Collections.ObjectModel;
 
 namespace Modules.Order.ViewModels
 {
-    public class RegisterOrderViewModel : BindableBase
-    {
-        private ObservableCollection<PersonTwo> _messages;
-        
-        private IDataManager<PersonTwo> DataManager { get; }
+   public class RegisterOrderViewModel : BindableBase
+   {
+      private ObservableCollection<object> _messages;
 
-        public ObservableCollection<PersonTwo> Messages
-        {
-            get { return _messages; }
-            set { SetProperty(ref _messages, value); }
-        }
+      private IDataManager<object> DataManager { get; }
 
-        public RegisterOrderViewModel(IDataManager<PersonTwo> dataManager)
-        {
-            this.DataManager = dataManager;
+      public ObservableCollection<object> Messages
+      {
+         get { return _messages; }
+         set { SetProperty(ref _messages, value); }
+      }
 
-            Messages = new ObservableCollection<PersonTwo>()
-            {
-                 new PersonTwo{Name = "RegisterOrderViewModel"},
-                new PersonTwo{Name = "RegisterOrderViewModel"},
-                new PersonTwo{Name = "RegisterOrderViewModel"},
-            };
-
-
-            DataManager.AddRange(Messages);
-        }
-    }
+      public RegisterOrderViewModel(IDataManager<object> dataManager)
+      {
+         this.DataManager = dataManager;
+         Messages = new ObservableCollection<object>();                
+      }
+   }
 }

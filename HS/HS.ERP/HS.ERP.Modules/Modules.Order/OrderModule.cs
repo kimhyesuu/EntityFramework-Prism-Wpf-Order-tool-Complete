@@ -6,25 +6,25 @@ using Prism.Regions;
 
 namespace Modules.Order
 {
-    public class OrderModule : IModule
-    {
-        private IRegionManager _regionManager { get; }
+   public class OrderModule : IModule
+   {
+      private IRegionManager _regionManager { get; }
 
 
-        public OrderModule(IRegionManager regionManager)
-        {
-            this._regionManager = regionManager;
-            _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(RegisterOrder));
-        }
+      public OrderModule(IRegionManager regionManager)
+      {
+         this._regionManager = regionManager;
+         _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(RegisterOrder));
+      }
 
-        public void OnInitialized(IContainerProvider containerProvider)
-        {
-           
-        }
+      public void OnInitialized(IContainerProvider containerProvider)
+      {
 
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<OrderedList>();
-        }
-    }
+      }
+
+      public void RegisterTypes(IContainerRegistry containerRegistry)
+      {
+         containerRegistry.RegisterForNavigation<OrderedList>();
+      }
+   }
 }

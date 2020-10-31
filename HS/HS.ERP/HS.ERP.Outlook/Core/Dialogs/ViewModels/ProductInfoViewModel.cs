@@ -7,78 +7,78 @@ using Prism.Services.Dialogs;
 
 namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 {
-    public class ProductInfoViewModel : BindableBase, IDialogAware
-    {
-        public DelegateCommand<string> CloseDialogCommand { get; private set; }
+   public class ProductInfoViewModel : BindableBase, IDialogAware
+   {
+      public DelegateCommand<string> CloseDialogCommand { get; private set; }
 
-        public event Action<IDialogResult> RequestClose;
+      public event Action<IDialogResult> RequestClose;
 
-        private ObservableCollection<PersonTwo> _messagesManage;
+      private ObservableCollection<object> _messagesManage;
 
+      private IDataManager<object> DataManager { get; }
 
-        private IDataManager<PersonTwo> DataManager { get; }
+      public ObservableCollection<object> MessagesManage
+      {
+         get { return _messagesManage; }
+         set { SetProperty(ref _messagesManage, value); }
+      }
 
-        public ObservableCollection<PersonTwo> MessagesManage
-        {
-            get { return _messagesManage; }
-            set { SetProperty(ref _messagesManage, value); }
-        }
+      public ProductInfoViewModel(IDataManager<object> dataManager)
+      {     
+         this.DataManager = dataManager;
+         CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
 
+         var ArrTest = new ObservableCollection<object>(DataManager.GetString);
+         MessagesManage = ArrTest;
+      }
 
-        public ProductInfoViewModel(IDataManager<PersonTwo> dataManager)
-        {
-            this.DataManager = dataManager;
-            CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
+      private void CloseDialog(string parameter)
+      {
+         ButtonResult result = ButtonResult.None;
+         var transportParameter = new DialogParameters();
+         string parameterValue = string.Empty;
 
-            var ArrTest = new ObservableCollection<PersonTwo>(DataManager.GetString);
-            MessagesManage = ArrTest;
-        }
+         if (parameter?.ToLower() == "true")
+         {
+            result = ButtonResult.OK;
+            parameterValue = "ButtonResult.OK";
+         }
 
-        private void CloseDialog(string parameter)
-        {
-            ButtonResult result = ButtonResult.None;
-            var transportParameter = new DialogParameters();
-            string parameterValue = string.Empty;
+         transportParameter.Add("submessage", parameterValue);
+         RaiseRequestClose(result, transportParameter);
+      }
 
-            if (parameter?.ToLower() == "true")
-            {
-                result = ButtonResult.OK;
-                parameterValue = "ButtonResult.OK";
-            }
+      private void RaiseRequestClose(ButtonResult dialogResult, IDialogParameters dialogParameters)
+         => RequestClose?.Invoke(new DialogResult(dialogResult, dialogParameters));
 
-            transportParameter.Add("submessage", parameterValue);
-            RaiseRequestClose(result, transportParameter);
-        }
+      public bool CanCloseDialog()
+      {
+         return true;
+      }
 
-        private void RaiseRequestClose(ButtonResult dialogResult, IDialogParameters dialogParameters)
-           => RequestClose?.Invoke(new DialogResult(dialogResult, dialogParameters));
+      public void OnDialogClosed()
+      {
 
-        public bool CanCloseDialog()
-        {
-            return true;
-        }
+      }
 
-        public void OnDialogClosed()
-        {
-            
-        }
-
-        public void OnDialogOpened(IDialogParameters parameters)
-        {
-            //Message = parameters.GetValue<string>("message");
-        }
+      public void OnDialogOpened(IDialogParameters parameters)
+      {
+         //Message = parameters.GetValue<string>("message");
+      }
 
 
-        #region TitleName
-        private string _message;
-        public string Message
-        {
-            get => _message;
-            set { SetProperty(ref _message, value); }
-        }
-        public string ButtonOKTitle { get => "OK"; }
-        public string ButtonCancelTitle { get => "Cancel"; }
-        public string Title => "MessageDialog";
-        #endregion
-    }
+      #region TitleName
+      private string _message;
+      public string Message
+      {
+         get => _message;
+         set { SetProperty(ref _message, value); }
+      }
+      public string ButtonOKTitle { get => "OK"; }
+      public string ButtonCancelTitle { get => "Cancel"; }
+      public string Title => "MessageDialog";
+
+   
+      #endregion
+   }
 }

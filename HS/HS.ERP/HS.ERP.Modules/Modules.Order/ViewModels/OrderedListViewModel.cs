@@ -1,4 +1,5 @@
-﻿using HS.ERP.Core;
+﻿using HS.ERP.Business.Models;
+using HS.ERP.Core;
 using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,30 +7,23 @@ using System.Linq;
 
 namespace Modules.Order.ViewModels
 {
-    public class OrderedListViewModel : BindableBase
-    {
-        private ObservableCollection<Person> _messages;
+   public class OrderedListViewModel : BindableBase
+   {
+      public AccountInfo accountInfo { get; set; }
+      private ObservableCollection<AccountInfo> _accountList;
 
-        private IDataManager<Person> DataManager { get; }
+      private IDataManager<AccountInfo> DataManager { get; }
 
-        public ObservableCollection<Person> Messages
-        {
-            get { return _messages; }
-            set { SetProperty(ref _messages, value); }
-        }
+      public ObservableCollection<AccountInfo> AccountList
+      {
+         get { return accountInfo.AccountList; }
+         set { SetProperty(ref accountInfo.AccountList, value); }
+      }
 
-        public OrderedListViewModel(IDataManager<Person> dataManager)
-        {
-            this.DataManager = dataManager;
-
-            Messages = new ObservableCollection<Person>()
-            {
-                new Person{Name = "OrderedListViewModel"},
-                new Person{Name = "OrderedListViewModel"},
-                new Person{Name = "굿"},
-            };
-
-            DataManager.AddRange(Messages);
-        }
-    }
+      public OrderedListViewModel(IDataManager<AccountInfo> dataManager)
+      {
+         this.DataManager = dataManager;
+         AccountList = new ObservableCollection<AccountInfo>(DataManager.GetString);  
+      }
+   }
 }

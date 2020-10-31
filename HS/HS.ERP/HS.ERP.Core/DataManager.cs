@@ -3,50 +3,49 @@ using System.Linq;
 
 namespace HS.ERP.Core
 {
-    public class DataManager<T> : IDataManager<T>
-    {
-        public DataRepository<T> Repository { get; }
+   public class DataManager<T> : IDataManager<T>
+   {
+      public DataRepository<T> Repository { get; }
 
-        public List<T> GetString { get => DataRepository<T>.Objs; }
+      public List<T> GetString { get => DataRepository<T>.Objs; }
 
-        public DataManager()
-        {
-            Repository = new DataRepository<T>();
-        }
+      public DataManager()
+      {
+         Repository = new DataRepository<T>();
+      }
 
-        #region Add 
+      #region Add 
 
-        public bool Add() => false;
- 
-        public bool Add(T parameter)
-        {
-            var para = parameter;
+      public bool Add() => false;
 
-            if (parameter != null)
-            {
-                Repository.Add(parameter);
-                return true;
-            }
+      public bool Add(T parameter)
+      {
+         var para = parameter;
 
-            return false;
-        }
+         if (parameter != null)
+         {
+            Repository.Add(parameter);
+            return true;
+         }
 
+         return false;
+      }
 
-        public bool AddRange(IEnumerable<T> parameters)
-        {
-            var para = parameters.ToList<T>();
+      public bool AddRange(List<T> parameters)
+      {
+         var para = new List<T>(parameters);
 
-            if (para != null)
-            {
-                Repository.Add(para);
-                return true;
-            }
-            return false;
-        }
+         if (para != null)
+         {
+            Repository.AddRange(para);
+            return true;
+         }
+         return false;
+      }
 
-        #endregion
+      #endregion
 
-    }
+   }
 
 
 }

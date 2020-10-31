@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Register", "HS.ERP.
 		{3FC723EF-4058-4D7C-B1E3-31505F561EC8} = {3FC723EF-4058-4D7C-B1E3-31505F561EC8}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.ERP.Business", "HS.ERP.Business\HS.ERP.Business.csproj", "{5E227C69-C886-40FC-8F88-25B6A14ABC6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.ERP.DataAccess", "HS.ERP.DataAccess\HS.ERP.DataAccess.csproj", "{1DE11117-80E8-427C-9F94-E745A673BE9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,14 @@ Global
 		{405D95E6-F8ED-4DC5-96C5-D1DEACA83243}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{405D95E6-F8ED-4DC5-96C5-D1DEACA83243}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{405D95E6-F8ED-4DC5-96C5-D1DEACA83243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E227C69-C886-40FC-8F88-25B6A14ABC6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E227C69-C886-40FC-8F88-25B6A14ABC6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E227C69-C886-40FC-8F88-25B6A14ABC6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E227C69-C886-40FC-8F88-25B6A14ABC6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DE11117-80E8-427C-9F94-E745A673BE9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DE11117-80E8-427C-9F94-E745A673BE9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DE11117-80E8-427C-9F94-E745A673BE9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE11117-80E8-427C-9F94-E745A673BE9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

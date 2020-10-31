@@ -4,6 +4,12 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <ListBox ItemsSource="{Binding Path=Messages}"/>
+        <DataGrid x:Name="MainGrid"               
+                          Loaded="{Binding Path=AccountList}"                         
+                          AutoGenerateColumns="False" 
+                          DockPanel.Dock="Top"
+                      
+                          HorizontalScrollBarVisibility="Visible">
+        </DataGrid>
     </Grid>
 </UserControl>

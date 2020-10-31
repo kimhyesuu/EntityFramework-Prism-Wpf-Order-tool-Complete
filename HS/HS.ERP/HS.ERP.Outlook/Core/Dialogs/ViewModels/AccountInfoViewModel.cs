@@ -7,78 +7,84 @@ using Prism.Services.Dialogs;
 
 namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 {
-    public class AccountInfoViewModel : BindableBase, IDialogAware 
-    {
-        private ObservableCollection<Person> _messagesManage;
+   public class AccountInfoViewModel : BindableBase, IDialogAware
+   {
+      private ObservableCollection<object> _accountList;
 
+      private IDataManager<object> DataManager { get; }
 
-        private IDataManager<Person> DataManager { get; }
+      public ObservableCollection<object> AccountList
+      {
+         get { return _accountList; }
+         set { SetProperty(ref _accountList, value); }
+      }
 
-        public ObservableCollection<Person> MessagesManage
-        {
-            get { return _messagesManage; }
-            set { SetProperty(ref _messagesManage, value); }
-        }
+      public AccountInfoViewModel(IDataManager<object> dataManager)
+      {
 
-        public AccountInfoViewModel(IDataManager<Person> dataManager)
-        {
-            this.DataManager = dataManager;
-            CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
+         this.DataManager = dataManager;
+         CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
 
-            var ArrTest = new ObservableCollection<Person>(DataManager.GetString);
-            MessagesManage = ArrTest;
-        }
-       
-        public DelegateCommand<string> CloseDialogCommand { get; private set; }
+         //   private int? _id;
+         //private string _companyName;
+         //private string _companyManager;
+         //private string _phoneNumber;
+         //private string _email;
+         //private string _address;
+         //private string _description;
+         //private DateTime _createdDate;
+         //private DateTime _updatedDate;
+      }
 
-        public event Action<IDialogResult> RequestClose;
+      public DelegateCommand<string> CloseDialogCommand { get; private set; }
 
-        private void CloseDialog(string parameter)
-        {
-            ButtonResult result = ButtonResult.None;
-            var transportParameter = new DialogParameters();
-            string parameterValue = string.Empty;
+      public event Action<IDialogResult> RequestClose;
 
-            if (parameter?.ToLower() == "true")
-            {
-                result = ButtonResult.OK;
-                parameterValue = "ButtonResult.OK";
-            }
+      private void CloseDialog(string parameter)
+      {
+         ButtonResult result = ButtonResult.None;
+         var transportParameter = new DialogParameters();
+         string parameterValue = string.Empty;
 
-            transportParameter.Add("submessage", parameterValue);
-            RaiseRequestClose(result, transportParameter);
-        }
+         if (parameter?.ToLower() == "true")
+         {
+            result = ButtonResult.OK;
+            parameterValue = "ButtonResult.OK";
+         }
 
-        private void RaiseRequestClose(ButtonResult dialogResult, DialogParameters dialogParameters)
-          => RequestClose?.Invoke(new DialogResult(dialogResult, dialogParameters));
+         transportParameter.Add("submessage", parameterValue);
+         RaiseRequestClose(result, transportParameter);
+      }
 
-        public bool CanCloseDialog()
-        {
-            return true;
-        }
+      private void RaiseRequestClose(ButtonResult dialogResult, DialogParameters dialogParameters)
+        => RequestClose?.Invoke(new DialogResult(dialogResult, dialogParameters));
 
-        public void OnDialogClosed()
-        {
-            
-        }
+      public bool CanCloseDialog()
+      {
+         return true;
+      }
 
-        public void OnDialogOpened(IDialogParameters parameters)
-        {
-            //Message = parameters.GetValue<string>("message");
-        }
+      public void OnDialogClosed()
+      {
 
-        #region TitleName
+      }
 
-        private string _message;
-        public string Message
-        {
-            get => _message;
-            set { SetProperty(ref _message, value); }
-        }
-        public string ButtonOKTitle { get => "OK"; }
-        public string ButtonCancelTitle { get => "Cancel"; }
-        public string Title => "RegisterAccountDialog";
+      public void OnDialogOpened(IDialogParameters parameters)
+      {
+         //Message = parameters.GetValue<string>("message");
+      }
 
-        #endregion
-    }
+      #region TitleName
+
+      private string _message;
+      public string Message
+      {
+         get => _message;
+         set { SetProperty(ref _message, value); }
+      }
+
+      public string Title => "Account";
+
+      #endregion
+   }
 }
