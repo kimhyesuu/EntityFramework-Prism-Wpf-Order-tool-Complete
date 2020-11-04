@@ -11,7 +11,7 @@ namespace HS.ERP.Business.BLL
 
       public void InsertAccount(AccountInfo account)
       {
-        
+         
       }
 
       public void UpdateAccount(AccountInfo account)

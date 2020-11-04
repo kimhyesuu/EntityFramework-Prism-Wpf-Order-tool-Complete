@@ -1,17 +1,15 @@
-﻿using Prism.Mvvm;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 
 namespace HS.ERP.Business.Models
 {
    public class AccountInfo 
    {
-      // seq   
       public int? AccountId { get; set; }
       public string CompanyName { get; set; }
       public string CompanyManager { get; set; }
       public string PhoneNumber { get; set; }
-      public string CompanyEmail { get; set; }
+      public string Email { get; set; }
       public string Address { get; set; }
       public string Description { get; set; }
       public DateTime CreatedDate { get; set; }

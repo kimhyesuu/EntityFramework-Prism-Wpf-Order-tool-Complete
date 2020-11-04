@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="Modules.Register.Views.RegisteredAccountList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             >
+    <DataGrid x:Name="MainGrid"               
+                          ItemsSource="{Binding Path=GetAllAccount}"                     
+                          AutoGenerateColumns="False" 
+                          DockPanel.Dock="Top"                      
+                          HorizontalScrollBarVisibility="Visible">
+       
+    </DataGrid>
+
+</UserControl>
