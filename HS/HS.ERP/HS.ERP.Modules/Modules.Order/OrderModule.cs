@@ -8,8 +8,7 @@ namespace Modules.Order
 {
    public class OrderModule : IModule
    {
-      private IRegionManager _regionManager { get; }
-
+      private IRegionManager _regionManager;
 
       public OrderModule(IRegionManager regionManager)
       {

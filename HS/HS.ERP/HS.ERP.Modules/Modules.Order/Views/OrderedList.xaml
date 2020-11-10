@@ -3,12 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0">
         <DataGrid x:Name="MainGrid"               
-                          Loaded="{Binding Path=AccountList}"                         
                           AutoGenerateColumns="False" 
-                          DockPanel.Dock="Top"
-                      
+                          DockPanel.Dock="Top"                     
                           HorizontalScrollBarVisibility="Visible">
         </DataGrid>
     </Grid>

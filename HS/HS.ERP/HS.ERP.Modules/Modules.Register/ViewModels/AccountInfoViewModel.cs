@@ -11,29 +11,15 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
    {
       private ObservableCollection<object> _accountList;
 
-      private IDataManager<object> DataManager { get; }
-
       public ObservableCollection<object> AccountList
       {
          get { return _accountList; }
          set { SetProperty(ref _accountList, value); }
       }
 
-      public AccountInfoViewModel(IDataManager<object> dataManager)
+      public AccountInfoViewModel()
       {
-
-         this.DataManager = dataManager;
          CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
-
-         //   private int? _id;
-         //private string _companyName;
-         //private string _companyManager;
-         //private string _phoneNumber;
-         //private string _email;
-         //private string _address;
-         //private string _description;
-         //private DateTime _createdDate;
-         //private DateTime _updatedDate;
       }
 
       public DelegateCommand<string> CloseDialogCommand { get; private set; }

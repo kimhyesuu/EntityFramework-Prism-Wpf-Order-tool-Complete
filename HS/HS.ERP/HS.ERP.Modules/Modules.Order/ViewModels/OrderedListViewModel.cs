@@ -9,21 +9,8 @@ namespace Modules.Order.ViewModels
 {
    public class OrderedListViewModel : BindableBase
    {
-      public AccountInfo accountInfo { get; set; }
-      private ObservableCollection<AccountInfo> _accountList;
-
-      private IDataManager<AccountInfo> DataManager { get; }
-
-      public ObservableCollection<AccountInfo> AccountList
+      public OrderedListViewModel()
       {
-         get { return accountInfo.AccountList; }
-         set { SetProperty(ref accountInfo.AccountList, value); }
-      }
-
-      public OrderedListViewModel(IDataManager<AccountInfo> dataManager)
-      {
-         this.DataManager = dataManager;
-         AccountList = new ObservableCollection<AccountInfo>(DataManager.GetString);  
       }
    }
 }

@@ -116,14 +116,6 @@
     <Compile Include="Core\Dialogs\RegistryDialogWindow.xaml.cs">
       <DependentUpon>RegistryDialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Dialogs\ViewModels\AccountInfoViewModel.cs" />
-    <Compile Include="Core\Dialogs\ViewModels\ProductInfoViewModel.cs" />
-    <Compile Include="Core\Dialogs\Views\AccountInfo.xaml.cs">
-      <DependentUpon>AccountInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Core\Dialogs\Views\ProductInfo.xaml.cs">
-      <DependentUpon>ProductInfo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\ShellWindowViewModel.cs" />
     <Compile Include="Views\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
@@ -159,14 +151,6 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Core\Dialogs\RegistryDialogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Core\Dialogs\Views\AccountInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Core\Dialogs\Views\ProductInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

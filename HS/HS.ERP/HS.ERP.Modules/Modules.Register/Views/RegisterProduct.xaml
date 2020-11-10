@@ -40,7 +40,6 @@
         <TextBox Grid.Row="0" Grid.Column="2"/>
         <TextBlock Grid.Row="0" Grid.Column="3" Text="제조사"/>
         <TextBox Grid.Row="0" Grid.Column="4" />
-        
 
         <!-- Row 1 -->
         <TextBlock Grid.Row="1" Grid.Column="1" Text="시리즈"/>
