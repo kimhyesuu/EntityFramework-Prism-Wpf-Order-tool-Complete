@@ -20,13 +20,11 @@ namespace HS.ERP.Outlook.ViewModels
 
       public ShellWindowViewModel(IDialogService dialogService, IRegionManager regionManager)
       {
-
          this.DialogService = dialogService;
          this.RegionManager = regionManager;
          WindowCloseCommand = new DelegateCommand(OnClose);
          DragMoveCommand = new DelegateCommand(OnDrag);
          OpenTheRegisterWindowCommand = new DelegateCommand<object>(o => ShowPopup(o));
-
       }
 
       public DelegateCommand WindowCloseCommand { get; private set; }
@@ -41,7 +39,6 @@ namespace HS.ERP.Outlook.ViewModels
       private void OnClose() => WindowClose?.Invoke();
 
       private void OnDrag() => WindowDragMove?.Invoke();
-
 
 
       private void ShowPopup(object navigationPopupPath)

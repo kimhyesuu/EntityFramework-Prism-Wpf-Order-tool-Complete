@@ -63,6 +63,9 @@
     </UserControl.Triggers>
     <Grid x:Name="GridMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="55" HorizontalAlignment="Left" >
         <StackPanel>
+            <StackPanel.Effect>
+                <DropShadowEffect RenderingBias="Quality" ShadowDepth="1"/>
+            </StackPanel.Effect>
             <Grid Height="120" Background="White">
                 <Button x:Name="btnCloseMenu" Width="60" Height="60"
                         
@@ -89,7 +92,7 @@
 
             </Grid>
 
-            <StackPanel ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <StackPanel ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left">
 
                 <Button  x:Name="RegisterOrder" Height="60" Background="{x:Null}" BorderBrush="{x:Null}"
                          Command="{Binding Path=ViewsNavigationCommand}"
@@ -124,10 +127,10 @@
 
                 <Button x:Name="OrderedList" Height="60" Background="{x:Null}" BorderBrush="{x:Null}"
                          Command="{Binding Path=ViewsNavigationCommand}"
-                         CommandParameter="{Binding ElementName=OrderedList}"
+                         CommandParameter="{Binding ElementName=OrderedList}"                        
                         >
 
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" >
 
                         <materialDesign:PackIcon Kind="Table"
                                                      Width="30"

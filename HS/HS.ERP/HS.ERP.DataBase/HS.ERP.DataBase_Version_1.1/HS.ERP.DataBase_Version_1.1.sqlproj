@@ -59,6 +59,7 @@
     <Folder Include="Properties" />
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
+    <Folder Include="PublishLocation" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\AccountInfo.sql" />
@@ -73,6 +74,6 @@
     <Build Include="dbo\Tables\Product.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="HS.ERP.DataBaseV1.1.publish.publish.xml" />
+    <None Include="PublishLocation\HS.ERP.DataBaseV1.1.publish.publish.xml" />
   </ItemGroup>
 </Project>

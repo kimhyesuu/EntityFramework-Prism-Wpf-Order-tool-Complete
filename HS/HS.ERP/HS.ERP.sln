@@ -19,6 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Order", "HS.ERP.Mod
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.ERP.Core", "HS.ERP.Core\HS.ERP.Core.csproj", "{3FC723EF-4058-4D7C-B1E3-31505F561EC8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E227C69-C886-40FC-8F88-25B6A14ABC6B} = {5E227C69-C886-40FC-8F88-25B6A14ABC6B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Menu", "HS.ERP.Modules\Modules.Menu\Modules.Menu.csproj", "{0C605122-20CC-4D7A-893B-35AC0AE40FBF}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -31,6 +34,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Register", "HS.ERP.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.ERP.Business", "HS.ERP.Business\HS.ERP.Business.csproj", "{5E227C69-C886-40FC-8F88-25B6A14ABC6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1DE11117-80E8-427C-9F94-E745A673BE9C} = {1DE11117-80E8-427C-9F94-E745A673BE9C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.ERP.DataAccess", "HS.ERP.DataAccess\HS.ERP.DataAccess.csproj", "{1DE11117-80E8-427C-9F94-E745A673BE9C}"
 EndProject

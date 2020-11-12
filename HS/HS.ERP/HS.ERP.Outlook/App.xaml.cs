@@ -21,12 +21,7 @@ namespace HS.ERP.Outlook
       }
 
       protected override void RegisterTypes(IContainerRegistry containerRegistry)
-      {
-         //containerRegistry.RegisterSingleton<IDataManager<string>>();
-         //containerRegistry.RegisterSingleton<IDataManager<string>>();
-         containerRegistry.RegisterSingleton<IDataManager<AccountInfo>, DataManager<AccountInfo>>();
-       
-
+      {      
          containerRegistry.RegisterDialog<AccountInfo, AccountInfoViewModel>();
          containerRegistry.RegisterDialog<ProductInfo, ProductInfoViewModel>();
 

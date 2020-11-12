@@ -33,6 +33,9 @@
             
             <!-- Row 1-->    
             <Grid Height="47" VerticalAlignment="Top" Background="{StaticResource PrimaryBlue}"  >
+                <Grid.Effect>
+                    <DropShadowEffect Color="#FF080823" RenderingBias="Quality" ShadowDepth="0.5"/>
+                </Grid.Effect>
                 <TextBlock  Text="HS ERP System" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" Foreground="White" Opacity="0.7"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
                     <TextBlock Text="" VerticalAlignment="Center" FontSize="16" Foreground="White" Opacity="0.7"/>

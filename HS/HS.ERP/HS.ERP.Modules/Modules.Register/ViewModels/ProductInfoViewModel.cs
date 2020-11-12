@@ -15,7 +15,6 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private ObservableCollection<object> _messagesManage;
 
-      private IDataManager<object> DataManager { get; }
 
       public ObservableCollection<object> MessagesManage
       {
@@ -23,13 +22,10 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          set { SetProperty(ref _messagesManage, value); }
       }
 
-      public ProductInfoViewModel(IDataManager<object> dataManager)
+      public ProductInfoViewModel()
       {     
-         this.DataManager = dataManager;
          CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
 
-         var ArrTest = new ObservableCollection<object>(DataManager.GetString);
-         MessagesManage = ArrTest;
       }
 
       private void CloseDialog(string parameter)

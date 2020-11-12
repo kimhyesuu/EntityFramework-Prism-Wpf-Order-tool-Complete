@@ -10,15 +10,12 @@ namespace Modules.Register
     {
         private IRegionManager _regionManager;
 
-
         public RegisterModule(IRegionManager regionManager)
         {
             this._regionManager = regionManager;
 
-
             _regionManager.RegisterViewWithRegion(RegionNames.RegisterAccountRegion, typeof(RegisterAccount));
             _regionManager.RegisterViewWithRegion(RegionNames.RegisteredAccountListRegion, typeof(RegisteredAccountList));
-
 
             _regionManager.RegisterViewWithRegion(RegionNames.RegisterProductRegion, typeof(RegisterProduct));
             _regionManager.RegisterViewWithRegion(RegionNames.RegisteredProductListRegion, typeof(RegisteredProductList));
