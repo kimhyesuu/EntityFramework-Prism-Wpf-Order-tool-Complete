@@ -5,7 +5,7 @@
 
    public class HSERPEntities : DbContext
    {
-      public HSERPEntities() : base("name=HSERPEntities") { }
+      public HSERPEntities(string connectString) : base(connectString) { }
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder) { }
 

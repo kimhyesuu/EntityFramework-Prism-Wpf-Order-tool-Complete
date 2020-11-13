@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Converter\ConvertToModel.cs" />
     <Compile Include="Converter\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="DBConnect.cs" />
     <Compile Include="Models\Enums\PhoneHeaderNumber.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Models\Account.cs" />

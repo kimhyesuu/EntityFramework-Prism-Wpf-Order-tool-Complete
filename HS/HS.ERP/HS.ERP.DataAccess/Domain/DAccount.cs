@@ -9,7 +9,7 @@
    public class DAccountInfo
    {
       [Key]
-      [Column("AccountId")]
+      [Column("AccountId"), DatabaseGenerated(DatabaseGeneratedOption.None)]
       public int? AccountId { get; set; }
 
       [Column("CompanyName")]
@@ -43,7 +43,7 @@
    public class DContact
    {
       [Key]
-      [Column("ContactId")]
+      [Column("ContactId"),DatabaseGenerated(DatabaseGeneratedOption.None)]
       public int? ContactId { get; set; }
 
       [Column("AccountId"), Index(IsUnique = true)]

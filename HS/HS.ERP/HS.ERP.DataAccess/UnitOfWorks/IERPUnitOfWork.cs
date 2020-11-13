@@ -15,6 +15,5 @@
 
       IERPRepogitary<DOrderProduct> OrderProduct { get; }
 
-      void Save();
    }
 }

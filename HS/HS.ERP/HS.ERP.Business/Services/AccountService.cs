@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using HS.ERP.Business.Converter;
 using HS.ERP.Business.Models;
 using HS.ERP.DataAccess.Domain;
@@ -12,13 +11,19 @@ namespace HS.ERP.Business.Services
       IERPUnitOfWork unitOfWork { get;} 
 
       public AccountService()
-      {
-         unitOfWork = new ERPUnitOfWork();
+      {    
+         unitOfWork = new ERPUnitOfWork(DBConnect.ConnectString);       
       }
 
       public void Delete(Account parameter)
       {
-         throw new System.NotImplementedException();
+         var account = parameter;
+         var accountInfo = new DAccountInfo() { AccountId = account.AccountId };
+         var contact = new DContact() { ContactId = account.ContactId};
+
+  
+         unitOfWork.Accounts.Delete(accountInfo);
+         unitOfWork.AccountContacts.Delete(contact);
       }
 
       public IEnumerable<Account> GetAll()
@@ -32,13 +37,11 @@ namespace HS.ERP.Business.Services
          var accountInfo = new DAccountInfo();
          var contact = new DContact();
 
-         ConvertToModel.ConvertToAccountInfoDomain(parameter, accountInfo);
-         ConvertToModel.ConvertToContactDomain(parameter, contact);
+         ConvertToModel.ConvertToAccountInfoDomain(account, accountInfo);
+         ConvertToModel.ConvertToContactDomain(account, contact);
 
          unitOfWork.Accounts.Insert(accountInfo);
          unitOfWork.AccountContacts.Insert(contact);
-
-         unitOfWork.Save();
 
          return account; 
       }

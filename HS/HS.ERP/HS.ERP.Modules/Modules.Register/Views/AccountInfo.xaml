@@ -16,8 +16,9 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <!--
             <Button Command="{Binding Path=}" Margin="5" Width="120" Content="수정"/>
-            <Button Command="{Binding Path=}" Margin="5" Width="120" Content="삭제"/>
-            -->
+                -->
+            <Button Command="{Binding Path=DeleteAccountInfoCommand}" Margin="5" Width="120" Content="삭제"/>
+            
                 <Button Command="{Binding Path=SaveAccountInfoCommand}" Margin="5" Width="120" Content="저장"/>
             </StackPanel>
         </StackPanel>

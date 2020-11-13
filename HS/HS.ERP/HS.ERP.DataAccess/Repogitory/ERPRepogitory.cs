@@ -7,78 +7,97 @@
    using System.Data.Entity.Infrastructure;
    using System.Diagnostics;
    using System.Linq;
-
+ 
    public class ERPRepogitary<TEntity> : IERPRepogitary<TEntity> where TEntity : class
    {
-      private HSERPEntities _context;
+      private string _connectString;
 
-      public ERPRepogitary(HSERPEntities context)
+      public ERPRepogitary(string connectString)
       {
-         this._context = context;
+         this._connectString = connectString;
       }
 
       public IEnumerable<TEntity> GetAll()
       {
-         try
+         using (var context = new HSERPEntities(_connectString))
          {
-            var list = _context.Set<TEntity>().Select(a => a).ToList();
-            return list;
-         }
-         catch (Exception e)
-         {
-            Console.WriteLine(e.InnerException.Message);
-            return null;
-         }
+            try
+            {
+               var list = context.Set<TEntity>().Select(a => a).ToList();
+               return list;
+            }
+            catch (Exception e)
+            {
+               Console.WriteLine(e.InnerException.Message);
+               return null;
+            }
+         }         
       }
 
       public TEntity GetById(object id)
       {
-         try
+         using (var context = new HSERPEntities(_connectString))
          {
-            return _context.Set<TEntity>().Find(id);            
-         }
-         catch
-         {
-            return null;
-         }
-       
+            try
+            {
+               return context.Set<TEntity>().Find(id);
+            }
+            catch
+            {
+               return null;
+            }
+         }     
       }
 
       public TEntity Insert(TEntity parameter)
       {
+         using (var context = new HSERPEntities(_connectString))
+         {
+     
          try
-         {
-            var para = _context.Set<TEntity>().Add(parameter);
-            return para;
+            {
+               var para = context.Set<TEntity>().Add(parameter);
+               context.SaveChanges();
+               return para;
 
-         }
-         catch (DbUpdateException e)
-         {
-            Console.WriteLine(e.InnerException.Message);
-            return null;
-         }
+            }
+            catch (DbUpdateException e)
+            {
+               Console.WriteLine(e.InnerException.Message);
+               return null;
+            }
+         }      
       }
 
       public void Update(TEntity parameter)
       {
-         try
+         using (var context = new HSERPEntities(_connectString))
          {
-            _context.Set<TEntity>().Attach(parameter);
-            _context.Entry(parameter).State = EntityState.Modified;
+            try
+            {
+               context.Set<TEntity>().Attach(parameter);
+               context.Entry(parameter).State = EntityState.Modified;
+               context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+               Debug.WriteLine(e.Message);
+            }
          }
-         catch(Exception e)
-         {
-            Debug.WriteLine(e.Message);
-         }       
+            
       }
-
+      //이거 안댐
       public void Delete(TEntity parameter)
       {
-         if (_context.Entry(parameter).State == EntityState.Detached)
-         {
-            _context.Set<TEntity>().Attach(parameter);
-         }
-         _context.Set<TEntity>().Remove(parameter);
+         //아이디 값을 못받아서 구렁가
+         using (var context = new HSERPEntities(_connectString))
+         {          
+            context.Entry(parameter).State = EntityState.Deleted;
+
+            context.Set<TEntity>().Attach(parameter);
+            context.Set<TEntity>().Remove(parameter);
+            context.SaveChanges();
+         }      
       }
    }
 }

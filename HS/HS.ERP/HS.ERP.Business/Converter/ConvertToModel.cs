@@ -3,6 +3,7 @@ using HS.ERP.DataAccess.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace HS.ERP.Business.Converter
 {
@@ -10,8 +11,6 @@ namespace HS.ERP.Business.Converter
    {
       internal static void ConvertToAccountInfoDomain(Account account, DAccountInfo accountInfo)
       {    
-         var rd = new Random();
-
          account.AccountId = account.AccountId;
          accountInfo.AccountId = account.AccountId;
          accountInfo.CompanyName = account.CompanyName;
@@ -27,7 +26,7 @@ namespace HS.ERP.Business.Converter
 
       internal static void ConvertToContactDomain(Account account, DContact contact)
       {
-         contact.AccountId = account.ContactId;
+         contact.AccountId = account.AccountId;
          contact.ContactId = account.ContactId;
          contact.ContactName = account.ContactName;
          contact.Department = account.Department;
@@ -39,7 +38,6 @@ namespace HS.ERP.Business.Converter
 
       internal static IEnumerable<Account> ConvertToClient(IEnumerable<DAccountInfo> accounts, IEnumerable<DContact> contacts)
       {      
-         // var result = accounts.Zip(contacts, (i, s) => new { Key = i, Value = s });
          var mergedList = accounts.Zip(contacts, (accountInfo, contactInfo)
             => new
             {
@@ -63,7 +61,7 @@ namespace HS.ERP.Business.Converter
          {
             AccountId = o.AccountId,
             CompanyName = o.CompanyName,
-            CompanyPhoneNumber = new string[4] { string.Empty, string.Empty, string.Empty, o.CompanyPhone },
+            CompanyPhoneNumber = GetPhoneNumber(o.CompanyPhone),
             CompanyEmail = o.CompanyEmail,
             Address = o.Address,
             Description = o.Description,
@@ -74,11 +72,50 @@ namespace HS.ERP.Business.Converter
             ContactName = o.ContactName,
             Department = o.Department,
             Position = o.Position,
-            ContactPhoneNumber = new string[4] { string.Empty, string.Empty, string.Empty, o.PhoneNumber }
+            ContactPhoneNumber = GetPhoneNumber(o.PhoneNumber)
          }).AsEnumerable();
 
          return clientAccounts;
 
+      }
+
+      private static string[] GetPhoneNumber(string parameter)
+      {
+         var phoneNumber = parameter;
+         var arrNum = new string[4];
+         var a = string.Format("{0:###-####-####}", phoneNumber); // 11
+       
+         var c = string.Format("{0:##-###-####}", phoneNumber);
+         var d = string.Format("{0:###-###-####}", phoneNumber);
+         var b = string.Format("{0:##-####-####}", phoneNumber);
+
+         switch (phoneNumber.Length)
+         {
+            case 11 :
+               {
+                  arrNum = string.Format("{0:###-####-####}", phoneNumber).Split('-');
+                  break;
+               }
+            case 10:
+               {
+                  if(phoneNumber[1] == '2')
+                  {                     
+                     arrNum = string.Format("{0:##-####-####}", phoneNumber).Split('-');
+                  }
+                  else
+                  {
+                     arrNum = string.Format("{0:###-###-####}", phoneNumber).Split('-');
+                  }
+                  break;
+               }
+            case 9:
+               {
+                  arrNum = string.Format("{0:##-###-####}", phoneNumber).Split('-');
+                  break;
+               }
+         }
+
+         return arrNum;
       }
 
 

@@ -12,21 +12,25 @@
       private ERPRepogitary<DProduct> _product;
       private ERPRepogitary<DOrderProduct> _orderProduct;
 
-      private HSERPEntities _hSERPEntities;
+      private string _connectString = string.Empty;
+         
+      public ERPUnitOfWork(string connectString)
+      {
+         this._connectString = connectString;
+      }
 
-      public ERPUnitOfWork() => _hSERPEntities = new HSERPEntities();
+      public IERPRepogitary<DAccountInfo> Accounts => _account ?? (_account = new ERPRepogitary<DAccountInfo>(_connectString));
 
-      public IERPRepogitary<DAccountInfo> Accounts => _account ?? (_account = new ERPRepogitary<DAccountInfo>(_hSERPEntities));
+      public IERPRepogitary<DContact> AccountContacts => _Contact ?? (_Contact = new ERPRepogitary<DContact>(_connectString));
 
-      public IERPRepogitary<DContact> AccountContacts => _Contact ?? (_Contact = new ERPRepogitary<DContact>(_hSERPEntities));
+      public IERPRepogitary<DProduct> Product => _product ?? (_product = new ERPRepogitary<DProduct>(_connectString));
 
-      public IERPRepogitary<DProduct> Product => _product ?? (_product = new ERPRepogitary<DProduct>(_hSERPEntities));
-
-      public IERPRepogitary<DOrder> Orders => _order ?? (_order = new ERPRepogitary<DOrder>(_hSERPEntities));
+      public IERPRepogitary<DOrder> Orders => _order ?? (_order = new ERPRepogitary<DOrder>(_connectString));
 
       public IERPRepogitary<DOrderProduct> OrderProduct
-         => _orderProduct ?? (_orderProduct = new ERPRepogitary<DOrderProduct>(_hSERPEntities));
+         => _orderProduct ?? (_orderProduct = new ERPRepogitary<DOrderProduct>(_connectString));
 
-      public void Save() => _hSERPEntities.SaveChanges();
+  
+
    }
 }
