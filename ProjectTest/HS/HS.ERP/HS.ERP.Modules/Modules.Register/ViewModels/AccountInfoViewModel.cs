@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using HS.ERP.Business.Models;
 using HS.ERP.Business.Services;
-using Modules.Register.EnumExtansion;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
@@ -61,8 +59,10 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {
          CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
          SaveAccountInfoCommand = new DelegateCommand(SaveAccountInfoInStorage);
-         DeleteAccountInfoCommand = new DelegateCommand(DeleteAccountInfoInStorage);
+         DeleteAccountInfoCommand = new DelegateCommand<object>(o =>DeleteAccountInfoInStorage(o));
+         UpdateAccountCommand = new DelegateCommand( UpdateAccountInfoInStorage);
       }
+
 
       private void DataInitialize()
       {
@@ -80,15 +80,26 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          //왜?
          AccountList = new ObservableCollection<Account>();
       }
-
-      public DelegateCommand DeleteAccountInfoCommand { get; private set; }
+      
+      public DelegateCommand<object> DeleteAccountInfoCommand { get; private set; }
       public DelegateCommand SaveAccountInfoCommand { get; private set; }
+      public DelegateCommand UpdateAccountCommand { get; private set; }
       public DelegateCommand<string> CloseDialogCommand { get; private set; }
 
-      private void DeleteAccountInfoInStorage()
+      private void DeleteAccountInfoInStorage(object selectedList)
       {
-         ServiceLogic.Delete(SelectedAccountInfo);
+         var selectedAccount = selectedList as Account;
+         ServiceLogic.Delete(selectedAccount.AccountId);
+         MessageBox.Show("성공");
       }
+
+      private void UpdateAccountInfoInStorage()
+      {
+         var AccountToBeModified = SelectedAccountInfo;
+         AccountInformation = AccountToBeModified;
+         MessageBox.Show("성공");
+      }
+
 
       #region 거래처 정보를 저장하는 로직 
       private void SaveAccountInfoInStorage()
@@ -96,11 +107,20 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          var companyNumber = SelectedCompanyHeadNumber;
          var contactNumber = GetPhoneHeadNumber(SelectedContactHeadNumber);
 
+         if (AccountInformation.AccountId != null)
+         {
+            // 여기서 업데이트를 할 것입니다.....
+            // 아이디 값이 없으면 
+            //AccountList.Add(ServiceLogic.Update(AccountInformation));
+            return;
+         }
+
          if (IsCompatibility(companyNumber, contactNumber) != true)
          {
             MessageBox.Show("값을 넣어주세요");
             return;
          }
+
 
          ShowAddedAccount(ServiceLogic.Insert(AccountInformation));
 
