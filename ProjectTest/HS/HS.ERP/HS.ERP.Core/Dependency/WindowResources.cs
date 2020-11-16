@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace HS.ERP.Outlook.Core.Dependency
+namespace HS.ERP.Core.Dependency
 {
    #region 내가 부족한 것
    //1.public static readonly DependencyProperty EnabledWindowDragMove =

@@ -67,6 +67,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumExtansions\EnumBindingExtension.cs" />
     <Compile Include="IWindowResources.cs" />
     <Compile Include="NavigationViews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

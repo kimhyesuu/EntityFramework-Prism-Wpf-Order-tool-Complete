@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HS.ERP.Outlook.Core.Dependency
+namespace HS.ERP.Core.Dependency
 {
    public interface IWindowResources
    {

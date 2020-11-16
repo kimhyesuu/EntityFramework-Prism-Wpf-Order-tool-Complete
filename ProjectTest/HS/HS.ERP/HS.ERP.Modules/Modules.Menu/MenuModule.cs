@@ -18,6 +18,7 @@ namespace Modules.Menu
       public void OnInitialized(IContainerProvider containerProvider)
       {
          _regionManager.RegisterViewWithRegion(RegionNames.MenuBarRegion, typeof(SideBar));
+         _regionManager.RegisterViewWithRegion(RegionNames.HeadRegion, typeof(MainHeadBar));
       }
 
       public void RegisterTypes(IContainerRegistry containerRegistry)

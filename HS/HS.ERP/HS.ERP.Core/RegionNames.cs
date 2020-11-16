@@ -12,15 +12,4 @@
       public const string RegisterProductRegion = "RegisterProductRegion";
       public const string RegisteredProductListRegion = "RegisteredProductListRegion";
    }
-
-   public static class ViewNames
-   {
-      public const string RegisterAccount = "RegisterAccount";
-      public const string RegisterProduct = "RegisterProduct";
-      public const string RegisteredAccountList = "RegisteredAccountList";
-      public const string RegisteredProductList = "RegisteredProductList";
-
-      public const string ProductInfo = "ProductInfo";
-      public const string AccountInfo = "AccountInfo";
-   }
 }

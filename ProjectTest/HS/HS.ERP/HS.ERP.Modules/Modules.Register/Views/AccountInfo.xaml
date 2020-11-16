@@ -7,8 +7,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
             >
-    <ScrollViewer>
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
+       
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Command="{Binding Path=UpdateAccountCommand}" Margin="5" Width="100" Background="DeepSkyBlue" BorderBrush="Black">
@@ -22,5 +22,4 @@
                 <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterAccountRegion}"/>
             </GroupBox>
         </StackPanel>
-    </ScrollViewer>
 </UserControl>

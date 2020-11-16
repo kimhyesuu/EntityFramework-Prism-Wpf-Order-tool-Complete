@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using HS.ERP.Core;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HS.ERP.Outlook.Core.Dependency

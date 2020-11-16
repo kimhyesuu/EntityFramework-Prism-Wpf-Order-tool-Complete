@@ -1,8 +1,9 @@
 ﻿<UserControl x:Class="Modules.Register.Views.RegisteredAccountList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"            
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"      
+             x:Name="accountInfos"
              >
-    
+
     <DataGrid ItemsSource="{Binding Path=AccountList}" SelectionMode="Single" 
               IsReadOnly="True" SelectedItem="{Binding Path=SelectedAccountInfo}"
               CanUserAddRows="False" AutoGenerateColumns="False" 
@@ -18,7 +19,13 @@
             <DataGridTextColumn Binding="{Binding Path=Address }" Header="주소"/>
             <DataGridTextColumn Binding="{Binding Path=CreatedDate }" Header="생성일"/>
             <DataGridTextColumn Binding="{Binding Path=UpdatedDate }" Header="수정일"/>
+            <DataGridTemplateColumn>
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding DataContext.DeleteAccountInfoCommand,ElementName=accountInfos}" CommandParameter="{Binding}" Content="수정"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
         </DataGrid.Columns>
-       
     </DataGrid>
 </UserControl>

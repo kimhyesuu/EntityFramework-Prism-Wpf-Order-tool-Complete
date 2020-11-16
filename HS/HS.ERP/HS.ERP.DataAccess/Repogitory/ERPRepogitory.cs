@@ -4,10 +4,11 @@
    using System;
    using System.Collections.Generic;
    using System.Data.Entity;
+   using System.Data.Entity.Core.Objects;
    using System.Data.Entity.Infrastructure;
    using System.Diagnostics;
    using System.Linq;
- 
+
    public class ERPRepogitary<TEntity> : IERPRepogitary<TEntity> where TEntity : class
    {
       private string _connectString;
@@ -31,7 +32,7 @@
                Console.WriteLine(e.InnerException.Message);
                return null;
             }
-         }         
+         }
       }
 
       public TEntity GetById(object id)
@@ -46,15 +47,15 @@
             {
                return null;
             }
-         }     
+         }
       }
 
       public TEntity Insert(TEntity parameter)
       {
          using (var context = new HSERPEntities(_connectString))
          {
-     
-         try
+
+            try
             {
                var para = context.Set<TEntity>().Add(parameter);
                context.SaveChanges();
@@ -66,7 +67,7 @@
                Console.WriteLine(e.InnerException.Message);
                return null;
             }
-         }      
+         }
       }
 
       public void Update(TEntity parameter)
@@ -84,20 +85,21 @@
                Debug.WriteLine(e.Message);
             }
          }
-            
       }
-      //이거 안댐
-      public void Delete(TEntity parameter)
-      {
-         //아이디 값을 못받아서 구렁가
-         using (var context = new HSERPEntities(_connectString))
-         {          
-            context.Entry(parameter).State = EntityState.Deleted;
 
-            context.Set<TEntity>().Attach(parameter);
-            context.Set<TEntity>().Remove(parameter);
-            context.SaveChanges();
-         }      
+      public void Delete(object id)
+      {
+         using (var context = new HSERPEntities(_connectString))
+         {
+            TEntity entity = context.Set<TEntity>().Find(id);
+            context.Set<TEntity>().Remove(entity);
+            Save(context);
+         }
+      }
+
+      private void Save(HSERPEntities context)
+      {
+         context.SaveChanges();
       }
    }
 }

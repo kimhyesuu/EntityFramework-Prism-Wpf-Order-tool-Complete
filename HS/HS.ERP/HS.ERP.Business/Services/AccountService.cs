@@ -8,31 +8,28 @@ namespace HS.ERP.Business.Services
 {
    public class AccountService : IServiceLogic<Account>
    {
-      IERPUnitOfWork unitOfWork { get;} 
+      IERPUnitOfWork unitOfWork { get; }
 
       public AccountService()
-      {    
-         unitOfWork = new ERPUnitOfWork(DBConnect.ConnectString);       
+      {
+         unitOfWork = new ERPUnitOfWork(DBConnect.ConnectString);
       }
 
-      public void Delete(Account parameter)
+      public void Delete(object id)
       {
-         var account = parameter;
-         var accountInfo = new DAccountInfo() { AccountId = account.AccountId };
-         var contact = new DContact() { ContactId = account.ContactId};
+         var accountId = id;
 
-  
-         unitOfWork.Accounts.Delete(accountInfo);
-         unitOfWork.AccountContacts.Delete(contact);
+         unitOfWork.Accounts.Delete(accountId);
+         unitOfWork.AccountContacts.Delete(accountId);
       }
 
       public IEnumerable<Account> GetAll()
       {
          return ConvertToModel.ConvertToClient(unitOfWork.Accounts.GetAll(), unitOfWork.AccountContacts.GetAll());
       }
-     
+
       public Account Insert(Account parameter)
-      {         
+      {
          var account = parameter;
          var accountInfo = new DAccountInfo();
          var contact = new DContact();
@@ -43,7 +40,7 @@ namespace HS.ERP.Business.Services
          unitOfWork.Accounts.Insert(accountInfo);
          unitOfWork.AccountContacts.Insert(contact);
 
-         return account; 
+         return account;
       }
 
       public void Update(Account parameter)

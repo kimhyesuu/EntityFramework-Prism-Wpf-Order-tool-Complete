@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Markup;
 
-namespace Modules.Register.EnumExtansion
+namespace HS.ERP.Core.Extansions
 {
    public class EnumBindingExtension : MarkupExtension
    {
@@ -20,7 +20,4 @@ namespace Modules.Register.EnumExtansion
          return Enum.GetValues(EnumType);
       }
    }
-
- 
-
 }

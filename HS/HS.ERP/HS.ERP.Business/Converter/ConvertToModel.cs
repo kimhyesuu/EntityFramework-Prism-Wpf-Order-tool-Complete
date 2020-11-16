@@ -1,9 +1,7 @@
 ﻿using HS.ERP.Business.Models;
 using HS.ERP.DataAccess.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace HS.ERP.Business.Converter
 {
@@ -76,7 +74,6 @@ namespace HS.ERP.Business.Converter
          }).AsEnumerable();
 
          return clientAccounts;
-
       }
 
       private static string[] GetPhoneNumber(string parameter)
