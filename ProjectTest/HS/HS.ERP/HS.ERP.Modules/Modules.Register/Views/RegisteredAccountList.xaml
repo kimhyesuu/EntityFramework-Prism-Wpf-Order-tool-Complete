@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"      
              x:Name="accountInfos"
              >
-    
+
     <DataGrid ItemsSource="{Binding Path=AccountList}" SelectionMode="Single" 
               IsReadOnly="True" SelectedItem="{Binding Path=SelectedAccountInfo}"
               CanUserAddRows="False" AutoGenerateColumns="False" 
@@ -22,7 +22,7 @@
             <DataGridTemplateColumn>
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <Button Command="{Binding DataContext.DeleteAccountInfoCommand,ElementName=accountInfos}" CommandParameter="{Binding}" Content="수정"/>
+                        <Button Command="{Binding DataContext.DeleteAccountInfoCommand,ElementName=accountInfos}" CommandParameter="{Binding}" Content="삭제"/>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

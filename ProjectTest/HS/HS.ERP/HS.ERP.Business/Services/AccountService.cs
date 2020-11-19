@@ -8,11 +8,11 @@ namespace HS.ERP.Business.Services
 {
    public class AccountService : IServiceLogic<Account>
    {
-      IERPUnitOfWork unitOfWork { get;} 
+      IERPUnitOfWork unitOfWork { get; }
 
       public AccountService()
-      {    
-         unitOfWork = new ERPUnitOfWork(DBConnect.ConnectString);       
+      {
+         unitOfWork = new ERPUnitOfWork(DBConnect.ConnectString);
       }
 
       public void Delete(object id)
@@ -27,9 +27,9 @@ namespace HS.ERP.Business.Services
       {
          return ConvertToModel.ConvertToClient(unitOfWork.Accounts.GetAll(), unitOfWork.AccountContacts.GetAll());
       }
-     
+
       public Account Insert(Account parameter)
-      {         
+      {
          var account = parameter;
          var accountInfo = new DAccountInfo();
          var contact = new DContact();
@@ -40,7 +40,7 @@ namespace HS.ERP.Business.Services
          unitOfWork.Accounts.Insert(accountInfo);
          unitOfWork.AccountContacts.Insert(contact);
 
-         return account; 
+         return account;
       }
 
       public void Update(Account parameter)

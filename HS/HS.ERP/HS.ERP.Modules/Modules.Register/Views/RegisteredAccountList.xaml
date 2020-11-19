@@ -1,28 +1,22 @@
 ﻿<UserControl x:Class="Modules.Register.Views.RegisteredAccountList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"      
-             x:Name="accountInfos"
+             x:Name="rowAccount"
              >
 
-    <DataGrid ItemsSource="{Binding Path=AccountList}" SelectionMode="Single" 
+    <DataGrid x:Name="accountList" ItemsSource="{Binding Path=Accounts}" SelectionMode="Single" 
               IsReadOnly="True" SelectedItem="{Binding Path=SelectedAccountInfo}"
               CanUserAddRows="False" AutoGenerateColumns="False" 
               VerticalScrollBarVisibility="Auto"
               HorizontalScrollBarVisibility="Auto" Margin="15">
         <DataGrid.Columns>
             <DataGridTextColumn Binding="{Binding Path=CompanyName}" Header="회사명"/>
-            <DataGridTextColumn Binding="{Binding Path=CompanyPhoneNumber[3]}" Header="전화번호"/>
-            <DataGridTextColumn Binding="{Binding Path=ContactName  }" Header="담당자"/>
-            <DataGridTextColumn Binding="{Binding Path=Position}" Header="직책"/>
-            <DataGridTextColumn Binding="{Binding Path=ContactPhoneNumber[3]}" Header="담당자 번호"/>
-            <DataGridTextColumn Binding="{Binding Path=CompanyEmail }" Header="Email"/>
-            <DataGridTextColumn Binding="{Binding Path=Address }" Header="주소"/>
-            <DataGridTextColumn Binding="{Binding Path=CreatedDate }" Header="생성일"/>
-            <DataGridTextColumn Binding="{Binding Path=UpdatedDate }" Header="수정일"/>
+            <DataGridTextColumn Binding="{Binding Path=ContactName}" Header="담당자"/>
+            <DataGridTextColumn Binding="{Binding Path=FullPhoneNumber}" Header="담당자 번호"/>
             <DataGridTemplateColumn>
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <Button Command="{Binding DataContext.DeleteAccountInfoCommand,ElementName=accountInfos}" CommandParameter="{Binding}" Content="수정"/>
+                        <Button Command="{Binding DataContext.DeleteAccountInfoCommand,ElementName=rowAccount}" CommandParameter="{Binding}" Content="삭제"/>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

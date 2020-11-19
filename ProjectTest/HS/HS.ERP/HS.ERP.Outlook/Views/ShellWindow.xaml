@@ -3,16 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
-        
+        xmlns:windowResource="clr-namespace:HS.ERP.Outlook.Core.Dependency"
         xmlns:prism ="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-
+        windowResource:WindowCloser.EnabledWindowClosing="True"
+        windowResource:WindowDragMover.EnabledWindowDragMove="{Binding DragMoveCommand}"
+        
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize" 
         Height="550" Width="900">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=ERPInfoCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
 
@@ -24,8 +32,28 @@
             </Grid.RowDefinitions>
             
             <!-- Row 1-->    
-            <Grid Height="47" VerticalAlignment="Top"   >
-                <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.HeadRegion}"/>
+            <Grid Height="47" VerticalAlignment="Top" Background="{StaticResource PrimaryBlue}"  >
+                <Grid.Effect>
+                    <DropShadowEffect Color="#FF080823" RenderingBias="Quality" ShadowDepth="0.5"/>
+                </Grid.Effect>
+                <TextBlock  Text="HS ERP System" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" Foreground="White" Opacity="0.7"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    <TextBlock Text="" VerticalAlignment="Center" FontSize="16" Foreground="White" Opacity="0.7"/>
+                    <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" Foreground="White" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" >
+                        <StackPanel Width="150">
+                            <Button x:Name="AccountInfo" Content="거래처 등록"
+                                    Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center" 
+                                    Command="{Binding Path=OpenTheRegisterWindowCommand}"
+                                    CommandParameter="{Binding ElementName=AccountInfo}"/>
+                            <Button x:Name="ProductInfo" Content="제품 등록" Height="35" FontSize="13" 
+                                    FontWeight="SemiBold" VerticalContentAlignment="Center" 
+                                    Command="{Binding Path=OpenTheRegisterWindowCommand}"
+                                    CommandParameter="{Binding ElementName=ProductInfo}"/>
+                            <Separator/>
+                            <Button Content="Exit" Height="35" FontSize="13" FontWeight="DemiBold" VerticalContentAlignment="Center" Command="{Binding Path=WindowCloseCommand}"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </StackPanel>
             </Grid>
             
             <!-- Row 2-->

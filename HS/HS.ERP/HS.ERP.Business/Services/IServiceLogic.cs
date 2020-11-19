@@ -4,7 +4,6 @@
 
    public interface IServiceLogic<TEntity>
    {
-      IEnumerable<TEntity> GetAll();
       TEntity Insert(TEntity parameter);
       void Update(TEntity parameter);
       void Delete(object id);

@@ -19,26 +19,19 @@ namespace HS.ERP.Business.Services
       {
          var accountId = id;
 
-         unitOfWork.Accounts.Delete(accountId);
-         unitOfWork.AccountContacts.Delete(accountId);
+       
       }
 
-      public IEnumerable<Account> GetAll()
-      {
-         return ConvertToModel.ConvertToClient(unitOfWork.Accounts.GetAll(), unitOfWork.AccountContacts.GetAll());
-      }
+      //public IEnumerable<Account> GetAll()
+      //{
+      //   //이너 조인 찾아볼것
+      //   return 
+      //}
 
       public Account Insert(Account parameter)
       {
          var account = parameter;
-         var accountInfo = new DAccountInfo();
-         var contact = new DContact();
-
-         ConvertToModel.ConvertToAccountInfoDomain(account, accountInfo);
-         ConvertToModel.ConvertToContactDomain(account, contact);
-
-         unitOfWork.Accounts.Insert(accountInfo);
-         unitOfWork.AccountContacts.Insert(contact);
+        
 
          return account;
       }

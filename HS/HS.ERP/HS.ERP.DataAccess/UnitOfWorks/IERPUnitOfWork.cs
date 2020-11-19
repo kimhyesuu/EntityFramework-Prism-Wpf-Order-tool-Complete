@@ -5,9 +5,9 @@
 
    public interface IERPUnitOfWork
    {
-      IERPRepogitary<DAccountInfo> Accounts { get; }
+      IERPRepogitary<DAccount> Accounts { get; }
 
-      IERPRepogitary<DContact> AccountContacts { get; }
+      IERPRepogitary<DTelePhone> Telephone { get; }
 
       IERPRepogitary<DProduct> Product { get; }
     

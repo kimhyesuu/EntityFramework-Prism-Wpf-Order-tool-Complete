@@ -1,9 +1,9 @@
 ﻿<UserControl x:Class="Modules.Register.Views.RegisterAccount"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:core="clr-namespace:HS.ERP.Core.Extansions;assembly=HS.ERP.Core"
+             xmlns:core="clr-namespace:HS.ERP.Core.EnumExtansions;assembly=HS.ERP.Core"
              xmlns:enumBll ="clr-namespace:HS.ERP.Business.Models.Enums;assembly=HS.ERP.Business"
-                >
+             >
 
     <UserControl.Resources>
         <Style TargetType="TextBox">

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HS.ERP.Core.Dependency
+namespace HS.ERP.Core
 {
    public interface IWindowResources
    {

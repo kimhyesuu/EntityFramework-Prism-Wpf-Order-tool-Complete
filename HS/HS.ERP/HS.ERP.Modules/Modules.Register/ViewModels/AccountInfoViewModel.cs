@@ -3,32 +3,31 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using HS.ERP.Business.Models;
+using HS.ERP.Business.Models.Enums;
 using HS.ERP.Business.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 
+
 namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 {
    public class AccountInfoViewModel : BindableBase, IDialogAware
    {
-      private ObservableCollection<Account> _accountList;
       private Account _accountInfo;
       private Account _selectedAccountInfo;
-
-
+      private ObservableCollection<Account> _accountList;
+ 
       #region 프로퍼티
       private IServiceLogic<Account> ServiceLogic { get; }
 
-      public ObservableCollection<Account> AccountList
+      public ObservableCollection<Account> Accounts
       {
          get { return _accountList; }
          set { SetProperty(ref _accountList, value); }
       }
 
- 
-  
-      public Account AccountInformation
+      public Account AccountInfo
       {
          get { return _accountInfo; }
          set { SetProperty(ref _accountInfo, value); }
@@ -39,24 +38,11 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          get { return _selectedAccountInfo; }
          set { SetProperty(ref _selectedAccountInfo, value); }
       }
-
-      public string SelectedCompanyHeadNumber
-      {
-         get { return AccountInformation.CompanyPhoneNumber[0]; }
-         set { SetProperty(ref AccountInformation.CompanyPhoneNumber[0], value); }
-      }
-
-      public string SelectedContactHeadNumber
-      {
-         get { return AccountInformation.ContactPhoneNumber[0]; }
-         set { SetProperty(ref AccountInformation.ContactPhoneNumber[0], value); }
-      }
       #endregion
 
-
       public AccountInfoViewModel()
-      {
-         ServiceLogic = new AccountService();
+      {        
+        // ServiceLogic = new AccountService();
          DataInitialize();
          CommandInitialize();
       }
@@ -64,200 +50,148 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private void CommandInitialize()
       {
          CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
-         SaveAccountInfoCommand = new DelegateCommand(SaveAccountInfoInStorage);
-         DeleteAccountInfoCommand = new DelegateCommand<object>(o => DeleteAccountInfoInStorage(o));
-         UpdateAccountCommand = new DelegateCommand(UpdateAccountInfoInStorage);
+         SaveAccountInfoCommand = new DelegateCommand(AddOrUpdate);
+         MoveAccountInfoCommand = new DelegateCommand(MoveAccount);
+         DeleteAccountInfoCommand = new DelegateCommand<object>(o => DeleteAccount(o));
       }
 
       private void DataInitialize()
       {
-         SelectedAccountInfo = new Account();
-         AccountInformation = new Account();
+         Accounts = new ObservableCollection<Account>();
+         AccountInfoInit();
+      }
 
-         var accountList = ServiceLogic.GetAll();
-
-         if (accountList != null && accountList.Any())
-         {
-            AccountList = new ObservableCollection<Account>(accountList);
-            return;
-         }
-
-         //왜?
-         AccountList = new ObservableCollection<Account>();
+      private void AccountInfoInit()
+      {
+         AccountInfo = null; 
+         AccountInfo = new Account();
+         AccountInfo.EntityState = EntityStateOption.None;
       }
 
       public DelegateCommand<object> DeleteAccountInfoCommand { get; private set; }
       public DelegateCommand SaveAccountInfoCommand { get; private set; }
-      public DelegateCommand UpdateAccountCommand { get; private set; }
+      public DelegateCommand MoveAccountInfoCommand { get; private set; }
       public DelegateCommand<string> CloseDialogCommand { get; private set; }
 
-      private void DeleteAccountInfoInStorage(object selectedList)
+      private void DeleteAccount(object selectedList)
       {
          if (selectedList is null) return;
-
+         
          var selectedAccount = selectedList as Account;
-      
-         ServiceLogic.Delete(selectedAccount.AccountId);
 
-         if (AccountList.Count() > 0)
-            AccountList.Remove(selectedAccount);
-
-         MessageBox.Show($"{selectedAccount.CompanyName}이 삭제되었습니다.");          
+         if(MessageBox.Show($"{selectedAccount.CompanyName}을 삭제하시겠습니까?" 
+            ,"정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+         {
+            Accounts.Remove(selectedAccount);
+            MessageBox.Show($"{selectedAccount.CompanyName}이 삭제되었습니다.");
+         }
       }
-
-      private void UpdateAccountInfoInStorage()
-      {
-         var AccountToBeModified = SelectedAccountInfo;
-         AccountInformation = AccountToBeModified;        
-      }
-
 
       #region 거래처 정보를 저장하는 로직 
-      private void SaveAccountInfoInStorage()
-      {
-         var companyNumber = SelectedCompanyHeadNumber;
-         var contactNumber = GetPhoneHeadNumber(SelectedContactHeadNumber);
+      private void AddOrUpdate()
+      {      
+         var accountInfo = AccountInfo;
 
-         if (AccountInformation.AccountId != null)
-         {
-            ServiceLogic.Update(SelectedAccountInfo);
-            // 여기서 업데이트를 할 것입니다.....
-            // 아이디 값이 없으면 
-            //AccountList.Add(ServiceLogic.Update(AccountInformation));
+         if (!IsCompatibility(accountInfo))
             return;
-         }
 
-         if (IsCompatibility(companyNumber, contactNumber) != true)
+         // 1. add할 때 id값이 같은지 확인해바야대
+         if (IsAdd(accountInfo))
          {
-            MessageBox.Show("값을 넣어주세요");
-            return;
+            var rd = new Random();
+            accountInfo.AccountId = long.Parse(DateTime.Now.ToString("yyyyMMdd") + rd.Next(1, 1000));
+
+            AddAccountInfo(accountInfo);
          }
-
-
-         ShowAddedAccount(ServiceLogic.Insert(AccountInformation));
-
-         MessageBox.Show("성공");
+         else
+         {
+            UpdateAccountInfo(accountInfo);
+         }
       }
 
-      private void ShowAddedAccount(Account account)
+      private void UpdateAccountInfo(Account accountInfo)
       {
-         AccountList.Add(new Account
+         // 1. 값을 변경 후 다시 리스트에 넣는다.
+         var found = Accounts.First(x => x.AccountId == accountInfo.AccountId);
+         int index = Accounts.IndexOf(found);
+         accountInfo.EntityState = EntityStateOption.Updated;
+         Accounts[index] = accountInfo;
+         
+         accountInfo = null;
+         AccountInfoInit();
+      }
+
+      private void AddAccountInfo(Account account)
+      {
+         Accounts.Add(new Account
          {
             AccountId = account.AccountId,
             CompanyName = account.CompanyName,
-            CompanyPhoneNumber = account.CompanyPhoneNumber,
             CompanyEmail = account.CompanyEmail,
             Address = account.Address,
-            Description = account.Description,
-            CreatedDate = account.CreatedDate,
-            UpdatedDate = account.UpdatedDate,
-            ContactId = account.ContactId,
             ContactName = account.ContactName,
             Department = account.Department,
             Position = account.Position,
-            ContactPhoneNumber = account.ContactPhoneNumber
+            TelePrefix = account.TelePrefix,
+            TelePhoneNumber = account.TelePhoneNumber,
+            FullPhoneNumber = account.TelePrefix + account.TelePhoneNumber,
+            Description = account.Description,
+            CreatedDate = account.CreatedDate,
+            EntityState = EntityStateOption.Inserted
          });
+
+         account = null;
+         AccountInfoInit();
       }
 
-      private bool IsCompatibility(string companyNumber, string contactNumber)
+      private bool IsCompatibility(Account accountInfo)
       {
-         var rd = new Random();
-         var accountInfo = AccountInformation;
-         var phoneHeadNumber = accountInfo.CompanyPhoneNumber[0];
-         var contactHeadNumber = accountInfo.ContactPhoneNumber[0];
+         var accounts = Accounts;
 
-         accountInfo.AccountId = int.Parse(DateTime.Now.ToString("yyyyMMdd") + rd.Next(1, 100));
-         accountInfo.ContactId = accountInfo.AccountId;
-
-         phoneHeadNumber = phoneHeadNumber is null ? "010" : phoneHeadNumber;
-         contactHeadNumber = contactHeadNumber is null ? "010" : contactHeadNumber;
-
-         if (!(accountInfo.AccountId != null
-            && accountInfo.CompanyName != null
-            && accountInfo.CompanyEmail != null
-            && accountInfo.CompanyPhoneNumber[1] != null
-            && accountInfo.CompanyPhoneNumber[2] != null
+         if (!(accountInfo.CompanyEmail != null
             && accountInfo.Address != null
-            && accountInfo.ContactId != null
             && accountInfo.ContactName != null
-            && accountInfo.CompanyPhoneNumber[1] != null
-            && accountInfo.CompanyPhoneNumber[2] != null
-            )) return false;
+            ))
+         {
+            return false;
+         } 
+         else if (!IsNumeric(accountInfo.TelePhoneNumber))
+         {
+            MessageSend(accountInfo.TelePhoneNumber, "숫자로 입력해주세요.");
+            return false;
+         }
 
+         if(accountInfo.EntityState is EntityStateOption.None)
+         {
+            var CompanyName = accounts.Where(x => x.CompanyName == accountInfo.CompanyName)
+               .Select(same => same.CompanyName).FirstOrDefault();
+
+            if (CompanyName == accountInfo.CompanyName)
+               return false;
+         }
+         else if(accountInfo.EntityState is EntityStateOption.Inserted || accountInfo.EntityState is EntityStateOption.Updated)
+         {
+            var CompanyName = accounts.Where(x => x.CompanyName == accountInfo.CompanyName)
+               .Select(same => same.CompanyName).Skip(1).FirstOrDefault();
+
+            if (CompanyName != null)
+               return false;
+         }
+         
          return true;
       }
 
-      public string GetLocalHeadNumber(string selectedCompanyPhoneNumber)
-      {
-         switch (selectedCompanyPhoneNumber)
-         {
-            case "Seoul":
-               {
-                  selectedCompanyPhoneNumber = "02";
-                  break;
-               }
-            case "Incheon":
-               {
-                  selectedCompanyPhoneNumber = "032";
-                  break;
-               }
-            case "Daejeon":
-               {
-                  selectedCompanyPhoneNumber = "042";
-                  break;
-               }
-            case "Gyeonggi":
-               {
-                  selectedCompanyPhoneNumber = "031";
-                  break;
-               }
-            case "Busan":
-               {
-                  selectedCompanyPhoneNumber = "051";
-                  break;
-               }
-            default:
-               {
-                  selectedCompanyPhoneNumber = null;
-                  break;
-               }
-         }
-         return selectedCompanyPhoneNumber;
-      }
+      private bool IsAdd(Account accountInfo)
+        => accountInfo.EntityState is EntityStateOption.None;
 
-      public string GetPhoneHeadNumber(string phoneHeadNumber)
-      {
-         switch (phoneHeadNumber)
-         {
-            case "ZOZ":
-               {
-                  phoneHeadNumber = "010";
-                  break;
-               }
-            case "ZOO":
-               {
-                  phoneHeadNumber = "011";
-                  break;
-               }
-            case "ZOS":
-               {
-                  phoneHeadNumber = "017";
-                  break;
-               }
-            case "ZON":
-               {
-                  phoneHeadNumber = "019";
-                  break;
-               }
-            default:
-               {
-                  phoneHeadNumber = null;
-                  break;
-               }
-         }
-         return phoneHeadNumber;
-      }
+      private void MoveAccount()
+         => AccountInfo = SelectedAccountInfo;
 
+      private void MessageSend(object para, string message)      
+        => MessageBox.Show($"{para}을 {message}");
+ 
+      private bool IsNumeric(string telePhoneNumber)
+        => int.TryParse(telePhoneNumber, out int Check);
 
       #endregion
 

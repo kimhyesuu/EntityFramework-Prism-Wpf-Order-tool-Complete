@@ -8,17 +8,19 @@
              xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
             >
     <ScrollViewer>
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" >
-            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Command="{Binding Path=UpdateAccountCommand}" Margin="5" Width="100" Background="DeepSkyBlue" BorderBrush="Black">
-                    <materialDesign:PackIcon Kind="ArrowBottomBold"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" >
+            <GroupBox Header="거래처 정보" >
+                <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
+            </GroupBox>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Command="{Binding Path=MoveAccountInfoCommand}" Margin="5" Width="70" Background="DeepSkyBlue" BorderBrush="{x:Null}">
+                    <materialDesign:PackIcon Kind="ArrowRightBold" Foreground="Black"/>
                 </Button>
-                <Button Command="{Binding Path=SaveAccountInfoCommand}" Margin="5" Width="100" Background="DeepSkyBlue" BorderBrush="Black">
-                    <materialDesign:PackIcon Kind="ArrowTopBold"/>
+                <Button Command="{Binding Path=SaveAccountInfoCommand}" Margin="5" Width="70" Background="DeepSkyBlue" BorderBrush="{x:Null}">
+                    <materialDesign:PackIcon Kind="ArrowLeftBold" Foreground="Black"/>
                 </Button>
             </StackPanel>
-            <GroupBox Header="거래처 정보 입력" >
+            <GroupBox Header="정보 입력" >
                 <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterAccountRegion}"/>
             </GroupBox>
         </StackPanel>

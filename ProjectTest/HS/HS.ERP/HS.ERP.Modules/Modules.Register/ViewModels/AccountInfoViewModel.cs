@@ -16,6 +16,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private Account _accountInfo;
       private Account _selectedAccountInfo;
 
+      #region 프로퍼티
       private IServiceLogic<Account> ServiceLogic { get; }
 
       public ObservableCollection<Account> AccountList
@@ -47,6 +48,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          get { return AccountInformation.ContactPhoneNumber[0]; }
          set { SetProperty(ref AccountInformation.ContactPhoneNumber[0], value); }
       }
+      #endregion
 
       public AccountInfoViewModel()
       {
@@ -59,10 +61,9 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {
          CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
          SaveAccountInfoCommand = new DelegateCommand(SaveAccountInfoInStorage);
-         DeleteAccountInfoCommand = new DelegateCommand<object>(o =>DeleteAccountInfoInStorage(o));
-         UpdateAccountCommand = new DelegateCommand( UpdateAccountInfoInStorage);
+         DeleteAccountInfoCommand = new DelegateCommand<object>(o => DeleteAccountInfoInStorage(o));
+         UpdateAccountCommand = new DelegateCommand(UpdateAccountInfoInStorage);
       }
-
 
       private void DataInitialize()
       {
@@ -77,10 +78,9 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             return;
          }
 
-         //왜?
          AccountList = new ObservableCollection<Account>();
       }
-      
+
       public DelegateCommand<object> DeleteAccountInfoCommand { get; private set; }
       public DelegateCommand SaveAccountInfoCommand { get; private set; }
       public DelegateCommand UpdateAccountCommand { get; private set; }
@@ -88,18 +88,23 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void DeleteAccountInfoInStorage(object selectedList)
       {
+         if (selectedList is null) return;
+
          var selectedAccount = selectedList as Account;
+      
          ServiceLogic.Delete(selectedAccount.AccountId);
-         MessageBox.Show("성공");
+
+         if (AccountList.Count() > 0)
+            AccountList.Remove(selectedAccount);
+
+         MessageBox.Show($"{selectedAccount.CompanyName}이 삭제되었습니다.");          
       }
 
       private void UpdateAccountInfoInStorage()
       {
          var AccountToBeModified = SelectedAccountInfo;
-         AccountInformation = AccountToBeModified;
-         MessageBox.Show("성공");
+         AccountInformation = AccountToBeModified;        
       }
-
 
       #region 거래처 정보를 저장하는 로직 
       private void SaveAccountInfoInStorage()
@@ -109,6 +114,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
          if (AccountInformation.AccountId != null)
          {
+            ServiceLogic.Update(SelectedAccountInfo);
             // 여기서 업데이트를 할 것입니다.....
             // 아이디 값이 없으면 
             //AccountList.Add(ServiceLogic.Update(AccountInformation));
@@ -157,8 +163,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          accountInfo.AccountId = int.Parse(DateTime.Now.ToString("yyyyMMdd") + rd.Next(1, 100));
          accountInfo.ContactId = accountInfo.AccountId;
 
-         phoneHeadNumber = phoneHeadNumber is null ? "010" : phoneHeadNumber;
-         contactHeadNumber = contactHeadNumber is null ? "010" : contactHeadNumber;
+         phoneHeadNumber = phoneHeadNumber is null ? "010" : GetLocalHeadNumber(phoneHeadNumber);
+         contactHeadNumber = contactHeadNumber is null ? "010" : GetPhoneHeadNumber(contactHeadNumber);
 
          if (!(accountInfo.AccountId != null
             && accountInfo.CompanyName != null

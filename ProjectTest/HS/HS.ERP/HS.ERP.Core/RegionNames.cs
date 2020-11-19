@@ -5,7 +5,6 @@
       public const string ContentRegion = "ContentRegion";
       public const string MenuBarRegion = "MenuBarRegion";
       public const string HeadRegion = "HeadRegion";
-      public const string PopupHeadRegion = "PopupHeadRegion";
 
       // Dlg
       public const string RegisterAccountRegion = "RegisterAccountRegion";

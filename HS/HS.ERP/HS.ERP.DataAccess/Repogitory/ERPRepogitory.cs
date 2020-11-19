@@ -4,7 +4,6 @@
    using System;
    using System.Collections.Generic;
    using System.Data.Entity;
-   using System.Data.Entity.Core.Objects;
    using System.Data.Entity.Infrastructure;
    using System.Diagnostics;
    using System.Linq;
@@ -24,7 +23,7 @@
          {
             try
             {
-               var list = context.Set<TEntity>().Select(a => a).ToList();
+               var list = context.Set<TEntity>().ToList();
                return list;
             }
             catch (Exception e)
@@ -97,7 +96,7 @@
          }
       }
 
-      private void Save(HSERPEntities context)
+      public void Save(HSERPEntities context)
       {
          context.SaveChanges();
       }

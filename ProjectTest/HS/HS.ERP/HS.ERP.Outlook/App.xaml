@@ -5,6 +5,7 @@
 
     <Application.Resources>
         <ResourceDictionary>
+            <SolidColorBrush x:Key="PrimaryBlue" Color="#FF2D3A9A"/>
             <SolidColorBrush x:Key="PrimaryDeepBlue" Color="#FF1C3E63"/>
 
             <ResourceDictionary.MergedDictionaries>

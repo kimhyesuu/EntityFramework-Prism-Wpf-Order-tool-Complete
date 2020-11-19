@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Markup;
 
-namespace HS.ERP.Core.Extansions
+namespace HS.ERP.Core.EnumExtansions
 {
    public class EnumBindingExtension : MarkupExtension
    {

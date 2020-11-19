@@ -9,5 +9,6 @@
       TEntity Insert(TEntity parameter);
       void Update(TEntity parameter);
       void Delete(object id);
+
    }
 }

@@ -22,25 +22,4 @@
       [Description("019")]
       ZON
    }
-
-   [TypeConverter(typeof(EnumDescriptionTypeConverter))]
-   public enum LocalNumber
-   {
-      [Description("02")]
-      Seoul,
-
-      [Description("032")]
-      Incheon,
-
-      [Description("042")]
-      Daejeon,
-
-      [Description("031")]
-      Gyeonggi,
-
-      [Description("051")]
-      Busan
-   }
-
-  
 }

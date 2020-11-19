@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using HS.ERP.Core;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
