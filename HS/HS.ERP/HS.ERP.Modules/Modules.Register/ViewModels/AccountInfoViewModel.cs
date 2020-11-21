@@ -51,7 +51,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {
          CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
          SaveAccountInfoCommand = new DelegateCommand(AddOrUpdate);
-         MoveAccountInfoCommand = new DelegateCommand(MoveAccount);
+         EditAccountInfoCommand = new DelegateCommand<object>( account => MoveAccount(account));
          DeleteAccountInfoCommand = new DelegateCommand<object>(o => DeleteAccount(o));
       }
 
@@ -70,7 +70,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       public DelegateCommand<object> DeleteAccountInfoCommand { get; private set; }
       public DelegateCommand SaveAccountInfoCommand { get; private set; }
-      public DelegateCommand MoveAccountInfoCommand { get; private set; }
+      public DelegateCommand<object> EditAccountInfoCommand { get; private set; }
       public DelegateCommand<string> CloseDialogCommand { get; private set; }
 
       private void DeleteAccount(object selectedList)
@@ -89,7 +89,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       #region 거래처 정보를 저장하는 로직 
       private void AddOrUpdate()
-      {      
+      {
          var accountInfo = AccountInfo;
 
          if (!IsCompatibility(accountInfo))
@@ -148,9 +148,9 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {
          var accounts = Accounts;
 
-         if (!(accountInfo.CompanyEmail != null
-            && accountInfo.Address != null
-            && accountInfo.ContactName != null
+         if (( string.IsNullOrWhiteSpace(accountInfo.CompanyEmail)
+            || string.IsNullOrWhiteSpace(accountInfo.Address)
+            || string.IsNullOrWhiteSpace(accountInfo.ContactName)
             ))
          {
             return false;
@@ -161,31 +161,30 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             return false;
          }
 
-         if(accountInfo.EntityState is EntityStateOption.None)
-         {
-            var CompanyName = accounts.Where(x => x.CompanyName == accountInfo.CompanyName)
-               .Select(same => same.CompanyName).FirstOrDefault();
+         var companyName = string.Empty;
 
-            if (CompanyName == accountInfo.CompanyName)
-               return false;
-         }
-         else if(accountInfo.EntityState is EntityStateOption.Inserted || accountInfo.EntityState is EntityStateOption.Updated)
+         if (accountInfo.EntityState is EntityStateOption.None)
          {
-            var CompanyName = accounts.Where(x => x.CompanyName == accountInfo.CompanyName)
-               .Select(same => same.CompanyName).Skip(1).FirstOrDefault();
-
-            if (CompanyName != null)
-               return false;
+            companyName = accounts.Where(x => x.CompanyName == accountInfo.CompanyName)
+            .Select(same => same.CompanyName).FirstOrDefault();
          }
-         
+         else 
+         {
+            companyName = accounts.Where(x => x.CompanyName == accountInfo.CompanyName)
+            .Select(same => same.CompanyName).Skip(1).FirstOrDefault();
+         }
+
+         if (!string.IsNullOrWhiteSpace(companyName))
+            return false;
+
          return true;
       }
 
       private bool IsAdd(Account accountInfo)
         => accountInfo.EntityState is EntityStateOption.None;
 
-      private void MoveAccount()
-         => AccountInfo = SelectedAccountInfo;
+      private void MoveAccount(object SelectedAccountInfo)
+         => AccountInfo = SelectedAccountInfo as Account;
 
       private void MessageSend(object para, string message)      
         => MessageBox.Show($"{para}을 {message}");

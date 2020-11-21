@@ -40,23 +40,23 @@
         <TextBlock Grid.Row="0" Grid.Column="1" Text="회사명"/>
 
         <TextBox Grid.Row="0" Grid.Column="2" 
-                 Text="{Binding Path=AccountInfo.CompanyName}"
+                 Text="{Binding Path=AccountInfo.CompanyName, Mode=TwoWay}"
                  Width="150"/>
         <TextBlock Grid.Row="0" Grid.Column="3" Text="Email"/>
         <TextBox Grid.Row="0" Grid.Column="4" 
-                 Text="{Binding Path=AccountInfo.CompanyEmail}" Width="197" Margin="5,5,0,5"/>
+                 Text="{Binding Path=AccountInfo.CompanyEmail, Mode=TwoWay}" Width="197" Margin="5,5,0,5"/>
 
         <!-- Row 1 -->
         <TextBlock Grid.Row="1" Grid.Column="1" Text="주소"/>
         <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" 
-                 Text="{Binding Path=AccountInfo.Address}"
+                 Text="{Binding Path=AccountInfo.Address, Mode=TwoWay}"
                  Width="400" VerticalAlignment="Top"/>
 
         <!-- Row 2 -->
         <TextBlock Grid.Row="2" Grid.Column="1" Text="특징"/>
         <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" 
                  TextWrapping="NoWrap" 
-                 Text="{Binding Path=AccountInfo.Description}"
+                 Text="{Binding Path=AccountInfo.Description, Mode=TwoWay}"
                  VerticalScrollBarVisibility="Auto" Height="110" Width="400"/>
 
         <!-- Row 3 -->
@@ -64,20 +64,20 @@
             <StackPanel Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Text="담당자명"/>
-                    <TextBox Width="85" Text="{Binding Path=AccountInfo.ContactName}"/>
+                    <TextBox Width="85" Text="{Binding Path=AccountInfo.ContactName, Mode=TwoWay}"/>
                     <TextBlock Text="부서"/>
-                    <TextBox Width="85" Text="{Binding Path=AccountInfo.Department}"/>
+                    <TextBox Width="85" Text="{Binding Path=AccountInfo.Department, Mode=TwoWay}"/>
                     <TextBlock Text="직책"/>
-                    <TextBox Width="85" Text="{Binding Path=AccountInfo.Position}"/>
+                    <TextBox Width="85" Text="{Binding Path=AccountInfo.Position, Mode=TwoWay}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Text="담당자 전화번호" VerticalAlignment="Center"/>
                     <ComboBox Width="70" Margin="2.5" Height="38" FontSize="8" VerticalContentAlignment="Top"
                               HorizontalContentAlignment="Center"
                               ItemsSource="{core:EnumBinding enumBll:PhoneHeaderNumber}"        
-                              SelectedItem="{Binding Path=AccountInfo.TelePrefix}"
+                              SelectedItem="{Binding Path=AccountInfo.TelePrefix, Mode=TwoWay}"
                              />
-                    <TextBox Width="120" Text="{Binding Path=AccountInfo.TelePhoneNumber}"/>
+                    <TextBox Width="120" Text="{Binding Path=AccountInfo.TelePhoneNumber, Mode=TwoWay}"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>

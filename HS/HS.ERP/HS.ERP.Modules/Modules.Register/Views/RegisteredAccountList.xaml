@@ -4,8 +4,9 @@
              x:Name="rowAccount"
              >
 
-    <DataGrid x:Name="accountList" ItemsSource="{Binding Path=Accounts}" SelectionMode="Single" 
-              IsReadOnly="True" SelectedItem="{Binding Path=SelectedAccountInfo}"
+    <DataGrid x:Name="accountDatagrid" ItemsSource="{Binding Path=Accounts}" SelectionMode="Single" 
+              BorderThickness="1" SelectedItem="{Binding Path=AccountInfo}"
+              IsReadOnly="True" 
               CanUserAddRows="False" AutoGenerateColumns="False" 
               VerticalScrollBarVisibility="Auto"
               HorizontalScrollBarVisibility="Auto" Margin="15">
@@ -13,6 +14,13 @@
             <DataGridTextColumn Binding="{Binding Path=CompanyName}" Header="회사명"/>
             <DataGridTextColumn Binding="{Binding Path=ContactName}" Header="담당자"/>
             <DataGridTextColumn Binding="{Binding Path=FullPhoneNumber}" Header="담당자 번호"/>
+            <DataGridTemplateColumn>
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding DataContext.EditAccountInfoCommand,ElementName=rowAccount, Mode=OneWay}" CommandParameter="{Binding}" Content="수정"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
             <DataGridTemplateColumn>
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
