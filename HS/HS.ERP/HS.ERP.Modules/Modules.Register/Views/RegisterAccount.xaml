@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:core="clr-namespace:HS.ERP.Core.EnumExtansions;assembly=HS.ERP.Core"
              xmlns:enumBll ="clr-namespace:HS.ERP.Business.Models.Enums;assembly=HS.ERP.Business"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:converter ="clr-namespace:Modules.Register.Converters"
+             
              >
 
     <UserControl.Resources>
+        <converter:AcceptAccountContverter x:Key="AcceptAccountContverter" />
+
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="FontSize" Value="13"/>
@@ -18,68 +23,89 @@
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
     </UserControl.Resources>
-    <Grid Margin="5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal">
+        <Button Command="{Binding Path=SaveAccountInfoCommand}" Margin="5" Width="50" Height="30" Background="DeepSkyBlue" BorderBrush="{x:Null}">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource AcceptAccountContverter}">
+                    <Binding ElementName="textCompanyName" Path="Text" />
+                    <Binding ElementName="textCompanyEmail" Path="Text" />
+                    <Binding ElementName="textAddress" Path="Text" />
+                    <Binding ElementName="textDescription" Path="Text" />
+                    <Binding ElementName="textContactName" Path="Text" />
+                    <Binding ElementName="textDepartment" Path="Text" />
+                    <Binding ElementName="textPosition" Path="Text" />
+                    <Binding ElementName="textTelePrefix" Path="Text" />
+                    <Binding ElementName="textTelePhoneNumber" Path="Text" />
+                </MultiBinding>
+            </Button.CommandParameter>
+            <materialDesign:PackIcon Kind="ArrowLeftBold" Foreground="Black"/>
+        </Button>
 
-        <!-- Row 0 -->
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="회사명"/>
+        <GroupBox Header="정보 입력" >
+            <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="2" 
-                 Text="{Binding Path=AccountInfo.CompanyName, Mode=TwoWay}"
+            <!-- Row 0 -->
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="회사명"/>
+
+            <TextBox Grid.Row="0" Grid.Column="2" Name="textCompanyName"
+                 Text="{Binding Path=AccountInfo.CompanyName,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                  Width="150"/>
-        <TextBlock Grid.Row="0" Grid.Column="3" Text="Email"/>
-        <TextBox Grid.Row="0" Grid.Column="4" 
-                 Text="{Binding Path=AccountInfo.CompanyEmail, Mode=TwoWay}" Width="197" Margin="5,5,0,5"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="Email"/>
+            <TextBox Grid.Row="0" Grid.Column="4" Name="textCompanyEmail"
+                 Text="{Binding Path=AccountInfo.CompanyEmail,Mode=TwoWay,UpdateSourceTrigger=Explicit}" Width="197" Margin="5,5,0,5"/>
 
-        <!-- Row 1 -->
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="주소"/>
-        <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" 
-                 Text="{Binding Path=AccountInfo.Address, Mode=TwoWay}"
+            <!-- Row 1 -->
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="주소"/>
+            <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Name="textAddress"
+                 Text="{Binding Path=AccountInfo.Address,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                  Width="400" VerticalAlignment="Top"/>
 
-        <!-- Row 2 -->
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="특징"/>
-        <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" 
-                 TextWrapping="NoWrap" 
-                 Text="{Binding Path=AccountInfo.Description, Mode=TwoWay}"
+            <!-- Row 2 -->
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="특징"/>
+            <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" 
+                 TextWrapping="NoWrap" Name="textDescription"
+                 Text="{Binding Path=AccountInfo.Description,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                  VerticalScrollBarVisibility="Auto" Height="110" Width="400"/>
 
-        <!-- Row 3 -->
-        <GroupBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Header="담당자" Margin="5">
-            <StackPanel Orientation="Vertical" Margin="5">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock  Text="담당자명"/>
-                    <TextBox Width="85" Text="{Binding Path=AccountInfo.ContactName, Mode=TwoWay}"/>
-                    <TextBlock Text="부서"/>
-                    <TextBox Width="85" Text="{Binding Path=AccountInfo.Department, Mode=TwoWay}"/>
-                    <TextBlock Text="직책"/>
-                    <TextBox Width="85" Text="{Binding Path=AccountInfo.Position, Mode=TwoWay}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock  Text="담당자 전화번호" VerticalAlignment="Center"/>
-                    <ComboBox Width="70" Margin="2.5" Height="38" FontSize="8" VerticalContentAlignment="Top"
-                              HorizontalContentAlignment="Center"
+            <!-- Row 3 -->
+            <GroupBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Header="담당자" Margin="5">
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Text="담당자명"/>
+                        <TextBox Width="85" Text="{Binding Path=AccountInfo.ContactName,Mode=TwoWay,UpdateSourceTrigger=Explicit}" Name="textContactName"/>
+                        <TextBlock Text="부서"/>
+                        <TextBox Width="85" Text="{Binding Path=AccountInfo.Department,Mode=TwoWay, UpdateSourceTrigger=Explicit}" Name="textDepartment"/>
+                        <TextBlock Text="직책"/>
+                        <TextBox Width="85" Text="{Binding Path=AccountInfo.Position,Mode=TwoWay,UpdateSourceTrigger=Explicit}" Name="textPosition"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Text="담당자 전화번호" VerticalAlignment="Center"/>
+                        <ComboBox Width="70" Margin="2.5" Height="38" FontSize="8" VerticalContentAlignment="Top"
+                              HorizontalContentAlignment="Center" Name="textTelePrefix"
                               ItemsSource="{core:EnumBinding enumBll:PhoneHeaderNumber}"        
-                              SelectedItem="{Binding Path=AccountInfo.TelePrefix, Mode=TwoWay}"
+                              SelectedItem="{Binding Path=AccountInfo.TelePrefix,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                              />
-                    <TextBox Width="120" Text="{Binding Path=AccountInfo.TelePhoneNumber, Mode=TwoWay}"/>
+                        <TextBox Width="120" Text="{Binding Path=AccountInfo.TelePhoneNumber,Mode=TwoWay, UpdateSourceTrigger=Explicit}" Name="textTelePhoneNumber"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </GroupBox>
+        </Grid>
         </GroupBox>
-    </Grid>
+    </StackPanel>
 </UserControl>

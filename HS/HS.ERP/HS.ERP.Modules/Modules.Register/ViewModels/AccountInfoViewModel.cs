@@ -15,7 +15,6 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
    public class AccountInfoViewModel : BindableBase, IDialogAware
    {
       private Account _accountInfo;
-      private Account _selectedAccountInfo;
       private ObservableCollection<Account> _accountList;
  
       #region 프로퍼티
@@ -30,14 +29,15 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       public Account AccountInfo
       {
          get { return _accountInfo; }
-         set { SetProperty(ref _accountInfo, value); }
+         set { SetProperty(ref _accountInfo, value); }      
       }
 
-      public Account SelectedAccountInfo
+      public bool CanSaveExcute
       {
-         get { return _selectedAccountInfo; }
-         set { SetProperty(ref _selectedAccountInfo, value); }
+         get => true;
+         set => SaveAccountInfoCommand.RaiseCanExecuteChanged();
       }
+      
       #endregion
 
       public AccountInfoViewModel()
@@ -50,9 +50,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private void CommandInitialize()
       {
          CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
-         SaveAccountInfoCommand = new DelegateCommand(AddOrUpdate);
-         EditAccountInfoCommand = new DelegateCommand<object>( account => MoveAccount(account));
-         DeleteAccountInfoCommand = new DelegateCommand<object>(o => DeleteAccount(o));
+         SaveAccountInfoCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
+         DeleteAccountInfoCommand = new DelegateCommand<object>(DeleteAccount);
       }
 
       private void DataInitialize()
@@ -63,14 +62,13 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void AccountInfoInit()
       {
-         AccountInfo = null; 
-         AccountInfo = new Account();
+         AccountInfo = null;
+         AccountInfo = new Account(Newid());
          AccountInfo.EntityState = EntityStateOption.None;
       }
 
       public DelegateCommand<object> DeleteAccountInfoCommand { get; private set; }
-      public DelegateCommand SaveAccountInfoCommand { get; private set; }
-      public DelegateCommand<object> EditAccountInfoCommand { get; private set; }
+      public DelegateCommand<string> SaveAccountInfoCommand { get; private set; }
       public DelegateCommand<string> CloseDialogCommand { get; private set; }
 
       private void DeleteAccount(object selectedList)
@@ -83,111 +81,120 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             ,"정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
             Accounts.Remove(selectedAccount);
-            MessageBox.Show($"{selectedAccount.CompanyName}이 삭제되었습니다.");
          }
       }
 
       #region 거래처 정보를 저장하는 로직 
-      private void AddOrUpdate()
+
+      private void AddOrUpdate(string account)
       {
-         var accountInfo = AccountInfo;
+         string[] accountInfo = account.Split(':');
 
          if (!IsCompatibility(accountInfo))
             return;
 
-         // 1. add할 때 id값이 같은지 확인해바야대
-         if (IsAdd(accountInfo))
-         {
-            var rd = new Random();
-            accountInfo.AccountId = long.Parse(DateTime.Now.ToString("yyyyMMdd") + rd.Next(1, 1000));
+         var accounts = Accounts;
 
-            AddAccountInfo(accountInfo);
+         var receivedInfo = new Account
+         {
+            AccountId = AccountInfo.AccountId,
+            CompanyName = accountInfo[0],
+            CompanyEmail = accountInfo[1],
+            Address = accountInfo[2],
+            ContactName = accountInfo[4],
+            Department = accountInfo[5],
+            Position = accountInfo[6],
+            TelePrefix = accountInfo[7],
+            TelePhoneNumber = accountInfo[8],
+            FullPhoneNumber = accountInfo[7] + accountInfo[8],
+            Description = accountInfo[3],
+            EntityState = AccountInfo.EntityState,
+            CreatedDate = null
+         };
+
+         if (IsAdd(receivedInfo))
+         {
+            AddAccountInfo(receivedInfo);
          }
          else
          {
-            UpdateAccountInfo(accountInfo);
+            UpdateAccountInfo(receivedInfo);
          }
       }
-
       private void UpdateAccountInfo(Account accountInfo)
       {
-         // 1. 값을 변경 후 다시 리스트에 넣는다.
-         var found = Accounts.First(x => x.AccountId == accountInfo.AccountId);
-         int index = Accounts.IndexOf(found);
          accountInfo.EntityState = EntityStateOption.Updated;
-         Accounts[index] = accountInfo;
-         
+         Accounts.Insert(Accounts.IndexOf(AccountInfo), accountInfo);
+         Accounts.Remove(AccountInfo);
+
          accountInfo = null;
          AccountInfoInit();
       }
 
-      private void AddAccountInfo(Account account)
+      private void AddAccountInfo(Account accountInfo)
       {
          Accounts.Add(new Account
          {
-            AccountId = account.AccountId,
-            CompanyName = account.CompanyName,
-            CompanyEmail = account.CompanyEmail,
-            Address = account.Address,
-            ContactName = account.ContactName,
-            Department = account.Department,
-            Position = account.Position,
-            TelePrefix = account.TelePrefix,
-            TelePhoneNumber = account.TelePhoneNumber,
-            FullPhoneNumber = account.TelePrefix + account.TelePhoneNumber,
-            Description = account.Description,
-            CreatedDate = account.CreatedDate,
+            AccountId = accountInfo.AccountId,
+            CompanyName = accountInfo.CompanyName,
+            CompanyEmail = accountInfo.CompanyEmail,
+            Address = accountInfo.Address,
+            ContactName = accountInfo.ContactName,
+            Department = accountInfo.Department,
+            Position = accountInfo.Position,
+            TelePrefix = accountInfo.TelePrefix,
+            TelePhoneNumber = accountInfo.TelePhoneNumber,
+            FullPhoneNumber = accountInfo.TelePrefix + accountInfo.TelePhoneNumber,
+            Description = accountInfo.Description,
+            CreatedDate = accountInfo.CreatedDate,
             EntityState = EntityStateOption.Inserted
          });
 
-         account = null;
+         accountInfo = null;
          AccountInfoInit();
       }
 
-      private bool IsCompatibility(Account accountInfo)
+      private bool IsCompatibility(string[] accountInfo)
       {
          var accounts = Accounts;
 
-         if (( string.IsNullOrWhiteSpace(accountInfo.CompanyEmail)
-            || string.IsNullOrWhiteSpace(accountInfo.Address)
-            || string.IsNullOrWhiteSpace(accountInfo.ContactName)
-            ))
+         foreach (var info in accountInfo)
          {
-            return false;
-         } 
-         else if (!IsNumeric(accountInfo.TelePhoneNumber))
-         {
-            MessageSend(accountInfo.TelePhoneNumber, "숫자로 입력해주세요.");
-            return false;
+            if (string.IsNullOrEmpty(info) && accountInfo[3] != info)
+            {
+               return false;
+            }
          }
 
-         var companyName = string.Empty;
-
-         if (accountInfo.EntityState is EntityStateOption.None)
+         if(!IsNumeric(accountInfo[8]))
          {
-            companyName = accounts.Where(x => x.CompanyName == accountInfo.CompanyName)
-            .Select(same => same.CompanyName).FirstOrDefault();
+            MessageSend(accountInfo[8], "숫자로 입력해주세요.");
+             return false;
          }
-         else 
-         {
-            companyName = accounts.Where(x => x.CompanyName == accountInfo.CompanyName)
-            .Select(same => same.CompanyName).Skip(1).FirstOrDefault();
-         }
+         // 킵
+         var companyNames = accounts.Where(x => x.CompanyName == accountInfo[0])
+               .Select(same => same.CompanyName);
 
-         if (!string.IsNullOrWhiteSpace(companyName))
-            return false;
+         foreach (var companyName in companyNames)
+         {
+            if (!string.IsNullOrWhiteSpace(companyName))
+               return false;
+         }
 
          return true;
+      }
+
+      private long? Newid()
+      {
+         var rd = new Random();
+         return long.Parse(DateTime.Now.ToString("yyyyMMdd") + rd.Next(1, 1000));
       }
 
       private bool IsAdd(Account accountInfo)
         => accountInfo.EntityState is EntityStateOption.None;
 
-      private void MoveAccount(object SelectedAccountInfo)
-         => AccountInfo = SelectedAccountInfo as Account;
-
       private void MessageSend(object para, string message)      
-        => MessageBox.Show($"{para}을 {message}");
+        => MessageBox.Show($"{para}을 {message}","NG");
  
       private bool IsNumeric(string telePhoneNumber)
         => int.TryParse(telePhoneNumber, out int Check);
@@ -245,8 +252,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       public string Title => "Account";
 
+
       #endregion
    }
-
-
 }

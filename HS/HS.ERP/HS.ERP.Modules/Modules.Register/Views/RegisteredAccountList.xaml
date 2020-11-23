@@ -3,24 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"      
              x:Name="rowAccount"
              >
-
     <DataGrid x:Name="accountDatagrid" ItemsSource="{Binding Path=Accounts}" SelectionMode="Single" 
               BorderThickness="1" SelectedItem="{Binding Path=AccountInfo}"
               IsReadOnly="True" 
               CanUserAddRows="False" AutoGenerateColumns="False" 
               VerticalScrollBarVisibility="Auto"
-              HorizontalScrollBarVisibility="Auto" Margin="15">
+              HorizontalScrollBarVisibility="Auto" Margin="10">
         <DataGrid.Columns>
             <DataGridTextColumn Binding="{Binding Path=CompanyName}" Header="회사명"/>
             <DataGridTextColumn Binding="{Binding Path=ContactName}" Header="담당자"/>
             <DataGridTextColumn Binding="{Binding Path=FullPhoneNumber}" Header="담당자 번호"/>
-            <DataGridTemplateColumn>
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <Button Command="{Binding DataContext.EditAccountInfoCommand,ElementName=rowAccount, Mode=OneWay}" CommandParameter="{Binding}" Content="수정"/>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
             <DataGridTemplateColumn>
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>

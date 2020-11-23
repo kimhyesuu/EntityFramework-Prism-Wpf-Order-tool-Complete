@@ -6,10 +6,10 @@
    public class Account
    {
       public Account() { }
-      
-      public Account(long? accountId)    
-       =>  this.AccountId = accountId;
-      
+   
+      public Account(long? id)
+         => this.AccountId = id;
+
       public long? AccountId { get; set; }
       public string CompanyName { get; set; }
       public string CompanyEmail { get; set; }
