@@ -75,8 +75,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcceptTextAccountInfoBehavior.cs" />
-    <Compile Include="Converters\AcceptAccountContverter.cs" />
+    <Compile Include="Converters\AcceptInfoContverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

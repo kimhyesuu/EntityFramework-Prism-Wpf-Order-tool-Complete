@@ -14,6 +14,5 @@
       IERPRepogitary<DOrder> Orders { get; }
 
       IERPRepogitary<DOrderProduct> OrderProduct { get; }
-
    }
 }

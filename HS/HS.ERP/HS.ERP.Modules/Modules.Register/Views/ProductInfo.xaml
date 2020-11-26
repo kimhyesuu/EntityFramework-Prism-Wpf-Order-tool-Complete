@@ -4,10 +4,14 @@
             
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
-            xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
-                >
-    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredProductListRegion}"/>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterProductRegion}"/>
-    </StackPanel>
+             xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core">
+              
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
+            <GroupBox Header="제품 리스트" >
+                <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredProductListRegion}"/>
+            </GroupBox>
+            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterProductRegion}"/>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

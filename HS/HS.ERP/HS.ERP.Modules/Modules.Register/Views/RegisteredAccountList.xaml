@@ -3,23 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"      
              x:Name="rowAccount"
              >
-    <DataGrid x:Name="accountDatagrid" ItemsSource="{Binding Path=Accounts}" SelectionMode="Single" 
+    <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                  HorizontalScrollBarVisibility="Auto" MaxHeight="400" MaxWidth="550">
+        <Grid >
+            <DataGrid x:Name="accountDatagrid" ItemsSource="{Binding Path=Accounts}" SelectionMode="Single" 
               BorderThickness="1" SelectedItem="{Binding Path=AccountInfo}"
-              IsReadOnly="True" 
-              CanUserAddRows="False" AutoGenerateColumns="False" 
-              VerticalScrollBarVisibility="Auto"
-              HorizontalScrollBarVisibility="Auto" Margin="10">
-        <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding Path=CompanyName}" Header="회사명"/>
-            <DataGridTextColumn Binding="{Binding Path=ContactName}" Header="담당자"/>
-            <DataGridTextColumn Binding="{Binding Path=FullPhoneNumber}" Header="담당자 번호"/>
-            <DataGridTemplateColumn>
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <Button Command="{Binding DataContext.DeleteAccountInfoCommand,ElementName=rowAccount}" CommandParameter="{Binding}" Content="삭제"/>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-        </DataGrid.Columns>
-    </DataGrid>
+              IsReadOnly="True"  CanUserAddRows="False" AutoGenerateColumns="False" Margin="5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=CompanyName}" Header="회사명" Width="170" MaxWidth="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=ContactName}" Header="담당자" Width="80" MaxWidth="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=FullPhoneNumber}" Header="담당자 번호" Width="120"/>
+                    <DataGridTemplateColumn Width="90" MaxWidth="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.DeleteAccountInfoCommand,ElementName=rowAccount}" CommandParameter="{Binding}" Content="삭제"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

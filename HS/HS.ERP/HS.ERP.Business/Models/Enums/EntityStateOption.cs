@@ -9,5 +9,7 @@
       Deleted,
 
       Updated,
+
+      DBUpdated
    }
 }

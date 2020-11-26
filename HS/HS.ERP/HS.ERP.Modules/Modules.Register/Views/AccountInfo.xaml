@@ -3,16 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              prism:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
-            >
-
-  
-
-    <ScrollViewer>
+             xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core" >
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" >
-            <GroupBox Header="거래처 정보" >
+            <GroupBox Header="거래처 리스트" >
                 <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
             </GroupBox>
             <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterAccountRegion}"/>

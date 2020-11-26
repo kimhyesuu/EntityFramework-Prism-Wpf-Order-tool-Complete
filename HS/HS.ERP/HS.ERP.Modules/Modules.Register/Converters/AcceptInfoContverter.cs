@@ -8,14 +8,14 @@ using System.Windows.Data;
 
 namespace Modules.Register.Converters
 {
-   public class AcceptAccountContverter : IMultiValueConverter
+   public class AcceptInfoContverter : IMultiValueConverter
    {
       public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
       {
-         var accountinfo = values.OfType<string>().ToArray();
+         var inFo = values.OfType<string>().ToArray();
          var sb = new StringBuilder();
 
-         sb.Append(string.Join(":", accountinfo));
+         sb.Append(string.Join(":", inFo));
 
          return sb.ToString();
       }

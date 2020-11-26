@@ -4,18 +4,18 @@
              xmlns:core="clr-namespace:HS.ERP.Core.EnumExtansions;assembly=HS.ERP.Core"
              xmlns:enumBll ="clr-namespace:HS.ERP.Business.Models.Enums;assembly=HS.ERP.Business"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:converter ="clr-namespace:Modules.Register.Converters"
-             
+             xmlns:converter ="clr-namespace:Modules.Register.Converters"             
              >
 
     <UserControl.Resources>
-        <converter:AcceptAccountContverter x:Key="AcceptAccountContverter" />
+        <converter:AcceptInfoContverter x:Key="AcceptAccountContverter" />
 
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Height" Value="20"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="5"/>
@@ -67,7 +67,7 @@
                  Text="{Binding Path=AccountInfo.CompanyName,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                  Width="150"/>
             <TextBlock Grid.Row="0" Grid.Column="3" Text="Email"/>
-            <TextBox Grid.Row="0" Grid.Column="4" Name="textCompanyEmail"
+                <TextBox Grid.Row="0" Grid.Column="4" Name="textCompanyEmail" 
                  Text="{Binding Path=AccountInfo.CompanyEmail,Mode=TwoWay,UpdateSourceTrigger=Explicit}" Width="197" Margin="5,5,0,5"/>
 
             <!-- Row 1 -->
@@ -78,8 +78,8 @@
 
             <!-- Row 2 -->
             <TextBlock Grid.Row="2" Grid.Column="1" Text="특징"/>
-            <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" 
-                 TextWrapping="NoWrap" Name="textDescription"
+            <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4"                  
+                   TextWrapping="Wrap" AcceptsReturn="True" Name="textDescription"
                  Text="{Binding Path=AccountInfo.Description,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                  VerticalScrollBarVisibility="Auto" Height="110" Width="400"/>
 
@@ -101,7 +101,8 @@
                               ItemsSource="{core:EnumBinding enumBll:PhoneHeaderNumber}"        
                               SelectedItem="{Binding Path=AccountInfo.TelePrefix,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                              />
-                        <TextBox Width="120" Text="{Binding Path=AccountInfo.TelePhoneNumber,Mode=TwoWay, UpdateSourceTrigger=Explicit}" Name="textTelePhoneNumber"/>
+                        <TextBox Width="120" Text="{Binding Path=AccountInfo.TelePhoneNumber,Mode=TwoWay, UpdateSourceTrigger=Explicit}" 
+                                 Name="textTelePhoneNumber" FlowDirection="LeftToRight" MaxLength="8"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>

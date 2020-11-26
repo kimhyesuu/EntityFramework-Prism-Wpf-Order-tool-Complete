@@ -156,6 +156,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private bool IsCompatibility(string[] accountInfo)
       {
+         //시간 남으면 수정
          var accounts = Accounts;
 
          foreach (var info in accountInfo)
@@ -250,8 +251,9 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          set { SetProperty(ref _message, value); }
       }
 
-      public string Title => "Account";
+      public string Title => "거래처 정보";
 
+      public int DialogWindowWith => 1060;
 
       #endregion
    }
