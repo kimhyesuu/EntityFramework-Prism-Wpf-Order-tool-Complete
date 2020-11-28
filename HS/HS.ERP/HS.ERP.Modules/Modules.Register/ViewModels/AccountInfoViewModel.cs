@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -35,7 +37,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       public bool CanSaveExcute
       {
          get => true;
-         set => SaveAccountInfoCommand.RaiseCanExecuteChanged();
+         set => MoveAccountInfoToListCommand.RaiseCanExecuteChanged();
       }
       
       #endregion
@@ -49,9 +51,9 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void CommandInitialize()
       {
-         CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
-         SaveAccountInfoCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
+         MoveAccountInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
          DeleteAccountInfoCommand = new DelegateCommand<object>(DeleteAccount);
+         SaveAccountListCommand = new DelegateCommand<string>(SaveAccountListDialog);
       }
 
       private void DataInitialize()
@@ -67,10 +69,11 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          AccountInfo.EntityState = EntityStateOption.None;
       }
 
+      public DelegateCommand<string> SaveAccountListCommand { get; private set; }
       public DelegateCommand<object> DeleteAccountInfoCommand { get; private set; }
-      public DelegateCommand<string> SaveAccountInfoCommand { get; private set; }
-      public DelegateCommand<string> CloseDialogCommand { get; private set; }
+      public DelegateCommand<string> MoveAccountInfoToListCommand { get; private set; }
 
+      #region 거래처 정보를 관련 로직 
       private void DeleteAccount(object selectedList)
       {
          if (selectedList is null) return;
@@ -84,7 +87,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          }
       }
 
-      #region 거래처 정보를 저장하는 로직 
+     
 
       private void AddOrUpdate(string account)
       {
@@ -204,21 +207,32 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       //collection값을 넣어주면 되겠네
       #region 다이얼로그 리절트를 받기 위해 쓰이는 기술
+
       public event Action<IDialogResult> RequestClose;
 
-      private void CloseDialog(string parameter)
+      private void SaveAccountListDialog(string CheckedResult)
       {
+         // CanSave true false
+         // 여기서 거래처 정보를 받아서 db로 넘길 것을 확인 조건부까지
          ButtonResult result = ButtonResult.None;
          var transportParameter = new DialogParameters();
-         string parameterValue = string.Empty;
+         var CheckUpdatedaccounts = Accounts;
+         
+         var savedResult = CheckUpdatedaccounts.Where(account => account.EntityState != EntityStateOption.None);
+         IEnumerable parameterValue = null;
 
-         if (parameter?.ToLower() == "true")
+         if (CheckedResult?.ToLower() == "true" && savedResult.Count() == 0)
+         {
+            MessageBox.Show("변경한 거래 목록이 없습니다.", "NG", MessageBoxButton.OK);
+         }
+         else if (CheckedResult?.ToLower() == "true" && MessageBox.Show($"리스트를 저장하시겠습니까?"
+            , "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
             result = ButtonResult.OK;
-            parameterValue = "ButtonResult.OK";
+            parameterValue = savedResult;
          }
 
-         transportParameter.Add("submessage", parameterValue);
+         transportParameter.Add("UpdateInformation", parameterValue);
          RaiseRequestClose(result, transportParameter);
       }
 
@@ -253,8 +267,9 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       public string Title => "거래처 정보";
 
-      public int DialogWindowWith => 1060;
+      public int DialogWindowWith => 1100;
 
       #endregion
    }
+
 }

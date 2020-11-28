@@ -1,6 +1,7 @@
 ﻿using HS.ERP.Core;
 using HS.ERP.Outlook.Core.Dependency;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
@@ -14,14 +15,17 @@ namespace HS.ERP.Outlook.ViewModels
    {
       private IDialogService DialogService { get; }
       private IRegionManager RegionManager { get; }
+      private IEventAggregator EventAggregator { get; }
 
       public Action WindowClose { get; set; }
       public Action WindowDragMove { get; set; }
 
-      public ShellWindowViewModel(IDialogService dialogService, IRegionManager regionManager)
+      public ShellWindowViewModel(IDialogService dialogService,
+         IRegionManager regionManager, IEventAggregator eventAggregator)
       {
          this.DialogService = dialogService;
          this.RegionManager = regionManager;
+         this.EventAggregator = eventAggregator;
          WindowCloseCommand = new DelegateCommand(OnClose);
          DragMoveCommand = new DelegateCommand(OnDrag);
          OpenTheRegisterWindowCommand = new DelegateCommand<object>(o => ShowPopup(o));
@@ -47,31 +51,24 @@ namespace HS.ERP.Outlook.ViewModels
 
          var para = navigationPopupPath as FrameworkElement;
 
-         DialogService.Show(para.Name, null, r =>
+         DialogService.ShowDialog(para.Name, null, r =>
          {
-            if (IsNullOrParameter(r.Parameters))
+            if (IsNullOrParameter(r.Parameters) && r.Result is ButtonResult.OK)
             {
-               //아직
+               
+               EventAggregator.GetEvent<SendUpdatedList>().Publish(r.Parameters);
             }
-            else
-            {
-               //아직
-            }
-
          });
       }
 
       private void OpenSelectedPopWindow(FrameworkElement para)
       {
 
-
-
-
       }
 
       private bool IsNullOrParameter(IDialogParameters parameters)
-      {
-         return parameters.GetValue<string>("submessage") != string.Empty;
+      {     
+         return parameters.GetValue<object>("UpdateInformation") != null;     
       }
 
    }

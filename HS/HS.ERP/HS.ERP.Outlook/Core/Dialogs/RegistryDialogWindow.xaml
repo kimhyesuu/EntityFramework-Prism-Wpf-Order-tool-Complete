@@ -5,7 +5,7 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         ResizeMode ="NoResize" WindowStyle="SingleBorderWindow"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding Path=Title}" Height="470" Width="{Binding Path=DialogWindowWith}" >
+        Title="{Binding Path=Title}" Height="515" Width="{Binding Path=DialogWindowWith}" >
 
 
 

@@ -13,7 +13,7 @@ namespace Modules.Order
       public OrderModule(IRegionManager regionManager)
       {
          this._regionManager = regionManager;
-         _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(RegisterOrder));
+         _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(OrderedList));
       }
 
       public void OnInitialized(IContainerProvider containerProvider)

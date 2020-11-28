@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HS.ERP.Business.Models;
+using Prism.Services.Dialogs;
+using System;
 
 namespace HS.ERP.Core
 {
