@@ -1,13 +1,23 @@
 ﻿<UserControl x:Class="HS.ERP.Outlook.Core.Dialogs.Views.ProductInfo"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            
+           
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
-            xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
-                >
-    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredProductListRegion}"/>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterProductRegion}"/>
-    </StackPanel>
+             xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
+            <StackPanel Orientation="Horizontal" >
+                <GroupBox Header="제품 리스트" >
+                    <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredProductListRegion}"/>
+                </GroupBox>
+                <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterProductRegion}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                <Button Width="120" Content="저장" Margin="4" Command="{Binding Path=SaveProductListCommand}" CommandParameter="true" />
+                <Button Width="120" Content="취소" Margin="4" Command="{Binding Path=SaveProductListCommand}" CommandParameter="false"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

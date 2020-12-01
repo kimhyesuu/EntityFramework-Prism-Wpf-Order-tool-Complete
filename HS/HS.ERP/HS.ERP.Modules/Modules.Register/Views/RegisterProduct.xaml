@@ -20,7 +20,7 @@
         </Style>
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal">
-        <Button Command="{Binding Path=SaveProductInfoCommand}" Margin="5" Width="50" Height="30" Background="DeepSkyBlue" BorderBrush="{x:Null}">
+        <Button Command="{Binding Path=MoveProductInfoToListCommand}" Margin="5" Width="50" Height="30" Background="DeepSkyBlue" BorderBrush="{x:Null}">
             <Button.CommandParameter>
                 <MultiBinding Converter="{StaticResource AcceptProductContverter}">
                     <Binding ElementName="textProductName" Path="Text" />

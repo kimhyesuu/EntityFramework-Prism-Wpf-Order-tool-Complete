@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.ERP.Business", "HS.ERP.B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.ERP.DataAccess", "HS.ERP.DataAccess\HS.ERP.DataAccess.csproj", "{1DE11117-80E8-427C-9F94-E745A673BE9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.ERP.Repogitory", "HS.ERP.Repository\HS.ERP.Repogitory.csproj", "{FD7BFFF7-4D32-4A64-AC1C-B0CEE23BC070}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{1DE11117-80E8-427C-9F94-E745A673BE9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DE11117-80E8-427C-9F94-E745A673BE9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DE11117-80E8-427C-9F94-E745A673BE9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD7BFFF7-4D32-4A64-AC1C-B0CEE23BC070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD7BFFF7-4D32-4A64-AC1C-B0CEE23BC070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD7BFFF7-4D32-4A64-AC1C-B0CEE23BC070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD7BFFF7-4D32-4A64-AC1C-B0CEE23BC070}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

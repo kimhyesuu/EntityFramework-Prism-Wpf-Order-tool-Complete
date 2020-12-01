@@ -6,7 +6,7 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" 
                   HorizontalScrollBarVisibility="Auto" MaxHeight="400" MaxWidth="550">
         <Grid >
-            <DataGrid x:Name="accountDatagrid" ItemsSource="{Binding Path=Products}" SelectionMode="Single" 
+            <DataGrid x:Name="productDatagrid" ItemsSource="{Binding Path=Products}" SelectionMode="Single" 
               BorderThickness="1" SelectedItem="{Binding Path=ProductInfo}"
               IsReadOnly="True"  CanUserAddRows="False" AutoGenerateColumns="False" Margin="5">
                 <DataGrid.Columns>

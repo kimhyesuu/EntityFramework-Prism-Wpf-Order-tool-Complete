@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using HS.ERP.Business.Models;
 using HS.ERP.Business.Models.Enums;
@@ -11,9 +13,12 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 {
    public class ProductInfoViewModel : BindableBase, IDialogAware
    {
+      #region 필드
       private Product _productInfo;
       private ObservableCollection<Product> _productList;
+      #endregion
 
+      #region 프로퍼티 
       public ObservableCollection<Product> Products
       {
          get { return _productList; }
@@ -29,9 +34,11 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       public bool CanSaveExcute
       {
          get => true;
-         set => SaveProductInfoCommand.RaiseCanExecuteChanged();
+         set => MoveProductInfoToListCommand.RaiseCanExecuteChanged();
       }
+      #endregion
 
+      #region Constructor
       private void ProductInfoInit()
       {
          ProductInfo = null;
@@ -47,8 +54,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       
       private void CommandInitialize()
       {
-         CloseDialogCommand = new DelegateCommand<string>(CloseDialog);
-         SaveProductInfoCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
+         SaveProductListCommand = new DelegateCommand<string>(SaveProductListDialog);
+         MoveProductInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
          DeleteProductInfoCommand = new DelegateCommand<object>(DeleteProduct);
       }
 
@@ -57,10 +64,13 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          Products = new ObservableCollection<Product>();
          ProductInfoInit();
       }
+      #endregion
 
-      public DelegateCommand<string> SaveProductInfoCommand { get; private set; }
+      public DelegateCommand<string> MoveProductInfoToListCommand { get; private set; }
       public DelegateCommand<object> DeleteProductInfoCommand { get; private set; }
+      public DelegateCommand<string> SaveProductListCommand { get; private set; }
 
+      #region 거래처 CRUD
       private void DeleteProduct(object selectedList)
       {
          if (selectedList is null) return;
@@ -160,67 +170,61 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          var rd = new Random();
          return long.Parse(DateTime.Now.ToString("yyyyMMdd") + rd.Next(1, 1000));
       }
+      #endregion
 
       #region 다이얼로그 값 전달하는 방식 여기 완성 되면 다음 단계로 설정
-      public DelegateCommand<string> CloseDialogCommand { get; private set; }
 
       public event Action<IDialogResult> RequestClose;
 
-      private ObservableCollection<object> _messagesManage;
-
-
-      public ObservableCollection<object> MessagesManage
-      {
-         get { return _messagesManage; }
-         set { SetProperty(ref _messagesManage, value); }
-      }
-
-    
-
-      private void CloseDialog(string parameter)
-      {
+      private void SaveProductListDialog(string CheckedResult)
+      {        
          ButtonResult result = ButtonResult.None;
          var transportParameter = new DialogParameters();
-         string parameterValue = string.Empty;
+         var CheckUpdatedProducts = Products;
 
-         if (parameter?.ToLower() == "true")
+         var savedResult = CheckUpdatedProducts.Where(product => product.EntityState != EntityStateOption.None);
+
+         IEnumerable parameterValue = null;
+
+         if (CheckedResult?.ToLower() == "true" && savedResult.FirstOrDefault() is null)
+         {
+            MessageBox.Show("변경한 거래 목록이 없습니다.", "NG", MessageBoxButton.OK);
+         }
+         else if (CheckedResult?.ToLower() == "true" && MessageBox.Show($"리스트를 저장하시겠습니까?"
+            , "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
             result = ButtonResult.OK;
-            parameterValue = "ButtonResult.OK";
+            parameterValue = savedResult;
          }
 
-         transportParameter.Add("submessage", parameterValue);
-         RaiseRequestClose(result, transportParameter);
+        
+
+         RaiseRequestClose(result, GetDialogParameters(transportParameter, parameterValue));
+      }
+
+      private DialogParameters GetDialogParameters(DialogParameters transportParameter, IEnumerable parameterValue)
+      {
+         foreach (var test in parameterValue)
+         {
+            transportParameter.Add("UpdateInformation", test);
+         }
+
+         return transportParameter;
       }
 
       private void RaiseRequestClose(ButtonResult dialogResult, IDialogParameters dialogParameters)
          => RequestClose?.Invoke(new DialogResult(dialogResult, dialogParameters));
 
       public bool CanCloseDialog()
-      {
-         return true;
-      }
+         => true;
 
-      public void OnDialogClosed()
-      {
-
-      }
-
-      public void OnDialogOpened(IDialogParameters parameters)
-      {
-         //Message = parameters.GetValue<string>("message");
-      }
+      public void OnDialogClosed() { }
+   
+      public void OnDialogOpened(IDialogParameters parameters) { }
+   
       #endregion
 
       #region 리소스
-      private string _message;
-      public string Message
-      {
-         get => _message;
-         set { SetProperty(ref _message, value); }
-      }
-      public string ButtonOKTitle { get => "OK"; }
-      public string ButtonCancelTitle { get => "Cancel"; }
 
       public string Title => "제품 정보";
       public int DialogWindowWith => 1200;

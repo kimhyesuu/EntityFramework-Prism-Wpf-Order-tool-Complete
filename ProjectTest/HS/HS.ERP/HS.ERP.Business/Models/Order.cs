@@ -1,14 +1,10 @@
 ﻿namespace HS.ERP.Business.Models
-{
-   public class DOrder
+{//고치기
+   public class Order
    {
       public long? OrderId { get; set; }
 
-      public long? AccountId { get; set; }
-
-      public int? OrderPrice { get; set; }
-
-      public bool? Status { get; set; }
+      public decimal? OrderPrice { get; set; }
 
       public string Description { get; set; }
 

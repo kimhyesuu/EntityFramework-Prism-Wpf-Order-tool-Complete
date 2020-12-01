@@ -1,26 +1,23 @@
 ﻿<UserControl x:Class="HS.ERP.Outlook.Core.Dialogs.Views.AccountInfo"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            
+
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              prism:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core"
-            >
-    <ScrollViewer>
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" >
-            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Command="{Binding Path=UpdateAccountCommand}" Margin="5" Width="100" Background="DeepSkyBlue" BorderBrush="Black">
-                    <materialDesign:PackIcon Kind="ArrowBottomBold"/>
-                </Button>
-                <Button Command="{Binding Path=SaveAccountInfoCommand}" Margin="5" Width="100" Background="DeepSkyBlue" BorderBrush="Black">
-                    <materialDesign:PackIcon Kind="ArrowTopBold"/>
-                </Button>
-            </StackPanel>
-            <GroupBox Header="거래처 정보 입력" >
+             xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core" >
+  
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" >
+            <StackPanel Orientation="Horizontal">
+                <GroupBox Header="거래처 리스트" >
+                    <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
+                </GroupBox>
                 <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterAccountRegion}"/>
-            </GroupBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                <Button Width="120" Content="저장" Margin="4" Command="{Binding Path=SaveAccountListCommand}" CommandParameter="true" />
+                <Button Width="120" Content="취소" Margin="4" Command="{Binding Path=SaveAccountListCommand}" CommandParameter="false"/>
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

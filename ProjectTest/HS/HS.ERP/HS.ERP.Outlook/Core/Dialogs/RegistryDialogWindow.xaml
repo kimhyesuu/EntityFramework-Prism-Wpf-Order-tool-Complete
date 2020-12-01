@@ -4,7 +4,9 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         ResizeMode ="NoResize" WindowStyle="SingleBorderWindow"
-        Title="{Binding Path=Title}" Height="500" Width="700" >
- 
-       
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding Path=Title}" Height="515" Width="{Binding Path=DialogWindowWith}" >
+
+
+
 </Window>

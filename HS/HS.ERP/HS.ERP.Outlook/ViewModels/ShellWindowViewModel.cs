@@ -1,11 +1,11 @@
 ﻿using HS.ERP.Core;
-using HS.ERP.Outlook.Core.Dependency;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -37,13 +37,11 @@ namespace HS.ERP.Outlook.ViewModels
 
       public DelegateCommand<object> OpenTheRegisterWindowCommand { get; private set; }
 
-
       public bool WindowCanClose() => true;
 
       private void OnClose() => WindowClose?.Invoke();
 
       private void OnDrag() => WindowDragMove?.Invoke();
-
 
       private void ShowPopup(object navigationPopupPath)
       {
@@ -55,21 +53,12 @@ namespace HS.ERP.Outlook.ViewModels
          {
             if (IsNullOrParameter(r.Parameters) && r.Result is ButtonResult.OK)
             {
-               
-               EventAggregator.GetEvent<SendUpdatedList>().Publish(r.Parameters);
+               EventAggregator.GetEvent<SendUpdatedList>().Publish(r.Parameters.GetValues<object>("UpdateInformation"));
             }
          });
       }
 
-      private void OpenSelectedPopWindow(FrameworkElement para)
-      {
-
-      }
-
       private bool IsNullOrParameter(IDialogParameters parameters)
-      {     
-         return parameters.GetValue<object>("UpdateInformation") != null;     
-      }
-
+        => parameters.GetValues<object>("UpdateInformation") != null;     
    }
 }

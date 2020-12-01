@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -10,7 +9,6 @@ using HS.ERP.Business.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
-
 
 namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 {
@@ -38,8 +36,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {
          get => true;
          set => MoveAccountInfoToListCommand.RaiseCanExecuteChanged();
-      }
-      
+      }      
       #endregion
 
       public AccountInfoViewModel()
@@ -86,8 +83,6 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             Accounts.Remove(selectedAccount);
          }
       }
-
-     
 
       private void AddOrUpdate(string account)
       {
@@ -175,7 +170,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             MessageSend(accountInfo[8], "숫자로 입력해주세요.");
              return false;
          }
-         // 킵
+
+         // 킵 이것을 manager에게 보내면 되겠다.
          var companyNames = accounts.Where(x => x.CompanyName == accountInfo[0])
                .Select(same => same.CompanyName);
 
@@ -205,8 +201,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       #endregion
 
-      //collection값을 넣어주면 되겠네
-      #region 다이얼로그 리절트를 받기 위해 쓰이는 기술
+      #region 저장된 값을 Dialog Result값에 포함시키기 위함
 
       public event Action<IDialogResult> RequestClose;
 
@@ -217,11 +212,11 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          ButtonResult result = ButtonResult.None;
          var transportParameter = new DialogParameters();
          var CheckUpdatedaccounts = Accounts;
-         
-         var savedResult = CheckUpdatedaccounts.Where(account => account.EntityState != EntityStateOption.None);
          IEnumerable parameterValue = null;
 
-         if (CheckedResult?.ToLower() == "true" && savedResult.Count() == 0)
+         var savedResult = CheckUpdatedaccounts.Where(account => account.EntityState != EntityStateOption.None);
+
+         if (CheckedResult?.ToLower() == "true" && savedResult.FirstOrDefault() is null)
          {
             MessageBox.Show("변경한 거래 목록이 없습니다.", "NG", MessageBoxButton.OK);
          }
@@ -232,38 +227,32 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             parameterValue = savedResult;
          }
 
-         transportParameter.Add("UpdateInformation", parameterValue);
-         RaiseRequestClose(result, transportParameter);
+         RaiseRequestClose(result, GetDialogParameters(transportParameter, parameterValue));
+      }
+
+      private DialogParameters GetDialogParameters(DialogParameters transportParameter, IEnumerable parameterValue)
+      {
+         foreach (var test in parameterValue)
+         {
+            transportParameter.Add("UpdateInformation", test);
+         }
+
+         return transportParameter;
       }
 
       private void RaiseRequestClose(ButtonResult dialogResult, DialogParameters dialogParameters)
         => RequestClose?.Invoke(new DialogResult(dialogResult, dialogParameters));
 
       public bool CanCloseDialog()
-      {
-         return true;
-      }
+         => true;
 
-      public void OnDialogClosed()
-      {
-
-      }
-
-      public void OnDialogOpened(IDialogParameters parameters)
-      {
-         //Message = parameters.GetValue<string>("message");
-      }
+      public void OnDialogClosed() { }
+     
+      public void OnDialogOpened(IDialogParameters parameters) { }
 
       #endregion
 
       #region TitleName
-
-      private string _message;
-      public string Message
-      {
-         get => _message;
-         set { SetProperty(ref _message, value); }
-      }
 
       public string Title => "거래처 정보";
 

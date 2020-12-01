@@ -9,9 +9,9 @@
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder) { }
 
-      public DbSet<DAccountInfo> dAccountInfo { get; set; }
+      public DbSet<DAccount> dAccountInfo { get; set; }
 
-      public DbSet<DContact> dContact { get; set; }
+      public DbSet<DTelePhone> dTelePhone { get; set; }
 
       public DbSet<DOrder> dOrder { get; set; }
 

@@ -37,6 +37,9 @@
     <Reference Include="HS.ERP.DataAccess">
       <HintPath>..\HS.ERP.DataAccess\bin\Debug\HS.ERP.DataAccess.dll</HintPath>
     </Reference>
+    <Reference Include="HS.ERP.Repository">
+      <HintPath>..\HS.ERP.Repository\bin\Debug\HS.ERP.Repository.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.2.0.1422, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.2.0.1422\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -64,6 +67,9 @@
     <Compile Include="Converter\ConvertToModel.cs" />
     <Compile Include="Converter\EnumDescriptionTypeConverter.cs" />
     <Compile Include="DBConnect.cs" />
+    <Compile Include="Managers\AccountManager.cs" />
+    <Compile Include="Managers\InfoList.cs" />
+    <Compile Include="Managers\ProductManager.cs" />
     <Compile Include="Models\Enums\EntityStateOption.cs" />
     <Compile Include="Models\Enums\PhoneHeaderNumber.cs" />
     <Compile Include="Services\AccountService.cs" />

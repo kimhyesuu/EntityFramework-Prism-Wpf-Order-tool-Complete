@@ -1,5 +1,6 @@
 ﻿namespace HS.ERP.DataAccess.Domain
 {
+   using System.Collections.Generic;
    using System.ComponentModel.DataAnnotations;
    using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,19 +8,22 @@
    public class DProduct
    {
       [Key]
-      [Column("ProductId")]
+      [Column("ProductId"), DatabaseGenerated(DatabaseGeneratedOption.Identity)]
       public int? ProductId { get; set; }
 
-      [Column("ProductName")]
+      [Column("ProductName"), MaxLength(50)]
       public string ProductName { get; set; }
 
       [Column("ProductPrice")]
-      public decimal ProductPrice { get; set; }
+      public decimal? ProductPrice { get; set; }
 
-      [Column("Description")]
+      [Column("Description"), MaxLength(800)]
       public string Description { get; set; }
 
-      [Column("CreatedDate"), Timestamp]
+      [Column("CreatedDate")]
       public byte[] CreatedDate { get; set; }
+
+      [ForeignKey("ProductIdFK")]
+      public virtual ICollection<DOrderProduct> DOrderProduct { get; set; }
    }
 }

@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1267
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "HS.ERP.DataBase_Version_1.1", "HS.ERP.DataBase_Version_1.1\HS.ERP.DataBase_Version_1.1.sqlproj", "{92097984-7742-4E69-BDAB-DC5DA12703E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92097984-7742-4E69-BDAB-DC5DA12703E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92097984-7742-4E69-BDAB-DC5DA12703E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92097984-7742-4E69-BDAB-DC5DA12703E6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{92097984-7742-4E69-BDAB-DC5DA12703E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92097984-7742-4E69-BDAB-DC5DA12703E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92097984-7742-4E69-BDAB-DC5DA12703E6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42B4312F-82A5-4068-9D6C-8E2DDDC546FE}
+	EndGlobalSection
+EndGlobal

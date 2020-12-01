@@ -4,12 +4,8 @@
    {
       public long? DetailedOrderId { get; set; }
 
-      public long? ProductId { get; set; }
-
-      public long? OrderId { get; set; }
-
       public string ProductName { get; set; }
 
-      public int ProductQuantity { get; set; }
+      public int ProductQuantity { get; set; }    
    }
 }

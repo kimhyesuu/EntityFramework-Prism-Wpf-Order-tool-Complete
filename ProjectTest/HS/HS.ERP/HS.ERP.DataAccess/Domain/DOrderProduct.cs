@@ -7,19 +7,19 @@
    public class DOrderProduct
    {
       [Key]
-      [Column("DetailedOrderId")]
-      public int? DetailedOrderId { get; set; }
-
-      [Column("ProductId")]
-      public int? ProductId { get; set; }
-
-      [Column("OrderId")]
-      public int? OrderId { get; set; }
-
+      [Column("DetailedOrderId"), DataType("BIGINT"), DatabaseGenerated(DatabaseGeneratedOption.None)]
+      public long? DetailedOrderId { get; set; }
+   
       [Column("ProductName")]
       public string ProductName { get; set; }
 
       [Column("ProductQuantity")]
       public int ProductQuantity { get; set; }
+
+      public long? OrderIdFK { get; set; }
+      public DOrder DOrder { get; set; }
+
+      public int? ProductIdFK { get; set; }
+      public DProduct DProduct { get; set; }
    }
 }

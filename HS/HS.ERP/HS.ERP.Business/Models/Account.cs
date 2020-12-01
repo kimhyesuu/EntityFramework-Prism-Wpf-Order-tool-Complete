@@ -24,6 +24,5 @@
       public byte[] CreatedDate { get; set; }
       public DateTime? UpdatedDate { get; set; }
       public EntityStateOption EntityState { get; set; }
-
    }
 }
