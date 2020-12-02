@@ -1,19 +1,31 @@
 ﻿using HS.ERP.Business.Models;
 using HS.ERP.Repository;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace HS.ERP.Business.Managers
 {
-   public class AccountManager 
+   public class AccountManager : IRepogitoryManager<Account>
    {
       readonly AccountRepogitory _repository;
    
       public AccountManager()   
        =>  this._repository = InfoList.GetCurrentAccounts;      
-      
-      // GetAll 성립시키자
+            
+      public ObservableCollection<Account> GetAll()
+      {
+         var result = _repository.GetAll();
+
+         if(result.FirstOrDefault() != null)
+         {
+            return result;
+         }
+         return null;
+      }
+
       public bool Add(Account account)
       {
-         if (_repository.Search(account.AccountId) is null)
+         if (_repository.Search(account) is null)
          {
             _repository.Add(account);
             return true;
@@ -21,11 +33,11 @@ namespace HS.ERP.Business.Managers
          return false;
       }
 
-      public bool Remove(long? id)
-      {
-         Account account = _repository.Search(id);
+    
 
-         if (account != null)
+      public bool Remove(Account account)
+      {
+         if (_repository.Search(account) != null)
          {
             _repository.Remove(account);
             return true;
@@ -33,9 +45,20 @@ namespace HS.ERP.Business.Managers
          return false;
       }
 
-      public Account Search(int id)
+      public bool Update(Account account)
       {
-         return _repository.Search(id);
+         if(_repository.Search(account) is null)
+         {
+            _repository.Update(account);
+            return true;
+         }
+
+         return false;
+      }
+
+      public Account Search(Account account)
+      {
+         return _repository.Search(account);
       }
    }
 }

@@ -69,6 +69,7 @@
     <Compile Include="DBConnect.cs" />
     <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Managers\InfoList.cs" />
+    <Compile Include="Managers\IRepogitoryManager.cs" />
     <Compile Include="Managers\ProductManager.cs" />
     <Compile Include="Models\Enums\EntityStateOption.cs" />
     <Compile Include="Models\Enums\PhoneHeaderNumber.cs" />

@@ -12,14 +12,4 @@
 
       DBUpdated
    }
-
-   public enum EntityName
-   {
-      None,
-
-      Account, 
-
-      Product
-   }
-
 }

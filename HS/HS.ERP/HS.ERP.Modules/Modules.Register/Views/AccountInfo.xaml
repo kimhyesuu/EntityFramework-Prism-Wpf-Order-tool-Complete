@@ -15,8 +15,8 @@
                 <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterAccountRegion}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-                <Button Width="120" Content="저장" Margin="4" Command="{Binding Path=SaveAccountListCommand}" CommandParameter="true" />
-                <Button Width="120" Content="취소" Margin="4" Command="{Binding Path=SaveAccountListCommand}" CommandParameter="false"/>
+                <Button Width="120" Content="저장" Margin="4" Command="{Binding Path=AccountInfoDialogCommand}" CommandParameter="true" />
+                <Button Width="120" Content="취소" Margin="4" Command="{Binding Path=AccountInfoDialogCommand}" CommandParameter="false"/>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

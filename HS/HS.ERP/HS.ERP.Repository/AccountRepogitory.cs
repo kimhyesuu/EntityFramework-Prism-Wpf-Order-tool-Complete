@@ -1,50 +1,50 @@
 ﻿using HS.ERP.Business.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace HS.ERP.Repository
 {
    public class AccountRepogitory
    {
       private static List<Account> _accounts;
-      /// <summary>
-      /// 1. 값을 로딩할 때 받고 
-      /// </summary>
+
       public AccountRepogitory()
-       => _accounts = new List<Account>();
-      
+        => _accounts = new List<Account>();
+
+      public ObservableCollection<Account> GetAll()     
+        => new ObservableCollection<Account>(_accounts);
+
       public void Add(Account account)
         => _accounts.Add(account);
 
       public void Remove(Account account)
-        => account.EntityState = Business.Models.Enums.EntityStateOption.Deleted;
+        => _accounts.Remove(account);
 
-      // 업데이트
       public void Update(Account account)
       {
-         //값이 다른값이 있는가를 확인하는 절차가 필요
-      }
+         var result = Search(account);
 
-      public Account Search(long? id)
-      {
-         int index = GetIndex(id);
-         return index > -1 ? _accounts[index] : null;  
-      }
-
-      public int GetIndex(long? id)
-      {
-         int index = -1;
-         if (_accounts.Count > 0)
+         if(result != null)
          {
-            for (int i = 0; i < _accounts.Count; i++)
-            {
-               if (_accounts[i].AccountId == id)
-               {
-                  index = i;
-                  break;
-               }
-            }
-         }
-         return index;
+            Remove(result);
+            Add(account);
+         }       
+      }
+
+      public Account Search(Account account)
+      {
+         var index = GetIndex(account);
+         return index > -1 ? _accounts[index] : null;             
+      }
+
+      public int GetIndex(Account account)
+      {
+         var index = -1;
+         if (_accounts.Count() > 0)
+            index = _accounts.IndexOf(account);
+
+         return index;       
       }
 
       // 실제로 딜리트되어있는 부부을 지운다.

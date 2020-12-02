@@ -32,15 +32,11 @@ namespace HS.ERP.Outlook.ViewModels
       }
 
       public DelegateCommand WindowCloseCommand { get; private set; }
-
       public DelegateCommand DragMoveCommand { get; private set; }
-
       public DelegateCommand<object> OpenTheRegisterWindowCommand { get; private set; }
 
       public bool WindowCanClose() => true;
-
       private void OnClose() => WindowClose?.Invoke();
-
       private void OnDrag() => WindowDragMove?.Invoke();
 
       private void ShowPopup(object navigationPopupPath)

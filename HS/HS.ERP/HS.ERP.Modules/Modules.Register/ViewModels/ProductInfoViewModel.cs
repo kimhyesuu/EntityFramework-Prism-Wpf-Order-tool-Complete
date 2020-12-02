@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -31,6 +32,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          set { SetProperty(ref _productInfo, value); }
       }
 
+      public List<Product> DeletedProducts { get; set; }
+
       public bool CanSaveExcute
       {
          get => true;
@@ -61,6 +64,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void DataInitialize()
       {
+         DeletedProducts = new List<Product>();
          Products = new ObservableCollection<Product>();
          ProductInfoInit();
       }
@@ -70,7 +74,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       public DelegateCommand<object> DeleteProductInfoCommand { get; private set; }
       public DelegateCommand<string> SaveProductListCommand { get; private set; }
 
-      #region 거래처 CRUD
+      #region 제품 CRUD
       private void DeleteProduct(object selectedList)
       {
          if (selectedList is null) return;
@@ -80,6 +84,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          if (MessageBox.Show($"{selectedProduct.ProductName}을 삭제하시겠습니까?"
             , "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
+            selectedProduct.EntityState = EntityStateOption.Deleted;
+            DeletedProducts.Add(selectedProduct);
             Products.Remove(selectedProduct);
          }
       }
@@ -186,6 +192,13 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
          IEnumerable parameterValue = null;
 
+         if ((CheckedResult?.ToLower() == "false") ||
+           (CheckedResult?.ToLower() == "true") &&
+           (DeletedProducts.Count > 0))
+         {
+            result = ButtonResult.OK;
+         }
+
          if (CheckedResult?.ToLower() == "true" && savedResult.FirstOrDefault() is null)
          {
             MessageBox.Show("변경한 거래 목록이 없습니다.", "NG", MessageBoxButton.OK);
@@ -197,16 +210,25 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             parameterValue = savedResult;
          }
 
-        
-
          RaiseRequestClose(result, GetDialogParameters(transportParameter, parameterValue));
       }
 
       private DialogParameters GetDialogParameters(DialogParameters transportParameter, IEnumerable parameterValue)
       {
-         foreach (var test in parameterValue)
+         if(parameterValue != null)
          {
-            transportParameter.Add("UpdateInformation", test);
+            foreach (var test in parameterValue)
+            {
+               transportParameter.Add("UpdateInformation", test);
+            }
+         }
+
+         if (DeletedProducts.Count > 0)
+         {
+            foreach (var test in DeletedProducts)
+            {
+               transportParameter.Add("UpdateInformation", test);
+            }
          }
 
          return transportParameter;

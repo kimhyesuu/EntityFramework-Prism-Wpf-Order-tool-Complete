@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountRepogitory.cs" />
-    <Compile Include="InfoList.cs" />
     <Compile Include="ProductRepogitory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using HS.ERP.Business.Managers;
 using HS.ERP.Business.Models;
 using HS.ERP.Business.Models.Enums;
 using HS.ERP.Business.Services;
@@ -16,8 +18,10 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
    {
       private Account _accountInfo;
       private ObservableCollection<Account> _accountList;
- 
+
       #region 프로퍼티
+      private IRepogitoryManager<Account> RepogitoryManager { get; set; }
+
       private IServiceLogic<Account> ServiceLogic { get; }
 
       public ObservableCollection<Account> Accounts
@@ -32,11 +36,14 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          set { SetProperty(ref _accountInfo, value); }      
       }
 
+      public List<Account> DeletedAccounts { get; set; }
+
       public bool CanSaveExcute
       {
          get => true;
          set => MoveAccountInfoToListCommand.RaiseCanExecuteChanged();
       }      
+
       #endregion
 
       public AccountInfoViewModel()
@@ -50,12 +57,22 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {
          MoveAccountInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
          DeleteAccountInfoCommand = new DelegateCommand<object>(DeleteAccount);
-         SaveAccountListCommand = new DelegateCommand<string>(SaveAccountListDialog);
+         AccountInfoDialogCommand = new DelegateCommand<string>(CloseDialog);
       }
 
       private void DataInitialize()
       {
-         Accounts = new ObservableCollection<Account>();
+         DeletedAccounts = new List<Account>();
+         RepogitoryManager = new AccountManager();
+         var result = RepogitoryManager.GetAll();
+         if(result != null)
+         {
+            Accounts = new ObservableCollection<Account>(result);
+         }
+         else
+         {
+            Accounts = new ObservableCollection<Account>();
+         }
          AccountInfoInit();
       }
 
@@ -66,11 +83,12 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          AccountInfo.EntityState = EntityStateOption.None;
       }
 
-      public DelegateCommand<string> SaveAccountListCommand { get; private set; }
+      public DelegateCommand<string> AccountInfoDialogCommand { get; private set; }
       public DelegateCommand<object> DeleteAccountInfoCommand { get; private set; }
       public DelegateCommand<string> MoveAccountInfoToListCommand { get; private set; }
 
       #region 거래처 정보를 관련 로직 
+
       private void DeleteAccount(object selectedList)
       {
          if (selectedList is null) return;
@@ -80,18 +98,32 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          if(MessageBox.Show($"{selectedAccount.CompanyName}을 삭제하시겠습니까?" 
             ,"정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
+            selectedAccount.EntityState = EntityStateOption.Deleted;
+            DeletedAccounts.Add(selectedAccount);
             Accounts.Remove(selectedAccount);
          }
       }
 
       private void AddOrUpdate(string account)
       {
-         string[] accountInfo = account.Split(':');
+         var receivedInfo = ConvertStringToAccountInfo(account);
 
-         if (!IsCompatibility(accountInfo))
+         if (!IsCompatibility(receivedInfo))
             return;
 
-         var accounts = Accounts;
+         if (IsAdd(receivedInfo.EntityState))
+         {         
+            AddAccountInfo(receivedInfo);
+         }
+         else
+         {
+            UpdateAccountInfo(receivedInfo);
+         }
+      }
+
+      private Account ConvertStringToAccountInfo(string account)
+      {
+         string[] accountInfo = account.Split(':');
 
          var receivedInfo = new Account
          {
@@ -110,15 +142,9 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             CreatedDate = null
          };
 
-         if (IsAdd(receivedInfo))
-         {
-            AddAccountInfo(receivedInfo);
-         }
-         else
-         {
-            UpdateAccountInfo(receivedInfo);
-         }
+         return receivedInfo;
       }
+
       private void UpdateAccountInfo(Account accountInfo)
       {
          accountInfo.EntityState = EntityStateOption.Updated;
@@ -130,54 +156,44 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       }
 
       private void AddAccountInfo(Account accountInfo)
-      {
-         Accounts.Add(new Account
-         {
-            AccountId = accountInfo.AccountId,
-            CompanyName = accountInfo.CompanyName,
-            CompanyEmail = accountInfo.CompanyEmail,
-            Address = accountInfo.Address,
-            ContactName = accountInfo.ContactName,
-            Department = accountInfo.Department,
-            Position = accountInfo.Position,
-            TelePrefix = accountInfo.TelePrefix,
-            TelePhoneNumber = accountInfo.TelePhoneNumber,
-            FullPhoneNumber = accountInfo.TelePrefix + accountInfo.TelePhoneNumber,
-            Description = accountInfo.Description,
-            CreatedDate = accountInfo.CreatedDate,
-            EntityState = EntityStateOption.Inserted
-         });
-
+      {     
+         accountInfo.EntityState = EntityStateOption.Inserted;
+         Accounts.Add(accountInfo);
+                  
          accountInfo = null;
          AccountInfoInit();
       }
 
-      private bool IsCompatibility(string[] accountInfo)
+      private bool IsCompatibility(Account accountInfo)
       {
-         //시간 남으면 수정
-         var accounts = Accounts;
-
-         foreach (var info in accountInfo)
+         if (string.IsNullOrEmpty(accountInfo.CompanyName) ||
+             string.IsNullOrEmpty(accountInfo.ContactName) ||
+             string.IsNullOrEmpty(accountInfo.TelePhoneNumber) ||
+             string.IsNullOrEmpty(accountInfo.Address) ||
+             string.IsNullOrEmpty(accountInfo.CompanyEmail))
          {
-            if (string.IsNullOrEmpty(info) && accountInfo[3] != info)
-            {
-               return false;
-            }
+            return false;
          }
 
-         if(!IsNumeric(accountInfo[8]))
+         if (!IsNumeric(accountInfo.TelePhoneNumber))
          {
-            MessageSend(accountInfo[8], "숫자로 입력해주세요.");
+            MessageSend(accountInfo.TelePhoneNumber, "숫자로 입력해주세요.");
              return false;
          }
 
-         // 킵 이것을 manager에게 보내면 되겠다.
-         var companyNames = accounts.Where(x => x.CompanyName == accountInfo[0])
-               .Select(same => same.CompanyName);
+         var AccountsToCompare = Accounts;
 
-         foreach (var companyName in companyNames)
+         foreach (var companyName in AccountsToCompare.Where(x => x.CompanyName == accountInfo.CompanyName)
+             .Select(same => same.CompanyName))
          {
-            if (!string.IsNullOrWhiteSpace(companyName))
+            if (!string.IsNullOrEmpty(companyName))
+               return false;
+         }
+
+         foreach (var telePhoneNumber in AccountsToCompare.Where(x => x.TelePhoneNumber == accountInfo.TelePhoneNumber)
+          .Select(same => same.TelePhoneNumber))
+         {
+            if (!string.IsNullOrEmpty(telePhoneNumber))
                return false;
          }
 
@@ -190,8 +206,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          return long.Parse(DateTime.Now.ToString("yyyyMMdd") + rd.Next(1, 1000));
       }
 
-      private bool IsAdd(Account accountInfo)
-        => accountInfo.EntityState is EntityStateOption.None;
+      private bool IsAdd(EntityStateOption accountInfo)
+        => accountInfo is EntityStateOption.None;
 
       private void MessageSend(object para, string message)      
         => MessageBox.Show($"{para}을 {message}","NG");
@@ -204,37 +220,69 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       #region 저장된 값을 Dialog Result값에 포함시키기 위함
 
       public event Action<IDialogResult> RequestClose;
-
-      private void SaveAccountListDialog(string CheckedResult)
-      {
-         // CanSave true false
-         // 여기서 거래처 정보를 받아서 db로 넘길 것을 확인 조건부까지
+     
+      private void CloseDialog(string CheckedResult)
+      {       
          ButtonResult result = ButtonResult.None;
          var transportParameter = new DialogParameters();
-         var CheckUpdatedaccounts = Accounts;
          IEnumerable parameterValue = null;
+         var savedResult = AccountListToSave(Accounts);        
 
-         var savedResult = CheckUpdatedaccounts.Where(account => account.EntityState != EntityStateOption.None);
+         //확인 누를때만 db이동 시키고 아무거나 
+
+         if ((CheckedResult?.ToLower() == "false" ||
+             CheckedResult?.ToLower() == "true") &&
+            DeletedAccounts.Count > 0 )
+         {
+            result = ButtonResult.OK;
+         }
 
          if (CheckedResult?.ToLower() == "true" && savedResult.FirstOrDefault() is null)
          {
             MessageBox.Show("변경한 거래 목록이 없습니다.", "NG", MessageBoxButton.OK);
-         }
-         else if (CheckedResult?.ToLower() == "true" && MessageBox.Show($"리스트를 저장하시겠습니까?"
-            , "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+         }      
+         else if (CheckedResult?.ToLower() == "true" && MessageBox.Show($"리스트를 저장하시겠습니까?", "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
             result = ButtonResult.OK;
             parameterValue = savedResult;
          }
 
+         if (CheckedResult?.ToLower() == "false"
+            && savedResult.FirstOrDefault() != null
+            )
+         {
+            if(MessageBox.Show($"저장되지 않은 정보가 있습니다.\n저장하시겠습니까?", "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+               result = ButtonResult.OK;
+               parameterValue = savedResult;
+            }         
+         }
+
          RaiseRequestClose(result, GetDialogParameters(transportParameter, parameterValue));
+         Accounts = null;
+         DeletedAccounts = null;
+         AccountInfo = null;
       }
+
+      private IEnumerable<Account> AccountListToSave(ObservableCollection<Account> accounts)     
+         => accounts.Where(account => account.EntityState != EntityStateOption.DBUpdated);     
 
       private DialogParameters GetDialogParameters(DialogParameters transportParameter, IEnumerable parameterValue)
       {
-         foreach (var test in parameterValue)
+         if(parameterValue != null)
          {
-            transportParameter.Add("UpdateInformation", test);
+            foreach (var test in parameterValue)
+            {
+               transportParameter.Add("UpdateInformation", test);
+            }   
+         }
+
+         if(DeletedAccounts.Count > 0)
+         {
+            foreach (var test in DeletedAccounts)
+            {
+               transportParameter.Add("UpdateInformation", test);
+            }
          }
 
          return transportParameter;
@@ -252,7 +300,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       #endregion
 
-      #region TitleName
+      #region Dialog Window Resource
 
       public string Title => "거래처 정보";
 

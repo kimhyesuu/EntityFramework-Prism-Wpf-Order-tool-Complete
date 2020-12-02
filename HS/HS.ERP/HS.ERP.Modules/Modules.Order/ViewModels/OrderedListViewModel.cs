@@ -13,11 +13,8 @@ namespace Modules.Order.ViewModels
 {
    public class OrderedListViewModel : BindableBase
    {
-   
-
       public OrderedListViewModel()
       {
-        
 
       }
    }

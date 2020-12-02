@@ -1,5 +1,7 @@
 ﻿using HS.ERP.Business.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace HS.ERP.Repository
 {
@@ -7,44 +9,43 @@ namespace HS.ERP.Repository
    {
       private static List<Product> _products;
 
-      public ProductRepogitory()
+      public ProductRepogitory()      
+        => _products = new List<Product>();
+
+      public ObservableCollection<Product> GetAll()
+        => new ObservableCollection<Product>(_products);
+
+      public void Add(Product product)      
+        => _products.Add(product);
+     
+      public void Remove(Product product)     
+        => _products.Remove(product);
+
+      public void Update(Product product)
       {
-         _products = new List<Product>();
+         var result = Search(product);
+
+         if (result != null)
+         {
+            Remove(result);
+            Add(product);
+         }
       }
 
-      public void Add(Product product)
+      public Product Search(Product product)
       {
-         _products.Add(product);
-      }
-
-      public void Remove(Product product)
-      {
-         _products.Remove(product);
-      }
-
-      public Product Search(long? id)
-      {
-         int index = GetIndex(id);
+         int index = GetIndex(product);
          if (index > -1)
             return _products[index];
          return null;
       }
 
-      public int GetIndex(long? id)
+      public int GetIndex(Product product)
       {
-         int index = -1;
+         var index = -1;
+         if (_products.Count() > 0)
+            index = _products.IndexOf(product);
 
-         if (_products.Count > 0)
-         {
-            for (int i = 0; i < _products.Count; i++)
-            {
-               if (_products[i].ProductId == id)
-               {
-                  index = i;
-                  break;
-               }
-            }
-         }
          return index;
       }
    }

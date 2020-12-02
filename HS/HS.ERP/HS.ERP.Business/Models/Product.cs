@@ -1,8 +1,8 @@
-﻿using HS.ERP.Business.Models.Enums;
-using System;
-
-namespace HS.ERP.Business.Models
+﻿namespace HS.ERP.Business.Models
 {
+   using HS.ERP.Business.Models.Enums;
+   using System;
+
    public class Product 
    {
       public Product() { }

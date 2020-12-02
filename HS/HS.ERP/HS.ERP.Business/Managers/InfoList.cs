@@ -5,6 +5,7 @@
    public sealed class InfoList
    {
       private static AccountRepogitory _accountIntances = null;
+
       public static AccountRepogitory GetCurrentAccounts
       {
          get
@@ -16,6 +17,7 @@
       }
 
       private static ProductRepogitory _ProductIntances = null;
+
       public static ProductRepogitory GetCurrentProducts
       {
          get
