@@ -34,11 +34,11 @@
                     <TextBlock Text="" VerticalAlignment="Center" FontSize="16" Foreground="White" Opacity="0.7"/>
                     <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" Foreground="White" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" >
                         <StackPanel Width="150">
-                            <Button x:Name="AccountInfo" Content="거래처 등록"
+                            <Button x:Name="AccountInfo" Content="거래처 정보"
                                     Height="35" FontSize="13" FontWeight="SemiBold" VerticalContentAlignment="Center" 
                                     Command="{Binding Path=OpenTheRegisterWindowCommand}"
                                     CommandParameter="{Binding ElementName=AccountInfo}"/>
-                            <Button x:Name="ProductInfo" Content="제품 등록" Height="35" FontSize="13" 
+                            <Button x:Name="ProductInfo" Content="제품 정보" Height="35" FontSize="13" 
                                     FontWeight="SemiBold" VerticalContentAlignment="Center" 
                                     Command="{Binding Path=OpenTheRegisterWindowCommand}"
                                     CommandParameter="{Binding ElementName=ProductInfo}"/>

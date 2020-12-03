@@ -3,5 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
-   
+    <DataGrid  SelectionMode="Single" 
+              BorderThickness="1" Height="150" Width="300"
+              IsReadOnly="True"  CanUserAddRows="False" AutoGenerateColumns="False" Margin="5,2">
+
+    </DataGrid>
 </UserControl>

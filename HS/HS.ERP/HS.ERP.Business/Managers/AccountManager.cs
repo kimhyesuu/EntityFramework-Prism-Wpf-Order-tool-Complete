@@ -33,8 +33,6 @@ namespace HS.ERP.Business.Managers
          return false;
       }
 
-    
-
       public bool Remove(Account account)
       {
          if (_repository.Search(account) != null)

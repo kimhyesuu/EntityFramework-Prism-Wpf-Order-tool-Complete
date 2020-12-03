@@ -59,7 +59,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {
          SaveProductListCommand = new DelegateCommand<string>(SaveProductListDialog);
          MoveProductInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
-         DeleteProductInfoCommand = new DelegateCommand<object>(DeleteProduct);
+         SelectedAccountInfoCommand = new DelegateCommand<object>(DeleteProduct);
       }
 
       private void DataInitialize()
@@ -71,7 +71,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       #endregion
 
       public DelegateCommand<string> MoveProductInfoToListCommand { get; private set; }
-      public DelegateCommand<object> DeleteProductInfoCommand { get; private set; }
+      public DelegateCommand<object> SelectedAccountInfoCommand { get; private set; }
       public DelegateCommand<string> SaveProductListCommand { get; private set; }
 
       #region 제품 CRUD

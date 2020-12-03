@@ -6,7 +6,7 @@
    {
       public long? DetailedOrderId { get; set; }
       public string ProductName { get; set; }
-      public int ProductQuantity { get; set; }
+      public int? TotalQuantity { get; set; }
       public EntityStateOption EntityState { get; set; }
    }
 }

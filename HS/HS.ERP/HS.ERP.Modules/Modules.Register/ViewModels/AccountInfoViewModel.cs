@@ -56,7 +56,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private void CommandInitialize()
       {
          MoveAccountInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
-         DeleteAccountInfoCommand = new DelegateCommand<object>(DeleteAccount);
+         SelectedAccountInfoCommand = new DelegateCommand<object>(DeleteAccount);
          AccountInfoDialogCommand = new DelegateCommand<string>(CloseDialog);
       }
 
@@ -84,7 +84,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       }
 
       public DelegateCommand<string> AccountInfoDialogCommand { get; private set; }
-      public DelegateCommand<object> DeleteAccountInfoCommand { get; private set; }
+      public DelegateCommand<object> SelectedAccountInfoCommand { get; private set; }
       public DelegateCommand<string> MoveAccountInfoToListCommand { get; private set; }
 
       #region 거래처 정보를 관련 로직 

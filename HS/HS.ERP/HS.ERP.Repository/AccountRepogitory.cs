@@ -46,10 +46,5 @@ namespace HS.ERP.Repository
 
          return index;       
       }
-
-      // 실제로 딜리트되어있는 부부을 지운다.
-      // 업데이트도 한다.
-
-      //저장했을시 DB업데이트
    }
 }

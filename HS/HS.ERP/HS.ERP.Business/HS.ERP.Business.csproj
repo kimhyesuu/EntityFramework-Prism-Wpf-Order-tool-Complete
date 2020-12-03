@@ -73,9 +73,10 @@
     <Compile Include="Managers\ProductManager.cs" />
     <Compile Include="Models\Enums\EntityStateOption.cs" />
     <Compile Include="Models\Enums\PhoneHeaderNumber.cs" />
+    <Compile Include="Models\Ordered.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Ordering.cs" />
     <Compile Include="Models\OrderProduct.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

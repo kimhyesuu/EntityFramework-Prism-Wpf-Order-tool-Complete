@@ -30,7 +30,7 @@
                     <DataGridTemplateColumn Width="90" MaxWidth="90">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding DataContext.DeleteProductInfoCommand,ElementName=rowProduct}" CommandParameter="{Binding}" Content="삭제"/>
+                                <Button Command="{Binding DataContext.SelectedAccountInfoCommand,ElementName=rowProduct}" CommandParameter="{Binding}" Content="삭제"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

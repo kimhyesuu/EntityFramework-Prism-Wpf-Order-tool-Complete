@@ -3,10 +3,11 @@
    using HS.ERP.Business.Models.Enums;
    using System;
 
-   public class Order
+   public class Ordering
    {
       public long? OrderId { get; set; }
-      public decimal? OrderPrice { get; set; }
+      public long? OrderPrice { get; set; }
+      public int? OrderQuantity { get; set; }
       public string Description { get; set; }
       public DateTime? CreatedDate { get; set; }
       public EntityStateOption EntityState { get; set; }

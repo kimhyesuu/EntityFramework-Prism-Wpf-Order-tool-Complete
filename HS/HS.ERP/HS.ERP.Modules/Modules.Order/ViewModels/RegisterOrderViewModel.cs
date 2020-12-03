@@ -1,6 +1,7 @@
 ﻿using HS.ERP.Business.Managers;
 using HS.ERP.Business.Models;
 using HS.ERP.Core;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -12,32 +13,98 @@ namespace Modules.Order.ViewModels
 {
    public class RegisterOrderViewModel : BindableBase
    {
+      //SelectedAccountInfoCommand
       private ObservableCollection<Account> _accounts;
       private ObservableCollection<Product> _products;
+      private ObservableCollection<Ordered> _orderedList;//이친구를 따로 배치하는 게 맞지
+      private Product _productInfo;
+      private Account _accountInfo;
+      private Ordering _order;
+      private OrderProduct _orderProduct;
 
-      public IRepogitoryManager<Account> AccountManager { get; set; }
-      public IRepogitoryManager<Product> ProductManager { get; set; }
+      private IRepogitoryManager<Account> AccountManager { get; set; }
+      private IRepogitoryManager<Product> ProductManager { get; set; }
 
       public ObservableCollection<Account> Accounts
       {
-         get { return _accounts; }
-         set { SetProperty(ref _accounts, value); }
+         get => _accounts; 
+         set => SetProperty(ref _accounts, value); 
       }
 
       public ObservableCollection<Product> Products
       {
-         get { return _products; }
-         set { SetProperty(ref _products, value); }
+         get => _products; 
+         set => SetProperty(ref _products, value); 
+      }
+
+      public ObservableCollection<Ordered> OrderedList
+      {
+         get { return _orderedList; }
+         set { SetProperty(ref _orderedList, value); }
+      }
+
+      public Product ProductInfo
+      {
+         get => _productInfo; 
+         set => SetProperty(ref _productInfo, value); 
+      }
+
+      public Account AccountInfo
+      {
+         get => _accountInfo;
+         set => SetProperty(ref _accountInfo, value);
+      }
+
+      public Ordering Order
+      {
+         get { return _order; }
+         set { SetProperty(ref _order, value); }
+      }
+
+      private int? _orderPrice;
+      public int? OrderPrice
+      {
+         get { return _orderPrice; }
+         set
+         {         
+            SetProperty(ref _orderPrice, value);
+         }
+      }
+
+      private int? _totalQuantity;
+      public int? TotalQuantity
+      {
+         get { return _totalQuantity; }
+         set
+         {
+            SetProperty(ref _totalQuantity, value);
+         }
+      }
+
+      public OrderProduct OrderProduct
+      {
+         get { return _orderProduct; }
+         set { SetProperty(ref _orderProduct, value); }
       }
 
       public RegisterOrderViewModel(IEventAggregator eventAggregator)
       {
          eventAggregator.GetEvent<SendUpdatedList>().Subscribe(ListReceived);
+         SaveInfotemporarilyCommand = new DelegateCommand(MoveOrderList);
+         SelectedAccountInfoCommand = new DelegateCommand<Account>(MoveAccountToOrder);
+         CheckingOrderingPriceCommand = new DelegateCommand(GetOrderPrice);
          DataInitialize();        
       }
 
+      private void GetOrderPrice()
+         => OrderPrice = int.Parse(ProductInfo.ProductPrice) * Order.OrderQuantity;
+
       private void DataInitialize()
       {
+         Order = new Ordering();
+         OrderProduct = new OrderProduct();
+         ProductInfo = new Product();
+         AccountInfo = new Account();
          AccountManager = new AccountManager();
          ProductManager = new ProductManager();
          CollectionInit();      
@@ -47,7 +114,7 @@ namespace Modules.Order.ViewModels
       {
          var accountResult = AccountManager.GetAll();
          var productResult = ProductManager.GetAll();
-
+         OrderedList = new ObservableCollection<Ordered>();
          if (accountResult != null)
          {
             Accounts = new ObservableCollection<Account>(accountResult);
@@ -65,8 +132,36 @@ namespace Modules.Order.ViewModels
          {
             Products = new ObservableCollection<Product>();
          }
-        
       }
+      
+      public DelegateCommand CheckingOrderingPriceCommand { get; private set; }
+      public DelegateCommand SaveInfotemporarilyCommand { get; private set; }
+      public DelegateCommand<Account> SelectedAccountInfoCommand { get; private set; }
+
+      private void MoveAccountToOrder(Account info)     
+        => AccountInfo = info;
+
+      public int seq = 0; 
+      private void MoveOrderList()
+      {
+         //정합성 체크        
+         OrderedList.Add( new Ordered() {
+            SequentialNumber = seq++,
+            ProductId = ProductInfo.ProductId,
+            ProductName = ProductInfo.ProductName,
+            OrderPrice = OrderPrice,         
+            OrderdQuantity = Order.OrderQuantity,           
+            CompanyName = AccountInfo.CompanyName,
+            ContactName = AccountInfo.ContactName,
+            FullPhoneNumber = AccountInfo.FullPhoneNumber,
+            CreatedDate = DateTime.Now
+         });
+
+         TotalQuantity += Order.OrderQuantity;
+         ProductInfo = null;
+         ProductInfo = new Product();
+      }
+
 
       private void ListReceived(IEnumerable<object> objList)
       {
