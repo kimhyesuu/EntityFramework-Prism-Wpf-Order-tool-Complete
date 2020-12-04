@@ -138,8 +138,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             TelePhoneNumber = accountInfo[8],
             FullPhoneNumber = accountInfo[7] + accountInfo[8],
             Description = accountInfo[3],
-            EntityState = AccountInfo.EntityState,
-            CreatedDate = null
+            EntityState = AccountInfo.EntityState,          
          };
 
          return receivedInfo;
@@ -148,6 +147,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private void UpdateAccountInfo(Account accountInfo)
       {
          accountInfo.EntityState = EntityStateOption.Updated;
+         accountInfo.UpdatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
          Accounts.Insert(Accounts.IndexOf(AccountInfo), accountInfo);
          Accounts.Remove(AccountInfo);
 
@@ -158,6 +158,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private void AddAccountInfo(Account accountInfo)
       {     
          accountInfo.EntityState = EntityStateOption.Inserted;
+         accountInfo.CreatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
          Accounts.Add(accountInfo);
                   
          accountInfo = null;
@@ -237,17 +238,14 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             result = ButtonResult.OK;
          }
 
-         if (CheckedResult?.ToLower() == "true" && savedResult.FirstOrDefault() is null)
-         {
-            MessageBox.Show("변경한 거래 목록이 없습니다.", "NG", MessageBoxButton.OK);
-         }      
-         else if (CheckedResult?.ToLower() == "true" && MessageBox.Show($"리스트를 저장하시겠습니까?", "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+         if (CheckedResult?.ToLower() == "true" &&
+            savedResult.FirstOrDefault() != null &&
+            MessageBox.Show($"리스트를 저장하시겠습니까?", "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
             result = ButtonResult.OK;
             parameterValue = savedResult;
          }
-
-         if (CheckedResult?.ToLower() == "false"
+         else if (CheckedResult?.ToLower() == "false"
             && savedResult.FirstOrDefault() != null
             )
          {

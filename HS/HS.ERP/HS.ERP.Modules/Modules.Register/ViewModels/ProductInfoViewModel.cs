@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using HS.ERP.Business.Managers;
 using HS.ERP.Business.Models;
 using HS.ERP.Business.Models.Enums;
+using HS.ERP.Business.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
@@ -18,6 +20,10 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private Product _productInfo;
       private ObservableCollection<Product> _productList;
       #endregion
+
+      private IRepogitoryManager<Product> RepogitoryManager { get; set; }
+
+      private IServiceLogic<Product> ServiceLogic { get; }
 
       #region 프로퍼티 
       public ObservableCollection<Product> Products
@@ -42,19 +48,13 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       #endregion
 
       #region Constructor
-      private void ProductInfoInit()
-      {
-         ProductInfo = null;
-         ProductInfo = new Product(Newid());
-         ProductInfo.EntityState = EntityStateOption.None;
-      }
 
       public ProductInfoViewModel()
       {
          DataInitialize();
-         CommandInitialize();  
+         CommandInitialize();
       }
-      
+
       private void CommandInitialize()
       {
          SaveProductListCommand = new DelegateCommand<string>(SaveProductListDialog);
@@ -64,10 +64,28 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void DataInitialize()
       {
+         RepogitoryManager = new ProductManager();
          DeletedProducts = new List<Product>();
-         Products = new ObservableCollection<Product>();
+         var result = RepogitoryManager.GetAll();
+         if (result != null)
+         {
+            Products = new ObservableCollection<Product>(result);
+         }
+         else
+         {
+            Products = new ObservableCollection<Product>();
+         }
          ProductInfoInit();
       }
+
+
+      private void ProductInfoInit()
+      {
+         ProductInfo = null;
+         ProductInfo = new Product(Newid());
+         ProductInfo.EntityState = EntityStateOption.None;
+      }
+
       #endregion
 
       public DelegateCommand<string> MoveProductInfoToListCommand { get; private set; }
@@ -91,6 +109,20 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       }
 
       private void AddOrUpdate(string product)
+      {
+         var receivedInfo = ConvertStringToProductInfo(product);  
+
+         if (IsAdd(receivedInfo))
+         {
+            AddProductInfo(receivedInfo);
+         }
+         else
+         {
+            UpdateProductInfo(receivedInfo);
+         }
+      }
+
+      private Product ConvertStringToProductInfo(string product)
       {
          string[] productInfo = product.Split(':');
 
@@ -118,19 +150,13 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             EntityState = ProductInfo.EntityState
          };
 
-         if (IsAdd(receivedInfo))
-         {
-            AddProductInfo(receivedInfo);
-         }
-         else
-         {
-            UpdateProductInfo(receivedInfo);
-         }
+         return receivedInfo;
       }
 
       private void UpdateProductInfo(Product receivedInfo)
       {
          receivedInfo.EntityState = EntityStateOption.Updated;
+         receivedInfo.UpdatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
          Products.Insert(Products.IndexOf(ProductInfo), receivedInfo);
          Products.Remove(ProductInfo);
 
@@ -140,29 +166,10 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void AddProductInfo(Product receivedInfo)
       {
-         Products.Add(new Product
-         {
-            ProductName = receivedInfo.ProductName,
-            ProductPrice = receivedInfo.ProductPrice,
-            Series = receivedInfo.Series,
-            CoreProcessor = receivedInfo.CoreProcessor,
-            CoreSize = receivedInfo.CoreSize,
-            Connectivity = receivedInfo.Connectivity,
-            Speed = receivedInfo.Speed,
-            NumberOfIO = receivedInfo.NumberOfIO,
-            Peripherals = receivedInfo.Peripherals,
-            ProgramMemoryType = receivedInfo.ProgramMemoryType,
-            ProgramMemorySize = receivedInfo.ProgramMemorySize,
-            RamSize = receivedInfo.RamSize,
-            EEPROMSize = receivedInfo.EEPROMSize,
-            DataConverter = receivedInfo.DataConverter,
-            VoltageSupply = receivedInfo.VoltageSupply,
-            OperatingTemperature = receivedInfo.OperatingTemperature,
-            OscillatorType = receivedInfo.OscillatorType,
-            PakageCase = receivedInfo.PakageCase,
-            EntityState = EntityStateOption.Inserted,
-            CreatedDate = DateTime.Now
-         });
+         receivedInfo.EntityState = EntityStateOption.Inserted;
+         receivedInfo.CreatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
+         Products.Add(receivedInfo);
+
 
          receivedInfo = null;
          ProductInfoInit();
@@ -199,18 +206,29 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             result = ButtonResult.OK;
          }
 
-         if (CheckedResult?.ToLower() == "true" && savedResult.FirstOrDefault() is null)
-         {
-            MessageBox.Show("변경한 거래 목록이 없습니다.", "NG", MessageBoxButton.OK);
-         }
-         else if (CheckedResult?.ToLower() == "true" && MessageBox.Show($"리스트를 저장하시겠습니까?"
+         if (CheckedResult?.ToLower() == "true" &&
+            savedResult.FirstOrDefault() != null &&
+            MessageBox.Show($"리스트를 저장하시겠습니까?"
             , "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
             result = ButtonResult.OK;
             parameterValue = savedResult;
          }
+         else if (CheckedResult?.ToLower() == "false"
+          && savedResult.FirstOrDefault() != null
+          )
+         {
+            if (MessageBox.Show($"저장되지 않은 정보가 있습니다.\n저장하시겠습니까?", "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+               result = ButtonResult.OK;
+               parameterValue = savedResult;
+            }
+         }
 
          RaiseRequestClose(result, GetDialogParameters(transportParameter, parameterValue));
+         Products = null;
+         DeletedProducts = null;
+         ProductInfo = null;
       }
 
       private DialogParameters GetDialogParameters(DialogParameters transportParameter, IEnumerable parameterValue)

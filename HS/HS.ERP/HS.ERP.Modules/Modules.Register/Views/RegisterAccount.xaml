@@ -9,6 +9,36 @@
 
     <UserControl.Resources>
         <converter:AcceptInfoContverter x:Key="AcceptAccountContverter" />
+        
+        <ControlTemplate x:Key="HsGroupBox" TargetType="GroupBox">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Header-->
+                <Border  Grid.Row="0" Background="#FF5158C7" BorderBrush="#FF1C2235"  BorderThickness="1"  CornerRadius="2,2,0,0"  >
+                    <ContentPresenter Margin="4" ContentSource="Header"  RecognizesAccessKey="True" />
+                </Border>
+
+                <!-- Main -->
+                <Border  Grid.Row="1"  Background="#FFF9F9F9"   BorderBrush="#FF595584"  CornerRadius="0,0,2,2" >
+                    <ContentPresenter Margin="4" />
+                </Border>
+            </Grid>
+        </ControlTemplate>
+        <Style x:Key="HsGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Template" Value="{StaticResource HsGroupBox}"  />
+               <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontWeight="Bold" Foreground="White"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+          
+        </Style>
 
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5"/>
@@ -41,7 +71,10 @@
             <materialDesign:PackIcon Kind="ArrowLeftBold" Foreground="Black"/>
         </Button>
 
-        <GroupBox Header="정보 입력" >
+        <GroupBox Header="정보 입력" Style="{StaticResource HsGroupBoxStyle}">
+            <GroupBox.Effect>
+                <DropShadowEffect ShadowDepth="2" RenderingBias="Quality"/>
+            </GroupBox.Effect>
             <Grid Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -84,7 +117,7 @@
                  VerticalScrollBarVisibility="Auto" Height="110" Width="400"/>
 
             <!-- Row 3 -->
-            <GroupBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Header="담당자" Margin="5">
+            <GroupBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Header="담당자" Margin="5" >
                 <StackPanel Orientation="Vertical" Margin="5">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock  Text="담당자명"/>

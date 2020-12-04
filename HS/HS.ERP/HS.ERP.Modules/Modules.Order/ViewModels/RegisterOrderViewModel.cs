@@ -16,11 +16,10 @@ namespace Modules.Order.ViewModels
       //SelectedAccountInfoCommand
       private ObservableCollection<Account> _accounts;
       private ObservableCollection<Product> _products;
-      private ObservableCollection<Ordered> _orderedList;//이친구를 따로 배치하는 게 맞지
+      private ObservableCollection<Ordered> _orderedList;
+      
       private Product _productInfo;
       private Account _accountInfo;
-      private Ordering _order;
-      private OrderProduct _orderProduct;
 
       private IRepogitoryManager<Account> AccountManager { get; set; }
       private IRepogitoryManager<Product> ProductManager { get; set; }
@@ -43,22 +42,20 @@ namespace Modules.Order.ViewModels
          set { SetProperty(ref _orderedList, value); }
       }
 
+      public List<Ordering> Orderings { get; set; }
+
+      public List<OrderProduct> OrderProducts { get; set; }
+
       public Product ProductInfo
       {
-         get => _productInfo; 
-         set => SetProperty(ref _productInfo, value); 
+         get => _productInfo;
+         set => SetProperty(ref _productInfo, value);
       }
 
       public Account AccountInfo
       {
          get => _accountInfo;
          set => SetProperty(ref _accountInfo, value);
-      }
-
-      public Ordering Order
-      {
-         get { return _order; }
-         set { SetProperty(ref _order, value); }
       }
 
       private int? _orderPrice;
@@ -71,8 +68,18 @@ namespace Modules.Order.ViewModels
          }
       }
 
-      private int? _totalQuantity;
-      public int? TotalQuantity
+      private int _orderQuantity;
+      public int OrderQuantity
+      {
+         get { return _orderQuantity; }
+         set
+         {
+            SetProperty(ref _orderQuantity, value);
+         }
+      }
+
+      private int _totalQuantity;
+      public int TotalQuantity
       {
          get { return _totalQuantity; }
          set
@@ -81,10 +88,14 @@ namespace Modules.Order.ViewModels
          }
       }
 
-      public OrderProduct OrderProduct
+      private string _description;
+      public string Description
       {
-         get { return _orderProduct; }
-         set { SetProperty(ref _orderProduct, value); }
+         get { return _description; }
+         set
+         {
+            SetProperty(ref _description, value);
+         }
       }
 
       public RegisterOrderViewModel(IEventAggregator eventAggregator)
@@ -93,21 +104,62 @@ namespace Modules.Order.ViewModels
          SaveInfotemporarilyCommand = new DelegateCommand(MoveOrderList);
          SelectedAccountInfoCommand = new DelegateCommand<Account>(MoveAccountToOrder);
          CheckingOrderingPriceCommand = new DelegateCommand(GetOrderPrice);
+         ConfirmOrderInfoCommand = new DelegateCommand(SaveDb);
+         InitCommand = new DelegateCommand(AllInfoInit);
          DataInitialize();        
       }
 
       private void GetOrderPrice()
-         => OrderPrice = int.Parse(ProductInfo.ProductPrice) * Order.OrderQuantity;
+      {
+         if(ProductInfo.ProductPrice != null)
+         {
+            OrderPrice = int.Parse(ProductInfo.ProductPrice) * OrderQuantity;
+         }
+      }
 
       private void DataInitialize()
       {
-         Order = new Ordering();
-         OrderProduct = new OrderProduct();
-         ProductInfo = new Product();
-         AccountInfo = new Account();
+         AccountInit();
+         ProductInit();
+
          AccountManager = new AccountManager();
          ProductManager = new ProductManager();
          CollectionInit();      
+      }
+
+      private void AllInfoInit()
+      {
+         OrderPrice = null;
+         OrderQuantity = 0;
+         Description = string.Empty;
+      
+      }
+
+      private void AccountInit()
+      {
+         if(AccountInfo != null)
+         {
+            AccountInfo = null;
+            AccountInfo = new Account();
+         }
+         else
+         {
+            AccountInfo = new Account();
+         }
+      }
+
+      private void ProductInit()
+      {
+         if(ProductInfo != null)
+         {
+            ProductInfo = null;
+            ProductInfo = new Product();
+         }   
+         else
+         {
+            ProductInfo = new Product();
+            AccountInfo = new Account();
+         }
       }
 
       private void CollectionInit()
@@ -115,6 +167,9 @@ namespace Modules.Order.ViewModels
          var accountResult = AccountManager.GetAll();
          var productResult = ProductManager.GetAll();
          OrderedList = new ObservableCollection<Ordered>();
+         Orderings = new List<Ordering>();
+         OrderProducts = new List<OrderProduct>();
+
          if (accountResult != null)
          {
             Accounts = new ObservableCollection<Account>(accountResult);
@@ -134,34 +189,85 @@ namespace Modules.Order.ViewModels
          }
       }
       
+      public DelegateCommand InitCommand { get; private set; }
+      public DelegateCommand ConfirmOrderInfoCommand { get; private set; }
       public DelegateCommand CheckingOrderingPriceCommand { get; private set; }
       public DelegateCommand SaveInfotemporarilyCommand { get; private set; }
       public DelegateCommand<Account> SelectedAccountInfoCommand { get; private set; }
-
+      
       private void MoveAccountToOrder(Account info)     
         => AccountInfo = info;
-
-      public int seq = 0; 
+      
       private void MoveOrderList()
       {
-         //정합성 체크        
-         OrderedList.Add( new Ordered() {
-            SequentialNumber = seq++,
+         if(!IsCompatibility())         
+            return;
+         
+         AddOrderList();
+         TotalQuantity = OrderedList.Select(o => o.OrderdQuantity).Sum();
+
+         AllInfoInit();
+         AccountInit();
+      }
+
+      private void SaveDb()
+      {
+         TotalQuantity = 0;
+         //여기서 값을 보낸다.
+      }
+
+      private void AddOrderList()
+      {
+         OrderedList.Add(new Ordered
+         {
             ProductId = ProductInfo.ProductId,
             ProductName = ProductInfo.ProductName,
-            OrderPrice = OrderPrice,         
-            OrderdQuantity = Order.OrderQuantity,           
+            OrderPrice = OrderPrice is null ? OrderQuantity * int.Parse(ProductInfo.ProductPrice) : OrderPrice,
+            OrderdQuantity = OrderQuantity,
             CompanyName = AccountInfo.CompanyName,
             ContactName = AccountInfo.ContactName,
             FullPhoneNumber = AccountInfo.FullPhoneNumber,
             CreatedDate = DateTime.Now
          });
 
-         TotalQuantity += Order.OrderQuantity;
-         ProductInfo = null;
-         ProductInfo = new Product();
+         TotalQuantity = OrderedList.Select(mount => mount.OrderdQuantity).Sum();
+
+         Orderings.Add(new Ordering
+         {
+            OrderPrice = OrderPrice,
+            Description = Description,
+            CreatedDate = DateTime.Now
+         });
+
+         OrderProducts.Add(new OrderProduct
+         {
+            ProductName = ProductInfo.ProductName,
+            TotalQuantity = TotalQuantity
+         });
       }
 
+      private bool IsCompatibility()
+      {
+         if (OrderedList.Count > 0)
+         {
+            var result = OrderedList.Where(o => o.CompanyName == AccountInfo.CompanyName).FirstOrDefault();
+          
+            if(result != null)
+            {
+               return false;
+               //값을 찾지말고 값을 더하자
+            }
+
+            
+         }
+
+         if (string.IsNullOrEmpty(ProductInfo.ProductName) || string.IsNullOrEmpty(AccountInfo.CompanyName))
+            return false;
+         else if (OrderQuantity == 0)
+            return false;
+
+         return true;
+      }
 
       private void ListReceived(IEnumerable<object> objList)
       {

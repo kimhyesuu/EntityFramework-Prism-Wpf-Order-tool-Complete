@@ -21,8 +21,8 @@
       public string TelePhoneNumber { get; set; }
       public string FullPhoneNumber { get; set; }
       public string Description { get; set; }
-      public byte[] CreatedDate { get; set; }
-      public DateTime? UpdatedDate { get; set; }
+      public DateTime CreatedDate { get; set; }
+      public DateTime UpdatedDate { get; set; }
       public EntityStateOption EntityState { get; set; }
    }
 }

@@ -107,9 +107,6 @@
     <Compile Include="Views\RegisteredProductList.xaml.cs">
       <DependentUpon>RegisteredProductList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RegisterOrder.xaml.cs">
-      <DependentUpon>RegisterOrder.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\RegisterProduct.xaml.cs">
       <DependentUpon>RegisterProduct.xaml</DependentUpon>
     </Compile>
@@ -141,10 +138,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RegisteredProductList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\RegisterOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

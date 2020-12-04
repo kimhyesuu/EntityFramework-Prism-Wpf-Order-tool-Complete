@@ -29,7 +29,10 @@
       public string OperatingTemperature { get; set; }
       public string OscillatorType { get; set; }
       public string PakageCase { get; set; }
-      public DateTime? CreatedDate { get; set; }
+      public DateTime CreatedDate { get; set; }
+      public DateTime UpdatedDate { get; set; }
       public EntityStateOption EntityState { get; set; }
+
+
    }
 }

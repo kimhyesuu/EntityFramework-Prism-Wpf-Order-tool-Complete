@@ -5,11 +5,47 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core" >
-  
+    <UserControl.Resources>
+        <ControlTemplate x:Key="HsGroupBox" TargetType="GroupBox">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Header-->
+                <Border  Grid.Row="0" Background="#FF5158C7" BorderBrush="#FF1C2235"  BorderThickness="1"  CornerRadius="2,2,0,0"  >
+                    <ContentPresenter Margin="4" ContentSource="Header"  RecognizesAccessKey="True" />
+                </Border>
+
+                <!-- Main -->
+                <Border  Grid.Row="1"  Background="#FFF9F9F9"   BorderBrush="#FF595584"  CornerRadius="0,0,2,2" >
+                    <ContentPresenter Margin="4" />
+                </Border>
+            </Grid>
+        </ControlTemplate>
+        <Style x:Key="HsGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Template" Value="{StaticResource HsGroupBox}"  />
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontWeight="Bold" Foreground="White">
+                        </TextBlock>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+    </UserControl.Resources>
+    
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" >
-            <StackPanel Orientation="Horizontal">
-                <GroupBox Header="거래처 리스트" >
+            <StackPanel Orientation="Horizontal" >
+                <GroupBox Header="거래처 리스트" Style="{StaticResource HsGroupBoxStyle}">
+                    <GroupBox.Effect>
+                        <DropShadowEffect ShadowDepth="2" RenderingBias="Quality"/>
+                    </GroupBox.Effect>
                     <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
                 </GroupBox>
                 <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterAccountRegion}"/>
