@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              x:Name="rowAccount"
-             prism:ViewModelLocator.AutoWireViewModel="True" >
+             prism:ViewModelLocator.AutoWireViewModel="True" 
+             xmlns:core="clr-namespace:HS.ERP.Core;assembly=HS.ERP.Core">
 
     <UserControl.Resources>
         <Style TargetType="TextBlock">
@@ -51,61 +52,8 @@
                 <DropShadowEffect ShadowDepth="1" RenderingBias="Quality"/>
             </GroupBox.Effect>
             <StackPanel HorizontalAlignment="Left" Margin="5,0,0,0">
-                <DataGrid x:Name="accountDatagrid" ItemsSource="{Binding Path=Accounts}" SelectionMode="Single" 
-              BorderThickness="1" Height="300" MaxHeight="310"
-              ScrollViewer.VerticalScrollBarVisibility="Auto"
-              IsReadOnly="True"  CanUserAddRows="False" AutoGenerateColumns="False" Margin="5">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=CompanyName}" Header="회사명" Width="170" MaxWidth="150">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.TextAlignment" Value="Left"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=ContactName}" Header="담당자" Width="80" MaxWidth="100">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=FullPhoneNumber}" Header="담당자 번호" Width="120"/>
-                        <DataGridTemplateColumn Width="90" MaxWidth="90">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Command="{Binding DataContext.SelectedAccountInfoCommand,ElementName=rowAccount}" CommandParameter="{Binding}" Content="선택"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-
-                <DataGrid x:Name="productDatagrid" ItemsSource="{Binding Path=Products}" SelectionMode="Single" 
-              BorderThickness="1" Margin="5" SelectedItem="{Binding Path=ProductInfo}"
-              IsReadOnly="True"  CanUserAddRows="False" AutoGenerateColumns="False" Height="300">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=ProductName}" Header="제품명" Width="145" MaxWidth="130">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.TextAlignment" Value="Left"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=Series}" Header="시리즈" Width="80" MaxWidth="100">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=CreatedDate}" Header="생성일자" Width="150"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredAccountListRegion}"/>
+                <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisteredProductListRegion}"/>
             </StackPanel>
         </GroupBox>
 
@@ -128,7 +76,7 @@
                 <StackPanel Orientation="Horizontal" Margin="5,10,0,0">
                     <TextBlock Text="주문 수량"/>
                     <TextBox  Width="200" Margin="10,0,5,0" FlowDirection="RightToLeft" Text="{Binding Path=OrderQuantity}"/>
-                    <Button  Width="80" Content="가격 확인" FontSize="10" Command="{Binding Path=CheckingOrderingPriceCommand}"/>
+                    <Button  Width="80" Content="가격 확인" FontSize="10" Command="{Binding Path=CheckingOrderingPriceCommand}" Foreground="#FFB31515" Background="#FFF9F9F9" BorderBrush="{x:Null}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="5,10,0,0">
@@ -144,11 +92,11 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-                    <Button Content="확인" Width="90" Margin="105,5" Command="{Binding Path=SaveInfotemporarilyCommand}"/>
+                    <Button Content="확인" Width="90" Margin="0,5" Command="{Binding Path=SaveInfotemporarilyCommand}" FontWeight="DemiBold" Foreground="Black" Background="#FFF9F9F9" BorderBrush="{x:Null}"/>
                 </StackPanel>
 
                 <DataGrid  SelectionMode="Single" ItemsSource="{Binding Path=OrderedList}"  
-                              BorderThickness="1" Height="220" Width="350"
+                              BorderThickness="1" Height="220" Width="360"
                               IsReadOnly="True"  CanUserAddRows="False" AutoGenerateColumns="False" Margin="5,10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=ProductName}" Header="제품명" Width="100" MaxWidth="130">
@@ -159,7 +107,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=OrderdQuantity}" Header="주문 수량" Width="100" MaxWidth="130">
+                        <DataGridTextColumn Binding="{Binding Path=OrderQuantity}" Header="주문 수량" Width="100" MaxWidth="130">
                             <DataGridTextColumn.ElementStyle>
                                 <Style>
                                     <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -185,8 +133,8 @@
                                   Text="{Binding Path=TotalQuantity}"
                                   FlowDirection="RightToLeft"/>
                     </StackPanel>
-                    <Button Content="확정" Width="90" Margin="5" Command="{Binding Path=ConfirmOrderInfoCommand}" />
-                    <Button Content="취소" Width="90" Margin="5" Command="{Binding Path=InitCommand}"/>
+                    <Button Content="확정" Width="90" Margin="5" Command="{Binding Path=ConfirmOrderInfoCommand}" FontWeight="DemiBold" Foreground="Black" Background="#FFF9F9F9" BorderBrush="{x:Null}"/>
+                    <Button Content="취소" Width="90" Margin="5" Command="{Binding Path=InitCommand}" FontWeight="DemiBold" Foreground="Black" Background="#FFF9F9F9" BorderBrush="{x:Null}"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>

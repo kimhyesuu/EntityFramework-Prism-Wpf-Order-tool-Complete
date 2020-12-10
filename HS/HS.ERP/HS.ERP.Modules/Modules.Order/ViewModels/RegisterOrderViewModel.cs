@@ -1,6 +1,8 @@
 ﻿using HS.ERP.Business.Managers;
 using HS.ERP.Business.Models;
+using HS.ERP.Business.Services;
 using HS.ERP.Core;
+using Modules.Order.Converters;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -8,18 +10,22 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace Modules.Order.ViewModels
 {
    public class RegisterOrderViewModel : BindableBase
    {
-      //SelectedAccountInfoCommand
       private ObservableCollection<Account> _accounts;
       private ObservableCollection<Product> _products;
       private ObservableCollection<Ordered> _orderedList;
       
       private Product _productInfo;
       private Account _accountInfo;
+
+      private IDataService<Account> AccountService { get; set; }
+      private IDataService<Product> ProductService { get; set; }
+      private IDataService<Ordered> OrderService { get; set; }
 
       private IRepogitoryManager<Account> AccountManager { get; set; }
       private IRepogitoryManager<Product> ProductManager { get; set; }
@@ -36,7 +42,7 @@ namespace Modules.Order.ViewModels
          set => SetProperty(ref _products, value); 
       }
 
-      public ObservableCollection<Ordered> OrderedList
+      public ObservableCollection<HS.ERP.Business.Models.Ordered> OrderedList
       {
          get { return _orderedList; }
          set { SetProperty(ref _orderedList, value); }
@@ -78,8 +84,8 @@ namespace Modules.Order.ViewModels
          }
       }
 
-      private int _totalQuantity;
-      public int TotalQuantity
+      private int? _totalQuantity;
+      public int? TotalQuantity
       {
          get { return _totalQuantity; }
          set
@@ -98,16 +104,29 @@ namespace Modules.Order.ViewModels
          }
       }
 
+      private string _buttonTitle;
+      public string AccountButtonTitle
+      {
+         get { return _buttonTitle; }
+         set { SetProperty(ref _buttonTitle, value); }
+      }
+
+      public string ProductTitleHeader => "주문";
+      public string AccountTitleHeader => "주문";
+
       public RegisterOrderViewModel(IEventAggregator eventAggregator)
       {
          eventAggregator.GetEvent<SendUpdatedList>().Subscribe(ListReceived);
          SaveInfotemporarilyCommand = new DelegateCommand(MoveOrderList);
          SelectedAccountInfoCommand = new DelegateCommand<Account>(MoveAccountToOrder);
+         SelectedProductInfoCommand = new DelegateCommand<Product>(MoveProductToOrder);
          CheckingOrderingPriceCommand = new DelegateCommand(GetOrderPrice);
          ConfirmOrderInfoCommand = new DelegateCommand(SaveDb);
          InitCommand = new DelegateCommand(AllInfoInit);
          DataInitialize();        
       }
+
+ 
 
       private void GetOrderPrice()
       {
@@ -121,7 +140,9 @@ namespace Modules.Order.ViewModels
       {
          AccountInit();
          ProductInit();
-
+         OrderService = new OrderService();
+         ProductService = new ProductService();
+         AccountService = new AccountService();
          AccountManager = new AccountManager();
          ProductManager = new ProductManager();
          CollectionInit();      
@@ -129,10 +150,10 @@ namespace Modules.Order.ViewModels
 
       private void AllInfoInit()
       {
-         OrderPrice = null;
+         OrderPrice = 0;
          OrderQuantity = 0;
          Description = string.Empty;
-      
+         
       }
 
       private void AccountInit()
@@ -158,35 +179,27 @@ namespace Modules.Order.ViewModels
          else
          {
             ProductInfo = new Product();
-            AccountInfo = new Account();
          }
       }
 
       private void CollectionInit()
       {
-         var accountResult = AccountManager.GetAll();
-         var productResult = ProductManager.GetAll();
          OrderedList = new ObservableCollection<Ordered>();
          Orderings = new List<Ordering>();
          OrderProducts = new List<OrderProduct>();
 
-         if (accountResult != null)
+         if(DBFlag.Accountflag && DBFlag.Productflag)
          {
-            Accounts = new ObservableCollection<Account>(accountResult);
-         }
-         else
-         {
-            Accounts = new ObservableCollection<Account>();
+            AccountManager.AddRange(AccountService.GetAll());
+            ProductManager.AddRange(ProductService.GetAll());
          }
 
-         if (productResult != null)
-         {
-            Products = new ObservableCollection<Product>(productResult);
-         }
-         else
-         {
-            Products = new ObservableCollection<Product>();
-         }
+         var accountResult = AccountManager.GetAll();
+         var productResult = ProductManager.GetAll();
+         Accounts = accountResult is null ? new ObservableCollection<Account>() : new ObservableCollection<Account>(accountResult);
+         Products = productResult is null ? new ObservableCollection<Product>() : new ObservableCollection<Product>(productResult);
+
+         DBFlag.UsingMemory();
       }
       
       public DelegateCommand InitCommand { get; private set; }
@@ -194,17 +207,22 @@ namespace Modules.Order.ViewModels
       public DelegateCommand CheckingOrderingPriceCommand { get; private set; }
       public DelegateCommand SaveInfotemporarilyCommand { get; private set; }
       public DelegateCommand<Account> SelectedAccountInfoCommand { get; private set; }
-      
+      public DelegateCommand<Product> SelectedProductInfoCommand { get; private set; }
+
+
       private void MoveAccountToOrder(Account info)     
         => AccountInfo = info;
-      
+
+      private void MoveProductToOrder(Product info)
+        => ProductInfo = info;
+
       private void MoveOrderList()
       {
          if(!IsCompatibility())         
             return;
          
          AddOrderList();
-         TotalQuantity = OrderedList.Select(o => o.OrderdQuantity).Sum();
+         TotalQuantity = OrderedList.Select(o => o.OrderQuantity).Sum();
 
          AllInfoInit();
          AccountInit();
@@ -212,38 +230,40 @@ namespace Modules.Order.ViewModels
 
       private void SaveDb()
       {
-         TotalQuantity = 0;
-         //여기서 값을 보낸다.
+         if (OrderedList.Count > 0 && MessageBox.Show($"리스트를 저장하시겠습니까?", "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+         {
+            foreach (var Order in OrderedList)
+            {
+               Order.TotalQuantity = TotalQuantity;
+            }
+
+            OrderService.SendEntityStatus(OrderedList);
+
+            OrderedList = null;
+            OrderedList = new ObservableCollection<Ordered>();
+            TotalQuantity = 0;
+            AllInfoInit();
+            AccountInit();
+            ProductInit();
+         }
       }
 
       private void AddOrderList()
       {
-         OrderedList.Add(new Ordered
+         OrderedList.Add(new Ordered(Newid())
          {
             ProductId = ProductInfo.ProductId,
+            AccountId = AccountInfo.AccountId,           
             ProductName = ProductInfo.ProductName,
             OrderPrice = OrderPrice is null ? OrderQuantity * int.Parse(ProductInfo.ProductPrice) : OrderPrice,
-            OrderdQuantity = OrderQuantity,
+            OrderQuantity = OrderQuantity,
             CompanyName = AccountInfo.CompanyName,
             ContactName = AccountInfo.ContactName,
             FullPhoneNumber = AccountInfo.FullPhoneNumber,
-            CreatedDate = DateTime.Now
-         });
-
-         TotalQuantity = OrderedList.Select(mount => mount.OrderdQuantity).Sum();
-
-         Orderings.Add(new Ordering
-         {
-            OrderPrice = OrderPrice,
+            CreatedDate = DateTime.Now.ToString(),
             Description = Description,
-            CreatedDate = DateTime.Now
-         });
-
-         OrderProducts.Add(new OrderProduct
-         {
-            ProductName = ProductInfo.ProductName,
-            TotalQuantity = TotalQuantity
-         });
+            EntityState = HS.ERP.Business.Models.Enums.EntityStateOption.Inserted
+         });  
       }
 
       private bool IsCompatibility()
@@ -255,10 +275,7 @@ namespace Modules.Order.ViewModels
             if(result != null)
             {
                return false;
-               //값을 찾지말고 값을 더하자
-            }
-
-            
+            }    
          }
 
          if (string.IsNullOrEmpty(ProductInfo.ProductName) || string.IsNullOrEmpty(AccountInfo.CompanyName))
@@ -271,7 +288,11 @@ namespace Modules.Order.ViewModels
 
       private void ListReceived(IEnumerable<object> objList)
       {
-         if (objList.First() is Account)
+         if(objList.FirstOrDefault() is null)
+         {
+            return;
+         }
+         else if (objList.FirstOrDefault() is Account)
          {
             var accountList = new List<Account>();
 
@@ -316,6 +337,7 @@ namespace Modules.Order.ViewModels
                   }
                }
             }
+
          }
          else
          {
@@ -363,6 +385,12 @@ namespace Modules.Order.ViewModels
                }
             }
          }
-      } 
+      }
+
+      private long? Newid()
+      {
+         var rd = new Random();
+         return long.Parse(DateTime.Now.ToString("yyyyMMdd") + rd.Next(1, 1000));
+      }
    }
 }

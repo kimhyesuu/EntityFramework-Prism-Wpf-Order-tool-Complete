@@ -8,22 +8,25 @@
    public class DProduct
    {
       [Key]
-      [Column("ProductId"), DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-      public int? ProductId { get; set; }
+      [Column("ProductId"), DatabaseGenerated(DatabaseGeneratedOption.None)]
+      public long? ProductId { get; set; }
 
       [Column("ProductName"), MaxLength(50)]
       public string ProductName { get; set; }
 
       [Column("ProductPrice")]
-      public decimal? ProductPrice { get; set; }
-
-      [Column("Description"), MaxLength(800)]
-      public string Description { get; set; }
+      public int? ProductPrice { get; set; }
 
       [Column("CreatedDate")]
-      public byte[] CreatedDate { get; set; }
+      public string CreatedDate { get; set; }
+
+      [Column("UpdatedDate")]
+      public string UpdatedDate { get; set; }
 
       [ForeignKey("ProductIdFK")]
       public virtual ICollection<DOrderProduct> DOrderProduct { get; set; }
+
+      [ForeignKey("ProductIdFK")]
+      public virtual ICollection<DProductSpec> DProductSpec { get; set; }
    }
 }

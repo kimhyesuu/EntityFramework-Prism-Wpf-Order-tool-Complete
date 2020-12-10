@@ -49,34 +49,38 @@
          }
       }
 
-      public TEntity Insert(TEntity parameter)
+      public void Insert(List<TEntity> parameters)
       {
          using (var context = new HSERPEntities(_connectString))
          {
-
             try
             {
-               var para = context.Set<TEntity>().Add(parameter);
-               context.SaveChanges();
-               return para;
+               foreach(var info in parameters)
+               {
+                  context.Set<TEntity>().Add(info);
+               }
 
+               context.SaveChanges();
             }
             catch (DbUpdateException e)
             {
                Console.WriteLine(e.InnerException.Message);
-               return null;
             }
          }
       }
 
-      public void Update(TEntity parameter)
+      public void Update(List<TEntity> parameters)
       {
          using (var context = new HSERPEntities(_connectString))
          {
             try
             {
-               context.Set<TEntity>().Attach(parameter);
-               context.Entry(parameter).State = EntityState.Modified;
+               foreach (var info in parameters)
+               {
+                  context.Set<TEntity>().Attach(info);
+                  context.Entry(info).State = EntityState.Modified;
+               }
+              
                context.SaveChanges();
             }
             catch (Exception e)
@@ -86,17 +90,21 @@
          }
       }
 
-      public void Delete(object id)
+      public void Delete(List<long?> parametersId)
       {
          using (var context = new HSERPEntities(_connectString))
          {
-            TEntity entity = context.Set<TEntity>().Find(id);
-            context.Set<TEntity>().Remove(entity);
+            foreach (var id in parametersId)
+            {
+               TEntity entity = context.Set<TEntity>().Find(id);
+               context.Set<TEntity>().Remove(entity);
+            }
+
             Save(context);
          }
       }
 
-      public void Save(HSERPEntities context)
+      public virtual void Save(HSERPEntities context)
       {
          context.SaveChanges();
       }

@@ -22,8 +22,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       #endregion
 
       private IRepogitoryManager<Product> RepogitoryManager { get; set; }
-
-      private IServiceLogic<Product> ServiceLogic { get; }
+      private IDataService<Product> DataService { get; set; }
 
       #region 프로퍼티 
       public ObservableCollection<Product> Products
@@ -32,19 +31,22 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          set { SetProperty(ref _productList, value); }
       }
 
-      public Product ProductInfo
+      public Product SelectedProduct
       {
          get { return _productInfo; }
          set { SetProperty(ref _productInfo, value); }
       }
 
-      public List<Product> DeletedProducts { get; set; }
+      public List<Product> InnerProducts { get; set; }
 
       public bool CanSaveExcute
       {
          get => true;
          set => MoveProductInfoToListCommand.RaiseCanExecuteChanged();
       }
+
+      public string ProductTitleHeader => "삭제";
+
       #endregion
 
       #region Constructor
@@ -65,25 +67,20 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private void DataInitialize()
       {
          RepogitoryManager = new ProductManager();
-         DeletedProducts = new List<Product>();
+         InnerProducts = new List<Product>();
+         DataService = new ProductService();
          var result = RepogitoryManager.GetAll();
-         if (result != null)
-         {
-            Products = new ObservableCollection<Product>(result);
-         }
-         else
-         {
-            Products = new ObservableCollection<Product>();
-         }
+    
+         Products = result != null ? new ObservableCollection<Product>(result) : new ObservableCollection<Product>(); 
+  
          ProductInfoInit();
       }
 
-
       private void ProductInfoInit()
       {
-         ProductInfo = null;
-         ProductInfo = new Product(Newid());
-         ProductInfo.EntityState = EntityStateOption.None;
+         SelectedProduct = null;
+         SelectedProduct = new Product(Newid());
+         SelectedProduct.EntityState = EntityStateOption.None;
       }
 
       #endregion
@@ -103,7 +100,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             , "정보", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
          {
             selectedProduct.EntityState = EntityStateOption.Deleted;
-            DeletedProducts.Add(selectedProduct);
+            InnerProducts.Add(selectedProduct);
             Products.Remove(selectedProduct);
          }
       }
@@ -128,7 +125,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
          var receivedInfo = new Product
          {
-            ProductId = ProductInfo.ProductId,
+            ProductId = SelectedProduct.ProductId,
             ProductName = productInfo[0],
             ProductPrice = productInfo[1],
             Series = productInfo[2],
@@ -147,7 +144,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             OperatingTemperature = productInfo[15],
             OscillatorType = productInfo[16],
             PakageCase = productInfo[17],
-            EntityState = ProductInfo.EntityState
+            EntityState = SelectedProduct.EntityState,
+            CreatedDate = SelectedProduct.CreatedDate is null ? DateTime.Now.ToString("yyyy-MM-dd") : SelectedProduct.CreatedDate
          };
 
          return receivedInfo;
@@ -156,9 +154,9 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private void UpdateProductInfo(Product receivedInfo)
       {
          receivedInfo.EntityState = EntityStateOption.Updated;
-         receivedInfo.UpdatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
-         Products.Insert(Products.IndexOf(ProductInfo), receivedInfo);
-         Products.Remove(ProductInfo);
+         receivedInfo.UpdatedDate = DateTime.Now.ToString("yyyy-MM-dd");
+         Products.Insert(Products.IndexOf(SelectedProduct), receivedInfo);
+         Products.Remove(SelectedProduct);
 
          receivedInfo = null;
          ProductInfoInit();
@@ -167,7 +165,6 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private void AddProductInfo(Product receivedInfo)
       {
          receivedInfo.EntityState = EntityStateOption.Inserted;
-         receivedInfo.CreatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
          Products.Add(receivedInfo);
 
 
@@ -193,18 +190,10 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {        
          ButtonResult result = ButtonResult.None;
          var transportParameter = new DialogParameters();
-         var CheckUpdatedProducts = Products;
 
-         var savedResult = CheckUpdatedProducts.Where(product => product.EntityState != EntityStateOption.None);
+         var savedResult = ProductListToSave(Products);
 
          IEnumerable parameterValue = null;
-
-         if ((CheckedResult?.ToLower() == "false") ||
-           (CheckedResult?.ToLower() == "true") &&
-           (DeletedProducts.Count > 0))
-         {
-            result = ButtonResult.OK;
-         }
 
          if (CheckedResult?.ToLower() == "true" &&
             savedResult.FirstOrDefault() != null &&
@@ -213,6 +202,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          {
             result = ButtonResult.OK;
             parameterValue = savedResult;
+            SaveDb(savedResult);
          }
          else if (CheckedResult?.ToLower() == "false"
           && savedResult.FirstOrDefault() != null
@@ -222,13 +212,29 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
             {
                result = ButtonResult.OK;
                parameterValue = savedResult;
+               SaveDb(savedResult);
             }
          }
 
          RaiseRequestClose(result, GetDialogParameters(transportParameter, parameterValue));
          Products = null;
-         DeletedProducts = null;
-         ProductInfo = null;
+         InnerProducts = null;
+         SelectedProduct = null;
+      }
+
+      private void SaveDb(IEnumerable<Product> savedResult)
+      {
+         DataService.SendEntityStatus(savedResult);
+      }
+
+      private IEnumerable<Product> ProductListToSave(ObservableCollection<Product> products)
+      {
+         foreach (var item in products.Where(product => product.EntityState != EntityStateOption.DBUpdated))
+         {
+            InnerProducts.Add(item);
+         }
+
+         return InnerProducts.AsEnumerable();
       }
 
       private DialogParameters GetDialogParameters(DialogParameters transportParameter, IEnumerable parameterValue)
@@ -236,14 +242,6 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          if(parameterValue != null)
          {
             foreach (var test in parameterValue)
-            {
-               transportParameter.Add("UpdateInformation", test);
-            }
-         }
-
-         if (DeletedProducts.Count > 0)
-         {
-            foreach (var test in DeletedProducts)
             {
                transportParameter.Add("UpdateInformation", test);
             }

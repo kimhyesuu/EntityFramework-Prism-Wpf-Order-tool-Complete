@@ -1,14 +1,14 @@
 ﻿<UserControl x:Class="Modules.Register.Views.RegisteredProductList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              x:Name="rowProduct"
+              x:Name="row"
                 >
     <ScrollViewer VerticalScrollBarVisibility="Auto" 
                   HorizontalScrollBarVisibility="Auto" MaxHeight="400" MaxWidth="550">
         <Grid >
             <DataGrid x:Name="productDatagrid" ItemsSource="{Binding Path=Products}" SelectionMode="Single" 
-              BorderThickness="1" SelectedItem="{Binding Path=ProductInfo}"
-              IsReadOnly="True"  CanUserAddRows="False" AutoGenerateColumns="False" Margin="5">
+              BorderThickness="1" Margin="5" SelectedItem="{Binding Path=SelectedProduct}"
+              IsReadOnly="True"  CanUserAddRows="False" AutoGenerateColumns="False" Height="300">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=ProductName}" Header="제품명" Width="145" MaxWidth="130">
                         <DataGridTextColumn.ElementStyle>
@@ -26,11 +26,16 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=CreatedDate}" Header="생성일자" Width="150"/>
-                    <DataGridTemplateColumn Width="90" MaxWidth="90">
+                    <DataGridTextColumn Binding="{Binding Path=CreatedDate}" Header="생성일자" Width="120"/>
+                    <DataGridTemplateColumn Width="90" MaxWidth="90" >
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.ProductTitleHeader, RelativeSource={RelativeSource AncestorType=DataGrid}}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding DataContext.SelectedAccountInfoCommand,ElementName=rowProduct}" CommandParameter="{Binding}" Content="삭제"/>
+                                <Button Command="{Binding DataContext.SelectedProductInfoCommand,ElementName=row}" CommandParameter="{Binding}" HorizontalAlignment="Center" Content="선택" FontWeight="DemiBold" Foreground="Black" Background="#FFF9F9F9" BorderBrush="{x:Null}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

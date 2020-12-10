@@ -1,6 +1,5 @@
 ﻿namespace HS.ERP.DataAccess.Domain
 {
-   using System;
    using System.Collections.Generic;
    using System.ComponentModel.DataAnnotations;
    using System.ComponentModel.DataAnnotations.Schema;
@@ -31,35 +30,22 @@
       [Column("Position"), MaxLength(10)]
       public string Position { get; set; }
 
+      [Column("TelePrefix"), DataType("VARCHAR"), StringLength(3), Required]
+      public string TelePrefix { get; set; }
+
+      [Column("TelePhoneNumber"), DataType("VARCHAR"), StringLength(10), Required]
+      public string TelePhoneNumber { get; set; }
+
       [Column("Descrption"), MaxLength(800)]
       public string Description { get; set; }
 
       [Column("CreatedDate")]
-      public byte[] CreatedDate { get; set; }
+      public string CreatedDate { get; set; }
 
-      [Column("UpdatedDate"), Timestamp]
-      public DateTime? UpdatedDate { get; set; }
+      [Column("UpdatedDate")]
+      public string UpdatedDate { get; set; }
  
       [ForeignKey("AccountIdFK")]
       public virtual ICollection<DOrder> DOrder { get; set; }
-
-      [ForeignKey("AccountIdFK")]
-      public virtual ICollection<DTelePhone> DTelePhone { get; set; }
-   }
-
-   [Table("Telephone")]
-   public class DTelePhone
-   {
-      [Column("TelephoneId"), DataType("BIT")]
-      public bool? TelephoneId { get; set; }
-
-      [Column("TelePrefix"),DataType("VARCHAR"),StringLength(3), Required]
-      public string TelePrefix { get; set; }
-
-      [Column("TelePhoneNumber"), DataType("VARCHAR"), StringLength(9), Required]
-      public string TelePhoneNumber { get; set; }
-
-      public long? AccountIdFK { get; set; }
-      public DAccount AccountOrdered { get; set; }
    }
 }

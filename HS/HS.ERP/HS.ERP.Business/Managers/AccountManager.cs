@@ -1,5 +1,7 @@
 ﻿using HS.ERP.Business.Models;
 using HS.ERP.Repository;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -21,6 +23,14 @@ namespace HS.ERP.Business.Managers
             return result;
          }
          return null;
+      }
+
+      public void AddRange(IEnumerable<Account> list)
+      {
+         foreach(var accountInfo in list)
+         {
+            _repository.Add(accountInfo);
+         }
       }
 
       public bool Add(Account account)

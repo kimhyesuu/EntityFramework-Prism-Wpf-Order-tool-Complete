@@ -7,133 +7,178 @@ namespace HS.ERP.Business.Converter
 {
    public static class ConvertToModel
    {
-      //internal static void ConvertToAccountInfoDomain(Account account, DAccountInfo accountInfo)
-      //{    
-      //   account.AccountId = account.AccountId;
-      //   accountInfo.AccountId = account.AccountId;
-      //   accountInfo.CompanyName = account.CompanyName;
-      //   accountInfo.CompanyEmail = account.CompanyEmail;
+      internal static DAccount ClientToDomain(Account info)
+      {
+         var dAccount = new DAccount();
 
-      //   accountInfo.CompanyPhone = account.CompanyPhoneNumber[0]
-      //                             + account.CompanyPhoneNumber[1]
-      //                             + account.CompanyPhoneNumber[2];       
-         
-      //   accountInfo.Address = account.Address;
-      //   accountInfo.Description = account.Description;
-      //}
+         dAccount.AccountId = info.AccountId;
+         dAccount.CompanyName = info.CompanyName;
+         dAccount.CompanyEmail = info.CompanyEmail;
+         dAccount.Address = info.Address;
+         dAccount.ContactName = info.ContactName;
+         dAccount.Department = info.Department;
+         dAccount.Position = info.Position;
+         dAccount.TelePrefix = info.TelePrefix;
+         dAccount.TelePhoneNumber = info.TelePhoneNumber;
+         dAccount.Description = info.Description;
+         dAccount.CreatedDate = info.CreatedDate;
+         dAccount.UpdatedDate = info.UpdatedDate is null ? null : info.UpdatedDate;
 
-      //internal static void ConvertToContactDomain(Account account, DContact contact)
-      //{
-      //   contact.AccountId = account.AccountId;
-      //   contact.ContactId = account.ContactId;
-      //   contact.ContactName = account.ContactName;
-      //   contact.Department = account.Department;
-      //   contact.Position = account.Position;
-      //   contact.PhoneNumber = account.ContactPhoneNumber[0]
-      //                       + account.ContactPhoneNumber[1]
-      //                       + account.ContactPhoneNumber[2];
-      //}
-
-      //internal static IEnumerable<Account> ConvertToClient(IEnumerable<DAccountInfo> accounts, IEnumerable<DContact> contacts)
-      //{      
-      //   var mergedList = accounts.Zip(contacts, (accountInfo, contactInfo)
-      //      => new
-      //      {
-      //         accountInfo.AccountId,
-      //         accountInfo.CompanyName,
-      //         accountInfo.CompanyPhone,
-      //         accountInfo.CompanyEmail,
-      //         accountInfo.Address,
-      //         accountInfo.Description,
-      //         accountInfo.CreatedDate,
-      //         accountInfo.UpdatedDate,
-
-      //         contactInfo.ContactId,
-      //         contactInfo.ContactName,
-      //         contactInfo.Department,
-      //         contactInfo.Position,
-      //         contactInfo.PhoneNumber
-      //      });
-
-      //   var clientAccounts = mergedList.Where(o => o.CompanyName != null).OrderBy(o => o.CompanyName).Select(o => new Account()
-      //   {
-      //      AccountId = o.AccountId,
-      //      CompanyName = o.CompanyName,
-      //      CompanyPhoneNumber = GetPhoneNumber(o.CompanyPhone),
-      //      CompanyEmail = o.CompanyEmail,
-      //      Address = o.Address,
-      //      Description = o.Description,
-      //      CreatedDate = o.CreatedDate,
-      //      UpdatedDate = o.UpdatedDate,
-
-      //      ContactId = o.ContactId,
-      //      ContactName = o.ContactName,
-      //      Department = o.Department,
-      //      Position = o.Position,
-      //      ContactPhoneNumber = GetPhoneNumber(o.PhoneNumber)
-      //   }).AsEnumerable();
-
-      //   return clientAccounts;
-      //}
-
-      //private static string[] GetPhoneNumber(string parameter)
-      //{
-      //   var phoneNumber = parameter;
-      //   var arrNum = new string[4];
-      //   var a = string.Format("{0:###-####-####}", phoneNumber); // 11
-       
-      //   var c = string.Format("{0:##-###-####}", phoneNumber);
-      //   var d = string.Format("{0:###-###-####}", phoneNumber);
-      //   var b = string.Format("{0:##-####-####}", phoneNumber);
-
-      //   switch (phoneNumber.Length)
-      //   {
-      //      case 11 :
-      //         {
-      //            arrNum = string.Format("{0:###-####-####}", phoneNumber).Split('-');
-      //            break;
-      //         }
-      //      case 10:
-      //         {
-      //            if(phoneNumber[1] == '2')
-      //            {                     
-      //               arrNum = string.Format("{0:##-####-####}", phoneNumber).Split('-');
-      //            }
-      //            else
-      //            {
-      //               arrNum = string.Format("{0:###-###-####}", phoneNumber).Split('-');
-      //            }
-      //            break;
-      //         }
-      //      case 9:
-      //         {
-      //            arrNum = string.Format("{0:##-###-####}", phoneNumber).Split('-');
-      //            break;
-      //         }
-      //   }
-
-      //   return arrNum;
-      //}
+         return dAccount;
+      }
 
 
+      internal static IEnumerable<Account> DomainToClient(IEnumerable<DAccount> infos)
+      {
+         var list = new List<Account>();
 
-      //public static IEnumerable<Account> ConverToClientAccount(IEnumerable<DAccountInfo> accounts, IEnumerable<DContact> contacts)
-      //{
-      //  // Domain에서 UI로 변환하는 과정
-      //}
+         foreach (var info in infos)
+         {
+            list.Add(new Account
+            {
+               AccountId = info.AccountId,
+               CompanyName = info.CompanyName,
+               CompanyEmail = info.CompanyEmail,
+               Address = info.Address,
+               ContactName = info.ContactName,
+               Department = info.Department,
+               Position = info.Position,
+               TelePrefix = info.TelePrefix,
+               TelePhoneNumber = info.TelePhoneNumber,
+               FullPhoneNumber = info.TelePrefix + info.TelePhoneNumber,
+               Description = info.Description,
+               CreatedDate = info.CreatedDate,
+               UpdatedDate = info.UpdatedDate is null ? null : info.UpdatedDate,
+               EntityState = Models.Enums.EntityStateOption.DBUpdated              
+            });
+         }
 
-      //public static IEnumerable<DAccountInfo> ConverToDomainAccountInfo(IEnumerable<Account> accounts)
-      //{
-      //   //UI에서 Domain로 변환하는 과정
-      //   return accounts;
-      //}
+         return list;
+      }
 
-      //public static IEnumerable<DContact> ConverToDomainContact(IEnumerable<Account> accounts)
-      //{
-      //   //UI에서 Domain로 변환하는 과정
-      //   return accounts;
-      //}
+      internal static DProduct ClientToDomain(Product info)
+      {
+         var domainProduct = new DProduct();
+
+         domainProduct.ProductId = info.ProductId;
+         domainProduct.ProductName = info.ProductName;
+         domainProduct.ProductPrice = int.Parse(info.ProductPrice);
+         domainProduct.CreatedDate = info.CreatedDate;
+         domainProduct.UpdatedDate = info.UpdatedDate;
+         return domainProduct;
+      }
+
+      internal static DProductSpec SpecClientToDomain(Product info)
+      {
+         var domainProductSpec = new DProductSpec();
+
+         domainProductSpec.ProductIdFK = info.ProductId;
+         domainProductSpec.Series = info.Series;
+         domainProductSpec.CoreProcessor = info.CoreProcessor;
+         domainProductSpec.CoreSize = info.CoreSize;
+         domainProductSpec.Connectivity = info.Connectivity;
+         domainProductSpec.Speed = info.Speed;
+         domainProductSpec.NumberOfIO = info.NumberOfIO;
+         domainProductSpec.Peripherals = info.Peripherals;
+         domainProductSpec.ProgramMemoryType = info.ProgramMemoryType;
+         domainProductSpec.ProgramMemorySize = info.ProgramMemorySize;
+         domainProductSpec.RamSize = info.RamSize;
+         domainProductSpec.EEPROMSize = info.EEPROMSize;
+         domainProductSpec.DataConverter = info.DataConverter;
+         domainProductSpec.VoltageSupply = info.VoltageSupply;
+         domainProductSpec.OperatingTemperature = info.OperatingTemperature;
+         domainProductSpec.OscillatorType = info.OscillatorType;
+         domainProductSpec.PakageCase = info.PakageCase;
+
+         return domainProductSpec;
+      }
+
+      internal static IEnumerable<Product> DomainToClient(IEnumerable<DProduct> products, IEnumerable<DProductSpec> specs)
+      {   
+         var query = from productInfo in products
+                     join spec in specs on productInfo.ProductId equals spec.ProductIdFK
+                     select new Product
+                     {
+                        ProductId = productInfo.ProductId,
+                        ProductName = productInfo.ProductName,
+                        ProductPrice = productInfo.ProductPrice.ToString(),
+                        CreatedDate = productInfo.CreatedDate,
+                        UpdatedDate = productInfo.UpdatedDate,
+                        Series = spec.Series,
+                        CoreProcessor = spec.CoreProcessor,
+                        CoreSize = spec.CoreSize,
+                        Connectivity = spec.Connectivity,
+                        Speed = spec.Speed,
+                        NumberOfIO = spec.NumberOfIO,
+                        Peripherals = spec.Peripherals,
+                        ProgramMemoryType = spec.ProgramMemoryType,
+                        ProgramMemorySize = spec.ProgramMemorySize,
+                        RamSize = spec.RamSize,
+                        EEPROMSize = spec.EEPROMSize,
+                        DataConverter = spec.DataConverter,
+                        VoltageSupply = spec.VoltageSupply,
+                        OperatingTemperature = spec.OperatingTemperature,
+                        OscillatorType = spec.OscillatorType,
+                        PakageCase = spec.PakageCase,
+                        
+                        EntityState = Models.Enums.EntityStateOption.DBUpdated
+                     };
+
+         return query;
+      }
+
+      internal static DOrder ClientToDomain(Ordered info)
+      {
+         var dOrder = new DOrder()
+         {
+            OrderId = info.OrderId,
+            OrderPrice = info.OrderPrice,
+            OrderQuantity = info.OrderQuantity,
+            Description = info.Description,
+            CreatedDate = info.CreatedDate,
+            AccountIdFK = info.AccountId
+         };
+
+         return dOrder;
+      }
+
+      internal static DOrderProduct OrderDetailClientToDomain(Ordered info)
+      {
+         var dOrderProduct = new DOrderProduct()
+         {
+            ProductName = info.ProductName,
+            TotalQuantity = info.TotalQuantity,
+            OrderIdFK = info.OrderId,
+            ProductIdFK = info.ProductId
+         };
+
+         return dOrderProduct;
+      }
+
+      internal static IEnumerable<Ordered> DomainToClient(IEnumerable<DOrder> orders, IEnumerable<DOrderProduct> orderProducts, IEnumerable<DAccount> accounts)
+      {
+         int seq = 1;
+         var query = from orderInfo in orders
+                     join detailInfo in orderProducts on orderInfo.OrderId equals detailInfo.OrderIdFK
+                     join accountInfo in accounts on orderInfo.AccountIdFK equals accountInfo.AccountId
+                     select new Ordered(orderInfo.OrderId)
+                     {
+                        SequentialNumber = seq++,
+                        ProductId = detailInfo.ProductIdFK,
+                        AccountId = orderInfo.AccountIdFK,
+                        ProductName = detailInfo.ProductName,
+                        OrderPrice = orderInfo.OrderPrice,
+                        OrderQuantity = orderInfo.OrderQuantity,
+                        TotalQuantity = detailInfo.TotalQuantity,
+                        CompanyName = accountInfo.CompanyName,
+                        ContactName = accountInfo.ContactName,
+                        FullPhoneNumber = accountInfo.TelePrefix + accountInfo.TelePhoneNumber,
+                        CreatedDate = orderInfo.CreatedDate,
+                        Description = orderInfo.Description,
+                        EntityState = Models.Enums.EntityStateOption.DBUpdated
+                     };
+
+         return query;
+      }  
    }
-
-   
 }

@@ -1,10 +1,7 @@
-﻿using Prism.Events;
-using Prism.Services.Dialogs;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace HS.ERP.Core
+﻿namespace HS.ERP.Core
 {
+   using Prism.Events;
+   using System.Collections.Generic;
+
    public class SendUpdatedList : PubSubEvent<IEnumerable<object>> { }
 }

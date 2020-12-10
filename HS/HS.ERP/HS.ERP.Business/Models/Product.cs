@@ -1,7 +1,6 @@
 ﻿namespace HS.ERP.Business.Models
 {
    using HS.ERP.Business.Models.Enums;
-   using System;
 
    public class Product 
    {
@@ -29,8 +28,8 @@
       public string OperatingTemperature { get; set; }
       public string OscillatorType { get; set; }
       public string PakageCase { get; set; }
-      public DateTime CreatedDate { get; set; }
-      public DateTime UpdatedDate { get; set; }
+      public string CreatedDate { get; set; }
+      public string UpdatedDate { get; set; }
       public EntityStateOption EntityState { get; set; }
 
 

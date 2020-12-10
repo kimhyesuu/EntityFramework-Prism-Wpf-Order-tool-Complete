@@ -7,10 +7,10 @@
    {
       IERPRepogitary<DAccount> Accounts { get; }
 
-      IERPRepogitary<DTelePhone> Telephone { get; }
-
       IERPRepogitary<DProduct> Product { get; }
-    
+
+      IERPRepogitary<DProductSpec> ProductSpec { get; }
+
       IERPRepogitary<DOrder> Orders { get; }
 
       IERPRepogitary<DOrderProduct> OrderProduct { get; }

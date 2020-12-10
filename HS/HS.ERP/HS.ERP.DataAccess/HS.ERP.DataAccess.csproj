@@ -56,6 +56,7 @@
     <Compile Include="Domain\DOrder.cs" />
     <Compile Include="Domain\DOrderProduct.cs" />
     <Compile Include="Domain\DProduct.cs" />
+    <Compile Include="Domain\DProductSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repogitory\ERPRepogitory.cs" />
     <Compile Include="Repogitory\IERPRepogitary.cs" />

@@ -1,4 +1,5 @@
 ﻿using HS.ERP.Core;
+using Modules.Order.ViewModels;
 using Modules.Order.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -13,13 +14,14 @@ namespace Modules.Order
       public OrderModule(IRegionManager regionManager)
       {
          this._regionManager = regionManager;
-         _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(RegisterOrder));
+        _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(RegisterOrder));
       }
 
       public void OnInitialized(IContainerProvider containerProvider)
       {
 
       }
+
 
       public void RegisterTypes(IContainerRegistry containerRegistry)
       {

@@ -38,6 +38,12 @@
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="50,5">
+                <TextBlock Text="생성 날짜: " FontSize="8" VerticalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path=SelectedProduct.CreatedDate}" Width="70" FontSize="8" VerticalAlignment="Center"/>
+                <TextBlock Text="수정 날짜: " Margin="15,0,0,0" FontSize="8" VerticalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path=SelectedProduct.UpdatedDate}" Width="70" FontSize="8" VerticalAlignment="Center"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" >
                 <GroupBox Header="제품 리스트" Style="{StaticResource HsGroupBoxStyle}" >
                     <GroupBox.Effect>
@@ -48,8 +54,8 @@
                 <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.RegisterProductRegion}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-                <Button Width="120" Content="저장" Margin="4" Command="{Binding Path=SaveProductListCommand}" CommandParameter="true" />
-                <Button Width="120" Content="취소" Margin="4" Command="{Binding Path=SaveProductListCommand}" CommandParameter="false"/>
+                <Button Width="120" Content="저장" Margin="4" Command="{Binding Path=SaveProductListCommand}" CommandParameter="true" FontWeight="DemiBold" Foreground="Black" Background="#FFF9F9F9" BorderBrush="{x:Null}" />
+                <Button Width="120" Content="취소" Margin="4" Command="{Binding Path=SaveProductListCommand}" CommandParameter="false" FontWeight="DemiBold" Foreground="Black" Background="#FFF9F9F9" BorderBrush="{x:Null}"/>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

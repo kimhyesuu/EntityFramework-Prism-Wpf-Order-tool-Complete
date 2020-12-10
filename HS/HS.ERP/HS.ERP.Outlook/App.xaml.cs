@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using HS.ERP.Core;
 using HS.ERP.Outlook.Core.Dialogs;
 using HS.ERP.Outlook.Core.Dialogs.ViewModels;
 using HS.ERP.Outlook.Core.Dialogs.Views;

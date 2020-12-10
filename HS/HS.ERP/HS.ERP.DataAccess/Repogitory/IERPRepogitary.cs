@@ -6,8 +6,8 @@
    {
       IEnumerable<TEntity> GetAll();
       TEntity GetById(object id);
-      TEntity Insert(TEntity parameter);
-      void Update(TEntity parameter);
-      void Delete(object id);
+      void Insert(List<TEntity> parameters);
+      void Update(List<TEntity> parameters);
+      void Delete(List<long?> parameters);
    }
 }

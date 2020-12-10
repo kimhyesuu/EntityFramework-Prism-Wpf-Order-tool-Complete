@@ -15,7 +15,6 @@ namespace HS.ERP.Business.Managers
 
       public ProductManager()
       {
-         //여기서 모든 값을 받자 
          this._repository = InfoList.GetCurrentProducts;
       }
 
@@ -29,6 +28,14 @@ namespace HS.ERP.Business.Managers
          }
 
          return null;
+      }
+
+      public void AddRange(IEnumerable<Product> list)
+      {
+         foreach (var productInfo in list)
+         {
+            _repository.Add(productInfo);
+         }
       }
 
       public bool Add(Product product)

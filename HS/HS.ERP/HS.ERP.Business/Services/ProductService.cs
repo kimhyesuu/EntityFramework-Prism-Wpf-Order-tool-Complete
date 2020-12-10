@@ -1,35 +1,37 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using HS.ERP.Business.Converter;
+﻿using HS.ERP.Business.Converter;
 using HS.ERP.Business.Models;
 using HS.ERP.DataAccess.Domain;
 using HS.ERP.DataAccess.UnitOfWorks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HS.ERP.Business.Services
 {
-   public class AccountService : IDataService<Account>
+   public class ProductService : IDataService<Product>
    {
       IERPUnitOfWork unitOfWork { get; }
 
-      public AccountService()    
+      public ProductService()
         => unitOfWork = new ERPUnitOfWork(DBConnect.ConnectString);
 
-      public IEnumerable<Account> GetAll()
-         => ConvertToModel.DomainToClient(unitOfWork.Accounts.GetAll());
-
-      public void SendEntityStatus(IEnumerable<Account> accounts)
+      public IEnumerable<Product> GetAll()     
+        => ConvertToModel.DomainToClient(unitOfWork.Product.GetAll(), unitOfWork.ProductSpec.GetAll());
+      
+      public void SendEntityStatus(IEnumerable<Product> accounts)
       {
          if (accounts.Where(addInfo => addInfo.EntityState == HS.ERP.Business.Models.Enums.EntityStateOption.Inserted).FirstOrDefault() != null)
          {
-            var list = new List<DAccount>();
+            var list = new List<DProduct>();
+            var spec = new List<DProductSpec>();
 
             foreach (var info in accounts.Where(addInfo => addInfo.EntityState == HS.ERP.Business.Models.Enums.EntityStateOption.Inserted))
             {
                list.Add(ConvertToModel.ClientToDomain(info));
-              
+               spec.Add(ConvertToModel.SpecClientToDomain(info));
             }
 
-            unitOfWork.Accounts.Insert(list);
+            unitOfWork.Product.Insert(list);
+            unitOfWork.ProductSpec.Insert(spec);
          }
 
          if (accounts.Where(deleteInfo => deleteInfo.EntityState == HS.ERP.Business.Models.Enums.EntityStateOption.Deleted).FirstOrDefault() != null)
@@ -38,25 +40,28 @@ namespace HS.ERP.Business.Services
 
             foreach (var info in accounts.Where(addInfo => addInfo.EntityState == HS.ERP.Business.Models.Enums.EntityStateOption.Deleted))
             {
-               list.Add(info.AccountId);
+               list.Add(info.ProductId);
             }
 
-            unitOfWork.Accounts.Delete(list);
-
+            unitOfWork.Product.Delete(list);
+            unitOfWork.ProductSpec.Delete(list);
          }
 
          if (accounts.Where(updateInfo => updateInfo.EntityState == HS.ERP.Business.Models.Enums.EntityStateOption.Updated).FirstOrDefault() != null)
          {
-            var list = new List<DAccount>();
+            var list = new List<DProduct>();
+            var spec = new List<DProductSpec>();
 
             foreach (var info in accounts.Where(addInfo => addInfo.EntityState == HS.ERP.Business.Models.Enums.EntityStateOption.Updated))
             {
                list.Add(ConvertToModel.ClientToDomain(info));
+               spec.Add(ConvertToModel.SpecClientToDomain(info));
             }
 
-            unitOfWork.Accounts.Update(list);
-
+            unitOfWork.Product.Update(list);
+            unitOfWork.ProductSpec.Update(spec);
          }
       }
+
    }
 }

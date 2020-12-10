@@ -105,16 +105,16 @@
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="상품명"/>
                 <TextBlock Grid.Row="0" Grid.Column="3" Text="가격"/>
                 <TextBox Grid.Row="0" Grid.Column="2"  Name="textProductName" 
-                         Text="{Binding Path=ProductInfo.ProductName,Mode=TwoWay,UpdateSourceTrigger=Explicit}" />
+                         Text="{Binding Path=SelectedProduct.ProductName,Mode=TwoWay,UpdateSourceTrigger=Explicit}" />
                 <TextBox Grid.Row="0" Grid.Column="4"  Name="textProductPrice"
-                         Text="{Binding Path=ProductInfo.ProductPrice,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.ProductPrice,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
 
                 <!-- Row 1 -->
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="시리즈"/>
                 <TextBlock Grid.Row="1" Grid.Column="3" Text="제조사"/>
 
                 <TextBox Grid.Row="1" Grid.Column="2" Name="textSeries"
-                         Text="{Binding Path=ProductInfo.Series,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.Series,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
                 <TextBox Grid.Row="1" Grid.Column="4" Text="HS" 
                          IsReadOnly="True" FontWeight="Bold" FlowDirection="RightToLeft"
                          />
@@ -125,18 +125,18 @@
                 <TextBlock Grid.Row="2" Grid.Column="3" Text="코어 사이즈" />
 
                 <TextBox Grid.Row="2" Grid.Column="2" Height="20" Name="textCoreProcessor"
-                         Text="{Binding Path=ProductInfo.CoreProcessor,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.CoreProcessor,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
                 <TextBox Grid.Row="2" Grid.Column="4" Name="textCoreSize"
-                          Text="{Binding Path=ProductInfo.CoreSize,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                          Text="{Binding Path=SelectedProduct.CoreSize,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
 
                 <!-- Row 3-->
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="연결성"/>
                 <TextBlock Grid.Row="3" Grid.Column="3" Text="스피드"/>
 
                 <TextBox Grid.Row="3" Grid.Column="2" Height="20" Name="textConnectivity"
-                         Text="{Binding Path=ProductInfo.Connectivity,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.Connectivity,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
                 <TextBox Grid.Row="3" Grid.Column="4" Height="20" Name="textSpeed"
-                         Text="{Binding Path=ProductInfo.Speed,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.Speed,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
 
 
                 <!-- Row 4-->
@@ -144,9 +144,9 @@
                 <TextBlock Grid.Row="4" Grid.Column="3" Text="주변기기"/>
 
                 <TextBox Grid.Row="4" Grid.Column="2" Height="20" Name="textNumberOfIO"
-                         Text="{Binding Path=ProductInfo.NumberOfIO,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.NumberOfIO,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
                 <TextBox Grid.Row="4" Grid.Column="4" Height="20" Name="textPeripherals"
-                         Text="{Binding Path=ProductInfo.Peripherals,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.Peripherals,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
 
 
                 <!-- Row 5-->
@@ -154,41 +154,41 @@
                 <TextBlock Grid.Row="5" Grid.Column="3" Text="메모리 사이즈" />
 
                 <TextBox Grid.Row="5" Grid.Column="2" Height="20" Name="textProgramMemoryType"
-                         Text="{Binding Path=ProductInfo.ProgramMemoryType,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.ProgramMemoryType,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
                 <TextBox Grid.Row="5" Grid.Column="4" Height="20" Name="textProgramMemorySize"
-                         Text="{Binding Path=ProductInfo.ProgramMemorySize,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.ProgramMemorySize,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
 
                 <!-- Row 6-->
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="Ram 사이즈"/>
                 <TextBlock Grid.Row="6" Grid.Column="3" Text="EEPROM 사이즈"/>
 
                 <TextBox Grid.Row="6" Grid.Column="2" Height="20" Name="textRamSize"
-                         Text="{Binding Path=ProductInfo.RamSize,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.RamSize,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
                 <TextBox Grid.Row="6" Grid.Column="4" Height="20" Name="textEEPROMSize"
-                         Text="{Binding Path=ProductInfo.EEPROMSize,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.EEPROMSize,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
 
                 <!-- Row 7-->
                 <TextBlock Grid.Row="7" Grid.Column="1" Text="데이터 컨버터"/>
                 <TextBlock Grid.Row="7" Grid.Column="3" Text="전압 - 공급(VCC /VDD)"/>
 
                 <TextBox Grid.Row="7" Grid.Column="2" Height="20" Name="textDataConverters"
-                         Text="{Binding Path=ProductInfo.DataConverter,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.DataConverter,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
                 <TextBox Grid.Row="7" Grid.Column="4" Height="20" Name="textVoltageSupply"
-                         Text="{Binding Path=ProductInfo.VoltageSupply,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.VoltageSupply,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
 
                 <!-- Row 8-->
                 <TextBlock Grid.Row="8" Grid.Column="1" Text="적정 작동 온도"/>
                 <TextBlock Grid.Row="8" Grid.Column="3" Text="발진기 타입"/>
                 
                 <TextBox Grid.Row="8" Grid.Column="2" Height="20" Name="textOperatingTemperature" 
-                         Text="{Binding Path=ProductInfo.OperatingTemperature,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.OperatingTemperature,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
                 <TextBox Grid.Row="8" Grid.Column="4" Height="20" Name="textOscillatorType"
-                         Text="{Binding Path=ProductInfo.OscillatorType,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.OscillatorType,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
 
                 <!-- Row 9-->
                 <TextBlock Grid.Row="9" Grid.Column="1" Text="Pakage / Case"/>
                 <TextBox Grid.Row="9" Grid.Column="2" Height="20"  Name="textPakageCase" 
-                         Text="{Binding Path=ProductInfo.PakageCase,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
+                         Text="{Binding Path=SelectedProduct.PakageCase,Mode=TwoWay,UpdateSourceTrigger=Explicit}"/>
             </Grid>
         </GroupBox>
 

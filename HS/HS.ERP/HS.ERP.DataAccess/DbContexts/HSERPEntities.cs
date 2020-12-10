@@ -7,11 +7,12 @@
    {
       public HSERPEntities(string connectString) : base(connectString) { }
 
-      protected override void OnModelCreating(DbModelBuilder modelBuilder) { }
+      protected override void OnModelCreating(DbModelBuilder modelBuilder)
+      {
+         
+      }
 
       public DbSet<DAccount> dAccountInfo { get; set; }
-
-      public DbSet<DTelePhone> dTelePhone { get; set; }
 
       public DbSet<DOrder> dOrder { get; set; }
 
@@ -19,5 +20,6 @@
 
       public DbSet<DProduct> dProduct { get; set; }
 
+      public DbSet<DProductSpec> dProductSpec { get; set; }
    }
 }

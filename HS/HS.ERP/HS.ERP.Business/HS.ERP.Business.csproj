@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Converter\ConvertToModel.cs" />
     <Compile Include="Converter\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Converter\PhoneNumberConverter.cs" />
     <Compile Include="DBConnect.cs" />
     <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Managers\InfoList.cs" />
@@ -80,7 +81,9 @@
     <Compile Include="Models\OrderProduct.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IServiceLogic.cs" />
+    <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
