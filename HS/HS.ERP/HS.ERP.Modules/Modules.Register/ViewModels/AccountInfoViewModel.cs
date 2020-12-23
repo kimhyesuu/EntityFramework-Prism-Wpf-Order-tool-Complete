@@ -24,7 +24,6 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       private IRepogitoryManager<Account> RepogitoryManager { get; set; }
       private IDataService<Account> DataService { get; set; }
 
-
       public ObservableCollection<Account> Accounts
       {
          get { return _accountList; }
@@ -39,12 +38,13 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       public List<Account> InnerAccounts { get; set; }
 
+      public bool CanSaveUpdatedState { get; set; }
+
       public bool CanSaveExcute
       {
          get => true;
          set => MoveAccountInfoToListCommand.RaiseCanExecuteChanged();
       }
-
 
       public string AccountTitleHeader => "삭제";
       #endregion
@@ -53,32 +53,6 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       {        
          DataInitialize();
          CommandInitialize();
-      }
-
-      private void CommandInitialize()
-      {
-         MoveAccountInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
-         SelectedAccountInfoCommand = new DelegateCommand<object>(DeleteAccount);
-         AccountInfoDialogCommand = new DelegateCommand<string>(CloseDialog);
-         RevertUpdateInfoCommand = new DelegateCommand(AccountInfoInit);
-      }
-
-      private void DataInitialize()
-      {
-         InnerAccounts = new List<Account>();
-         RepogitoryManager = new AccountManager();
-         DataService = new AccountService();
-         var result = RepogitoryManager.GetAll();
-         Accounts = result != null ? new ObservableCollection<Account>(result) : new ObservableCollection<Account>();
-       
-         AccountInfoInit();
-      }
-
-      private void AccountInfoInit()
-      {
-         SelectedAccount = null;
-         SelectedAccount = new Account(Newid());
-         SelectedAccount.EntityState = EntityStateOption.None;
       }
       
       public DelegateCommand<string> AccountInfoDialogCommand { get; private set; }
@@ -90,7 +64,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       #region 거래처 정보를 관련 로직 
 
       private void DeleteAccount(object selectedList)
-      {
+      {        
+         //여기서 오더의 유효성 판단 
          if (selectedList is null) return;
          
          var selectedAccount = selectedList as Account;
@@ -117,8 +92,34 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          }
          else
          {
+            if (IsStoredInfoFromDB(receivedInfo) is false)
+            {
+               CanSaveUpdatedState = false;
+            }
+
             UpdateAccountInfo(receivedInfo);
          }
+      }
+
+      // 집가서 여기 확인해볼 것
+      private bool IsStoredInfoFromDB(Account receivedInfo)
+      {
+         var result = RepogitoryManager.GetAll();
+
+         if (result is null)
+         {
+            return false;
+         }
+
+         foreach (var info in result)
+         {
+            if (receivedInfo.AccountId == info.AccountId)
+            {
+               return true;
+            }
+         }
+
+         return false;
       }
 
       private Account ConvertStringToAccountInfo(string account)
@@ -146,7 +147,15 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void UpdateAccountInfo(Account accountInfo)
       {
-         accountInfo.EntityState = EntityStateOption.Updated;
+         if(CanSaveUpdatedState)
+         {
+            accountInfo.EntityState = EntityStateOption.Updated;
+         }
+         else
+         {
+            accountInfo.EntityState = EntityStateOption.Inserted;
+         }
+
          accountInfo.UpdatedDate = DateTime.Now.ToString("yyyy-MM-dd");
          accountInfo.TelePrefix = PhoneNumberConverter.ConvertToNumber(accountInfo.TelePrefix);
          accountInfo.FullPhoneNumber = accountInfo.TelePrefix + accountInfo.TelePhoneNumber;
@@ -154,6 +163,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          Accounts.Insert(Accounts.IndexOf(SelectedAccount), accountInfo);
          Accounts.Remove(SelectedAccount);
 
+         CanSaveUpdatedState = true;
          accountInfo = null;
          AccountInfoInit();
       }
@@ -190,19 +200,19 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          var AccountsToCompare = Accounts;
 
          //다시 생각해보기
-         foreach (var companyName in AccountsToCompare.Where(x => x.CompanyName == accountInfo.CompanyName)
-             .Select(same => same.CompanyName))
-         {
-            if (!string.IsNullOrEmpty(companyName))
-               return false;
-         }
+         //foreach (var companyName in AccountsToCompare.Where(x => x.CompanyName == accountInfo.CompanyName)
+         //    .Select(same => same.CompanyName))
+         //{
+         //   if (!string.IsNullOrEmpty(companyName))
+         //      return false;
+         //}
 
-         foreach (var telePhoneNumber in AccountsToCompare.Where(x => x.TelePhoneNumber == accountInfo.TelePhoneNumber)
-          .Select(same => same.TelePhoneNumber))
-         {
-            if (!string.IsNullOrEmpty(telePhoneNumber))
-               return false;
-         }
+         //foreach (var telePhoneNumber in AccountsToCompare.Where(x => x.TelePhoneNumber == accountInfo.TelePhoneNumber)
+         // .Select(same => same.TelePhoneNumber))
+         //{
+         //   if (!string.IsNullOrEmpty(telePhoneNumber))
+         //      return false;
+         //}
 
          return true;
       }
@@ -303,7 +313,37 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
      
       public void OnDialogOpened(IDialogParameters parameters) { }
 
+
       #endregion
+
+      private void CommandInitialize()
+      {
+         MoveAccountInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
+         SelectedAccountInfoCommand = new DelegateCommand<object>(DeleteAccount);
+         AccountInfoDialogCommand = new DelegateCommand<string>(CloseDialog);
+         RevertUpdateInfoCommand = new DelegateCommand(AccountInfoInit);
+      }
+
+      private void DataInitialize()
+      {
+         InnerAccounts = new List<Account>();
+         RepogitoryManager = new AccountManager();
+         DataService = new AccountService();
+         CanSaveUpdatedState = true;
+
+         var result = RepogitoryManager.GetAll();
+         Accounts = result != null ? new ObservableCollection<Account>(result) : new ObservableCollection<Account>();
+
+         AccountInfoInit();
+      }
+
+      private void AccountInfoInit()
+      {
+         SelectedAccount = null;
+         SelectedAccount = new Account(Newid());
+         SelectedAccount.EntityState = EntityStateOption.None;
+      }
+
 
       #region Dialog Window Resource
 

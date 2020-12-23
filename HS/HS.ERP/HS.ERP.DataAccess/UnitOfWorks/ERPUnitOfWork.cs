@@ -25,7 +25,6 @@
 
       public IERPRepogitary<DOrder> Orders => _order ?? (_order = new ERPRepogitary<DOrder>(_connectString));
 
-      public IERPRepogitary<DOrderProduct> OrderProduct
-         => _orderProduct ?? (_orderProduct = new ERPRepogitary<DOrderProduct>(_connectString));
+      public IERPRepogitary<DOrderProduct> OrderProduct => _orderProduct ?? (_orderProduct = new ERPRepogitary<DOrderProduct>(_connectString));
    }
 }

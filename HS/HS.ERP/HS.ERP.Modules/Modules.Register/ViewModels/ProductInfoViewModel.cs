@@ -39,6 +39,8 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       public List<Product> InnerProducts { get; set; }
 
+      public bool CanSaveUpdatedState { get; set; }
+
       public bool CanSaveExcute
       {
          get => true;
@@ -57,41 +59,16 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          CommandInitialize();
       }
 
-      private void CommandInitialize()
-      {
-         SaveProductListCommand = new DelegateCommand<string>(SaveProductListDialog);
-         MoveProductInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
-         SelectedAccountInfoCommand = new DelegateCommand<object>(DeleteProduct);
-      }
-
-      private void DataInitialize()
-      {
-         RepogitoryManager = new ProductManager();
-         InnerProducts = new List<Product>();
-         DataService = new ProductService();
-         var result = RepogitoryManager.GetAll();
-    
-         Products = result != null ? new ObservableCollection<Product>(result) : new ObservableCollection<Product>(); 
-  
-         ProductInfoInit();
-      }
-
-      private void ProductInfoInit()
-      {
-         SelectedProduct = null;
-         SelectedProduct = new Product(Newid());
-         SelectedProduct.EntityState = EntityStateOption.None;
-      }
-
       #endregion
 
       public DelegateCommand<string> MoveProductInfoToListCommand { get; private set; }
-      public DelegateCommand<object> SelectedAccountInfoCommand { get; private set; }
+      public DelegateCommand<object> SelectedProductInfoCommand { get; private set; }
       public DelegateCommand<string> SaveProductListCommand { get; private set; }
 
       #region 제품 CRUD
       private void DeleteProduct(object selectedList)
       {
+         //여기서 오더의 유효성 판단 
          if (selectedList is null) return;
 
          var selectedProduct = selectedList as Product;
@@ -107,7 +84,7 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void AddOrUpdate(string product)
       {
-         var receivedInfo = ConvertStringToProductInfo(product);  
+         var receivedInfo = ConvertStringToProductInfo(product);
 
          if (IsAdd(receivedInfo))
          {
@@ -115,8 +92,33 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          }
          else
          {
+            if (IsStoredInfoFromDB(receivedInfo) is false)
+            {
+               CanSaveUpdatedState = false;
+            }
+
             UpdateProductInfo(receivedInfo);
          }
+      }
+
+      private bool IsStoredInfoFromDB(Product receivedInfo)
+      {
+         var result = RepogitoryManager.GetAll();
+
+         if(result is null)
+         {
+            return false;
+         }
+
+         foreach(var info in result)
+         {
+            if(receivedInfo.ProductId == info.ProductId)
+            {
+               return true;
+            }
+         }
+
+         return false;
       }
 
       private Product ConvertStringToProductInfo(string product)
@@ -153,12 +155,21 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
 
       private void UpdateProductInfo(Product receivedInfo)
       {
-         receivedInfo.EntityState = EntityStateOption.Updated;
+         if(CanSaveUpdatedState)
+         {
+            receivedInfo.EntityState = EntityStateOption.Updated;
+         }
+         else
+         {
+            receivedInfo.EntityState = EntityStateOption.Inserted;
+         }
+
          receivedInfo.UpdatedDate = DateTime.Now.ToString("yyyy-MM-dd");
          Products.Insert(Products.IndexOf(SelectedProduct), receivedInfo);
          Products.Remove(SelectedProduct);
 
          receivedInfo = null;
+         CanSaveUpdatedState = true;
          ProductInfoInit();
       }
 
@@ -167,13 +178,12 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
          receivedInfo.EntityState = EntityStateOption.Inserted;
          Products.Add(receivedInfo);
 
-
          receivedInfo = null;
          ProductInfoInit();
       }
 
       private bool IsAdd(Product receivedInfo)
-      => receivedInfo.EntityState == EntityStateOption.None;
+      => receivedInfo.EntityState is EntityStateOption.None;
 
       private long? Newid()
       {
@@ -259,8 +269,36 @@ namespace HS.ERP.Outlook.Core.Dialogs.ViewModels
       public void OnDialogClosed() { }
    
       public void OnDialogOpened(IDialogParameters parameters) { }
-   
+
       #endregion
+
+      private void CommandInitialize()
+      {
+         SaveProductListCommand = new DelegateCommand<string>(SaveProductListDialog);
+         MoveProductInfoToListCommand = new DelegateCommand<string>(AddOrUpdate).ObservesCanExecute(() => CanSaveExcute);
+         SelectedProductInfoCommand = new DelegateCommand<object>(DeleteProduct);
+      }
+
+      private void DataInitialize()
+      {
+         RepogitoryManager = new ProductManager();
+         InnerProducts = new List<Product>();
+         DataService = new ProductService();
+         CanSaveUpdatedState = true;
+
+         var result = RepogitoryManager.GetAll();
+
+         Products = result != null ? new ObservableCollection<Product>(result) : new ObservableCollection<Product>();
+
+         ProductInfoInit();
+      }
+
+      private void ProductInfoInit()
+      {
+         SelectedProduct = null;
+         SelectedProduct = new Product(Newid());
+         SelectedProduct.EntityState = EntityStateOption.None;
+      }
 
       #region 리소스
 

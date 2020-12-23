@@ -43,8 +43,8 @@ namespace HS.ERP.Business.Services
                list.Add(info.ProductId);
             }
 
-            unitOfWork.Product.Delete(list);
             unitOfWork.ProductSpec.Delete(list);
+            unitOfWork.Product.Delete(list);
          }
 
          if (accounts.Where(updateInfo => updateInfo.EntityState == HS.ERP.Business.Models.Enums.EntityStateOption.Updated).FirstOrDefault() != null)

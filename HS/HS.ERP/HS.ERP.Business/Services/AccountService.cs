@@ -42,7 +42,6 @@ namespace HS.ERP.Business.Services
             }
 
             unitOfWork.Accounts.Delete(list);
-
          }
 
          if (accounts.Where(updateInfo => updateInfo.EntityState == HS.ERP.Business.Models.Enums.EntityStateOption.Updated).FirstOrDefault() != null)

@@ -42,7 +42,7 @@ namespace Modules.Order.ViewModels
          set => SetProperty(ref _products, value); 
       }
 
-      public ObservableCollection<HS.ERP.Business.Models.Ordered> OrderedList
+      public ObservableCollection<Ordered> OrderedList
       {
          get { return _orderedList; }
          set { SetProperty(ref _orderedList, value); }
@@ -122,7 +122,7 @@ namespace Modules.Order.ViewModels
          SelectedProductInfoCommand = new DelegateCommand<Product>(MoveProductToOrder);
          CheckingOrderingPriceCommand = new DelegateCommand(GetOrderPrice);
          ConfirmOrderInfoCommand = new DelegateCommand(SaveDb);
-         InitCommand = new DelegateCommand(AllInfoInit);
+         InitCommand = new DelegateCommand(AllInit);
          DataInitialize();        
       }
 
@@ -148,12 +148,20 @@ namespace Modules.Order.ViewModels
          CollectionInit();      
       }
 
-      private void AllInfoInit()
+      private void AllInit()
+      {
+         OrderInfoInit();
+         AccountInit();
+         ProductInit();
+         OrderedList = null;
+         OrderedList = new ObservableCollection<Ordered>();
+      }
+
+      private void OrderInfoInit()
       {
          OrderPrice = 0;
          OrderQuantity = 0;
-         Description = string.Empty;
-         
+         Description = string.Empty;         
       }
 
       private void AccountInit()
@@ -224,7 +232,7 @@ namespace Modules.Order.ViewModels
          AddOrderList();
          TotalQuantity = OrderedList.Select(o => o.OrderQuantity).Sum();
 
-         AllInfoInit();
+         OrderInfoInit();
          AccountInit();
       }
 
@@ -242,7 +250,7 @@ namespace Modules.Order.ViewModels
             OrderedList = null;
             OrderedList = new ObservableCollection<Ordered>();
             TotalQuantity = 0;
-            AllInfoInit();
+            OrderInfoInit();
             AccountInit();
             ProductInit();
          }
